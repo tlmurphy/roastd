@@ -9,6 +9,11 @@ export class AnotherTabPage {
 
   constructor(public navCtrl: NavController) {
 
+
+  }
+
+  itemTapped(event, item) {
+    this.navCtrl.push(ListPage, {item: item});
   }
 
 }
