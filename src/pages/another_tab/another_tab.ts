@@ -12,8 +12,4 @@ export class AnotherTabPage {
 
   }
 
-  itemTapped(event, item) {
-    this.navCtrl.push(ListPage, {item: item});
-  }
-
 }
