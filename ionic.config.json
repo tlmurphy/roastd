@@ -1,0 +1,8 @@
+{
+  "name": "brewwwd",
+  "app_id": "b9d8d802",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
