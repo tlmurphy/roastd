@@ -1,12 +1,5 @@
-.ios, .md {
-  page-map_view {
-    .scroll {
-      height: 100%
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-    }
+page-map_view {
+  #map_canvas {
+    height: 90%;
   }
 }

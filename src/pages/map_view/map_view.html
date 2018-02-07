@@ -1,11 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Map
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Map</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <div #map id="map"></div>
+<ion-content padding>
+  <div id="map_canvas">
+    <button ion-button (click)="onButtonClick($event)">Test</button>
+  </div>
 </ion-content>
