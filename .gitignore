@@ -1,35 +1,37 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
+# Built application files
+/*/build/
 
-*~
-*.sw[mnpcod]
-*.log
-*.tmp
-*.tmp.*
-log.txt
-*.sublime-project
-*.sublime-workspace
-.vscode/
-npm-debug.log*
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
 
-.idea/
-.sourcemaps/
-.sass-cache/
-.tmp/
-.versions/
-coverage/
-dist/
-node_modules/
-tmp/
-temp/
-hooks/
-platforms/
-plugins/
-plugins/android.json
-plugins/ios.json
-www/
-$RECYCLE.BIN/
+# Local configuration file (sdk path, etc)
+local.properties
 
+# Gradle generated files
+.gradle/
+
+# Signing files
+.signing/
+
+# User-specific configurations
+.idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+*.iml
+
+# OS-specific files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
-UserInterfaceState.xcuserstate
