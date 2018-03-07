@@ -1,4 +1,4 @@
-package net.jmhossler.brewwwd;
+package net.jmhossler.roastd;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

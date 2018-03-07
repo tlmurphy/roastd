@@ -1,4 +1,4 @@
-package net.jmhossler.brewwwd;
+package net.jmhossler.roastd;
 
 import org.junit.Test;
 

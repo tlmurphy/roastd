@@ -1,4 +1,4 @@
-package net.jmhossler.brewwwd;
+package net.jmhossler.roastd;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("net.jmhossler.brewwwd", appContext.getPackageName());
+    assertEquals("net.jmhossler.roastd", appContext.getPackageName());
   }
 }
