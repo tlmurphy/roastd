@@ -19,8 +19,9 @@ android:
     - build-tools-26.0.2
     - android-26
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-26
-    - extra-android-support
+    - sys-img-armeabi-v7a-android-tv-l
+    - add-on
+    - extra
   licenses:
     - android-sdk-preview-license-.+
     - android-sdk-license-.+
