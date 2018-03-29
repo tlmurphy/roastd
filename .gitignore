@@ -29,6 +29,7 @@ local.properties
 .idea/codeStyles/
 .idea/caches/
 *.iml
+credentials.json
 
 # OS-specific files
 .DS_Store
