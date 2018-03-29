@@ -3,4 +3,7 @@
   <string name="title_activity_maps">Map</string>
   <string name="start_search_activity_button">Search</string>
   <string name="start_search_profile_button">Profile</string>
+  <string name="applyManager">Apply to be a Manager</string>
+  <string name="title_activity_login">Sign in</string>
+  <string name="logout">Logout</string>
 </resources>
