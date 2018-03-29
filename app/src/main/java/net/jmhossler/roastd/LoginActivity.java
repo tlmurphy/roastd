@@ -71,15 +71,13 @@ public class LoginActivity extends AppCompatActivity {
       }
       User.setPhotoUrl(this, photoUrl);
       User.setEmail(this, account.getEmail());
-      finish();
-      startActivity(new Intent(getApplicationContext(), MainActivity.class));
+      setResult(RESULT_OK);
     } catch (ApiException e) {
       // The ApiException status code indicates the detailed failure reason.
       // Please refer to the GoogleSignInStatusCodes class reference for more information.
       Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-      finish();
-      startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
+    finish();
   }
 
   private void signIn() {

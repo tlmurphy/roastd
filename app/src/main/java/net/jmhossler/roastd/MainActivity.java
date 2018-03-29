@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
   private Button mSearchButton;
   private Button mProfileButton;
 
+  private static final int RC_SIGN_IN = 9001;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -23,6 +25,22 @@ public class MainActivity extends AppCompatActivity {
     mProfileButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), ProfileActivity.class)));
 
     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-    if(account == null) startActivity(new Intent(this, LoginActivity.class));
+    if(account == null) {
+      startLogin();
+    }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == RC_SIGN_IN) {
+      if(resultCode != RESULT_OK) {
+        startLogin();
+      }
+    }
+  }
+
+  private void startLogin() {
+    startActivityForResult(new Intent(this, LoginActivity.class), RC_SIGN_IN);
   }
 }

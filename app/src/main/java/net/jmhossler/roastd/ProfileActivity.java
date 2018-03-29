@@ -41,10 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     // Add button listeners
     Button logout = findViewById(R.id.logout);
     logout.setOnClickListener(v -> mGoogleSignInClient.signOut()
-      .addOnCompleteListener(this, task -> {
-        finish();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-      }));
+      .addOnCompleteListener(this, task -> finish()));
     // TODO: Implement apply manager activity
   }
 }
