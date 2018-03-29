@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -20,6 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_profile);
+
+    // Set user info text and user pic
     TextView username = findViewById(R.id.username);
     TextView email = findViewById(R.id.email);
     ImageView profilePic = findViewById(R.id.profilePic);
@@ -29,18 +31,20 @@ public class ProfileActivity extends AppCompatActivity {
       .into(profilePic);
     username.setText(User.getUsername(this));
     email.setText(User.getEmail(this));
+
+    // Create sign in Client
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
       .requestEmail()
       .build();
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-  }
 
-  public void applyManager(View v) {
+    // Add button listeners
+    Button logout = findViewById(R.id.logout);
+    logout.setOnClickListener(v -> mGoogleSignInClient.signOut()
+      .addOnCompleteListener(this, task -> {
+        finish();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+      }));
     // TODO: Implement apply manager activity
-  }
-
-  public void signOut(View v) {
-    mGoogleSignInClient.signOut()
-      .addOnCompleteListener(this, task -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
   }
 }

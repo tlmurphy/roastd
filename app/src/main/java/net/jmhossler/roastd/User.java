@@ -6,11 +6,15 @@ import android.preference.PreferenceManager;
 
 public class User {
 
-  public static void setUsername(Context context, String username) {
+  private static SharedPreferences.Editor getEditor(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    SharedPreferences.Editor editor = prefs.edit();
-    editor.putString("username", username);
-    editor.apply();
+    return prefs.edit();
+  }
+
+  public static void setUsername(Context context, String username) {
+    SharedPreferences.Editor e = getEditor(context);
+    e.putString("username", username);
+    e.apply();
   }
 
   public static String getUsername(Context context) {
@@ -19,10 +23,9 @@ public class User {
   }
 
   public static void setPhotoUrl(Context context, String url) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    SharedPreferences.Editor editor = prefs.edit();
-    editor.putString("photoUrl", url);
-    editor.apply();
+    SharedPreferences.Editor e = getEditor(context);
+    e.putString("photoUrl", url);
+    e.apply();
   }
 
   public static String getPhotoUrl(Context context) {
@@ -31,10 +34,9 @@ public class User {
   }
 
   public static void setEmail(Context context, String email) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    SharedPreferences.Editor editor = prefs.edit();
-    editor.putString("email", email);
-    editor.apply();
+    SharedPreferences.Editor e = getEditor(context);
+    e.putString("email", email);
+    e.apply();
   }
 
   public static String getEmail(Context context) {
