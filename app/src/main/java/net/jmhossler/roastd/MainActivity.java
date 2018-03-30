@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
   private Button mProfileButton;
 
   private static final int RC_SIGN_IN = 9001;
+  private static final int RC_SIGN_OUT = 9002;
+  private static final int LOGGED_OUT = RESULT_OK;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
     mSearchButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), SearchActivity.class)));
 
     mProfileButton = findViewById(R.id.start_profile_activity_button);
-    mProfileButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), ProfileActivity.class)));
+    mProfileButton.setOnClickListener(v -> startActivityForResult(new Intent(getBaseContext(), ProfileActivity.class), RC_SIGN_OUT));
 
-    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-    if(account == null) {
+    if (needToLogin()) {
       startLogin();
     }
   }
@@ -38,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
         startLogin();
       }
     }
+    if (requestCode == RC_SIGN_OUT) {
+      if(resultCode == LOGGED_OUT) {
+        startLogin();
+      }
+    }
+  }
+
+  private boolean needToLogin() {
+    return GoogleSignIn.getLastSignedInAccount(this) == null;
   }
 
   private void startLogin() {
