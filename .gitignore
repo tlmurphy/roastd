@@ -1,3 +1,8 @@
+release/
+
+# Keep this out of the repo!
+keystore.properties 
+
 # Built application files
 /*/build/
 build/
@@ -28,6 +33,7 @@ local.properties
 .idea/vcs.xml
 .idea/codeStyles/
 .idea/caches/
+.idea/assetWizardSettings.xml
 *.iml
 
 # OS-specific files
