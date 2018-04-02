@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
       View v = signInButton.getChildAt(i);
       if (v instanceof TextView) {
         TextView tv  = (TextView) v;
-        tv.setText("Sign In With");
+        tv.setText("Sign In With Google");
       }
     }
 
