@@ -17,6 +17,9 @@ env:
   - ADB_INSTALL_TIMEOUT=20
 android:
   components:
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
   - build-tools-$ANDROID_BUILD_TOOLS_VERSION
   - android-$ANDROID_API_LEVEL
   - addon-google_apis-google-$ANDROID_API_LEVEL

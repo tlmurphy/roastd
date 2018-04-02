@@ -42,20 +42,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // Build a GoogleSignInClient with the options specified by gso.
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-    // Set the dimensions of the sign-in button.
-    SignInButton signInButton = findViewById(R.id.sign_in_button);
-    signInButton.setSize(SignInButton.SIZE_STANDARD);
-
-    // Update the sign-in button's text
-    for (int i = 0; i < signInButton.getChildCount(); i++) {
-      View v = signInButton.getChildAt(i);
-      if (v instanceof TextView) {
-        TextView tv  = (TextView) v;
-        tv.setText("Sign In With Google");
-      }
-    }
-
   }
 
   @Override
