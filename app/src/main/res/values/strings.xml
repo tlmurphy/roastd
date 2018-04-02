@@ -6,4 +6,5 @@
   <string name="applyManager">Apply to be a Manager</string>
   <string name="title_activity_login">Sign in</string>
   <string name="logout">Logout</string>
+  <string name="login_desc">Share, rate, and discover coffee from around the world.</string>
 </resources>
