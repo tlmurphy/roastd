@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,7 +46,16 @@ public class LoginActivity extends AppCompatActivity {
     // Set the dimensions of the sign-in button.
     SignInButton signInButton = findViewById(R.id.sign_in_button);
     signInButton.setSize(SignInButton.SIZE_STANDARD);
-    signInButton.setColorScheme(SignInButton.COLOR_DARK);
+
+    // Update the sign-in button's text
+    for (int i = 0; i < signInButton.getChildCount(); i++) {
+      View v = signInButton.getChildAt(i);
+      if (v instanceof TextView) {
+        TextView tv  = (TextView) v;
+        tv.setText("Sign In With");
+      }
+    }
+
   }
 
   @Override
