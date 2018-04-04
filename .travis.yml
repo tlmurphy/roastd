@@ -25,7 +25,7 @@ android:
   - addon-google_apis-google-$ANDROID_API_LEVEL
 script:
 - "./gradlew clean"
-- "./gradlew build test"
+- "./gradlew assembleDebug test"
 before_install:
 #- openssl aes-256-cbc -K $encrypted_ab09f80ebc8e_key -iv $encrypted_ab09f80ebc8e_iv
   #-in keystore.properties.enc -out keystore.properties -d
