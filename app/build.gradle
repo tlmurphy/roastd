@@ -13,10 +13,10 @@ try {
 android {
   signingConfigs {
     release {
-      keyAlias 'key0'
-      keyPassword 'reclaim washbasin washboard reexamine bullish dreamless'
-      storeFile file('/home/jhossler/StudioProjects/roastd/app/roastd-keystore.jks')
-      storePassword 'moonstone pushcart crushable canteen disfigure pasta'
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
     }
   }
     compileSdkVersion 27
