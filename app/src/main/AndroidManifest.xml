@@ -12,17 +12,17 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
+    <activity android:name=".maintask.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".ProfileActivity" />
-    <activity android:name=".SearchActivity" />
+    <activity android:name=".profiletask.ProfileActivity" />
+    <activity android:name=".searchtask.SearchActivity" />
     <activity
-      android:name=".LoginActivity"
+      android:name=".logintask.LoginActivity"
       android:theme="@style/AppTheme.NoActionBar"></activity>
 
     <meta-data
