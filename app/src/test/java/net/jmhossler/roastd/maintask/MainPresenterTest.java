@@ -30,40 +30,36 @@ import static org.mockito.Mockito.when;
  */
 public class MainPresenterTest {
 
-    @Mock
-    private MainContract.View mMainView;
+  @Mock
+  private MainContract.View mMainView;
 
-    private MainPresenter mMainPresenter;
+  private MainPresenter mMainPresenter;
 
-    @Before
-    public void setupTasksPresenter() {
-      // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
-      // inject the mocks in the test the initMocks method needs to be called.
-      MockitoAnnotations.initMocks(this);
+  @Before
+  public void setupTasksPresenter() {
+    // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
+    // inject the mocks in the test the initMocks method needs to be called.
+    MockitoAnnotations.initMocks(this);
 
-      // Get a reference to the class under test
-      mMainPresenter = new MainPresenter(mMainView);
-    }
+    // Get a reference to the class under test
+    mMainPresenter = new MainPresenter(mMainView);
+  }
 
+  @Test
+  public void createPresenter_setsThePresenterToView() {
+    // Get a reference to the class under test
+    mMainPresenter = new MainPresenter(mMainView);
 
-    @Test
-    public void createPresenter_setsThePresenterToView() {
-        // Get a reference to the class under test
-        mMainPresenter = new MainPresenter(mMainView);
+    // Then the presenter is set to the view
+    verify(mMainView).setPresenter(mMainPresenter);
+  }
 
-        // Then the presenter is set to the view
-        verify(mMainView).setPresenter(mMainPresenter);
-    }
+  @Test
+  public void result_startsLogin() {
+    // When adding a new task
+    mMainPresenter.result(9002, RESULT_OK);
 
-    @Test
-    public void result_startsLogin() {
-        // When adding a new task
-        mMainPresenter.result(9002, RESULT_OK);
-
-        // Then add task UI is shown
-        verify(mMainView).startLogin();
-    }
-
-
-
+    // Then add task UI is shown
+    verify(mMainView).startLogin();
+  }
 }

@@ -2,7 +2,6 @@ package net.jmhossler.roastd.maintask;
 
 import android.support.annotation.NonNull;
 
-
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
@@ -29,16 +28,10 @@ public class MainPresenter implements MainContract.Presenter {
 
   @Override
   public void result(int requestCode, int resultCode) {
-    if (requestCode == RC_SIGN_IN) {
-      if (resultCode == RESULT_CANCELED) {
-        mMainView.finish();
-      }
-    }
-    if (requestCode == RC_SIGN_OUT) {
-      if (resultCode == LOGGED_OUT) {
-        mMainView.startLogin();
-      }
+    if (requestCode == RC_SIGN_OUT && resultCode == LOGGED_OUT) {
+      mMainView.startLogin();
+    } else {
+      mMainView.finish();
     }
   }
-
 }

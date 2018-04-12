@@ -88,4 +88,3 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     getActivity().finish();
   }
 }
-

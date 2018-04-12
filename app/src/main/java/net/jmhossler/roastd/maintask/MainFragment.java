@@ -54,6 +54,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     super.onCreate(savedInstanceState);
   }
 
+  @Override
   public boolean needToLogin() {
     return GoogleSignIn.getLastSignedInAccount(getActivity()) == null;
   }
@@ -73,7 +74,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     return root;
   }
 
-
   public void startLogin() {
     startActivityForResult(new Intent(getContext(), LoginActivity.class), RC_SIGN_IN);
   }
@@ -85,6 +85,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   }
 
+  @Override
   public void finish() {
     getActivity().finish();
   }

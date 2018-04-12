@@ -28,7 +28,4 @@ public class LoginActivity extends AppCompatActivity {
 
     mLoginPresenter = new LoginPresenter(loginFragment);
   }
-
-
-
 }

@@ -16,7 +16,6 @@
 
 package net.jmhossler.roastd.logintask;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -29,39 +28,35 @@ import static org.mockito.Mockito.verify;
  */
 public class LoginPresenterTest {
 
-    @Mock
-    private LoginContract.View mLoginView;
+  @Mock
+  private LoginContract.View mLoginView;
 
-    private LoginPresenter mLoginPresenter;
+  private LoginPresenter mLoginPresenter;
 
-    @Before
-    public void setupTasksPresenter() {
-      // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
-      // inject the mocks in the test the initMocks method needs to be called.
-      MockitoAnnotations.initMocks(this);
+  @Before
+  public void setupTasksPresenter() {
+    // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
+    // inject the mocks in the test the initMocks method needs to be called.
+    MockitoAnnotations.initMocks(this);
 
-      // Get a reference to the class under test
-      mLoginPresenter = new LoginPresenter(mLoginView);
+    // Get a reference to the class under test
+    mLoginPresenter = new LoginPresenter(mLoginView);
+  }
 
-    }
+  @Test
+  public void createPresenter_setsThePresenterToView() {
+    // Get a reference to the class under test
+    mLoginPresenter = new LoginPresenter(mLoginView);
 
+    // Then the presenter is set to the view
+    verify(mLoginView).setPresenter(mLoginPresenter);
+  }
 
-    @Test
-    public void createPresenter_setsThePresenterToView() {
-        // Get a reference to the class under test
-        mLoginPresenter = new LoginPresenter(mLoginView);
+  @Test
+  public void signInClicked() {
+    // Verify that, when the sign in is clicked, the sign in process is started
+    mLoginPresenter.signInClicked();
 
-        // Then the presenter is set to the view
-        verify(mLoginView).setPresenter(mLoginPresenter);
-    }
-
-    @Test
-    public void signInClicked() {
-        mLoginPresenter.signInClicked();
-
-        verify(mLoginView).startGoogleSignin();
-    }
-
-
-
+    verify(mLoginView).startGoogleSignin();
+  }
 }

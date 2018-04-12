@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainFrame);
-
     if (mainFragment == null) {
       mainFragment = MainFragment.newInstance();
       ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
@@ -24,5 +23,4 @@ public class MainActivity extends AppCompatActivity {
 
     mMainPresenter = new MainPresenter(mainFragment);
   }
-
 }
