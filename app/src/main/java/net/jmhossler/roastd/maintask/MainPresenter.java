@@ -30,8 +30,6 @@ public class MainPresenter implements MainContract.Presenter {
   public void result(int requestCode, int resultCode) {
     if (requestCode == RC_SIGN_OUT && resultCode == LOGGED_OUT) {
       mMainView.startLogin();
-    } else {
-      mMainView.finish();
     }
   }
 }

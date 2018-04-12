@@ -16,6 +16,7 @@ import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.logintask.LoginActivity;
 import net.jmhossler.roastd.profiletask.ProfileActivity;
 import net.jmhossler.roastd.searchtask.SearchActivity;
+import net.jmhossler.roastd.util.ActivityUtils;
 
 
 /**
@@ -56,7 +57,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   @Override
   public boolean needToLogin() {
-    return GoogleSignIn.getLastSignedInAccount(getActivity()) == null;
+    return ActivityUtils.needToLogin(getContext());
   }
 
   @Nullable

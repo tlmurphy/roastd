@@ -27,6 +27,9 @@ public class LoginPresenter implements LoginContract.Presenter {
   @Override
   public void start() {
     // simply wait on button to be pressed
+    if (!mLoginView.needToLogin()) {
+      mLoginView.finish();
+    }
   }
 
   public void signInClicked() {

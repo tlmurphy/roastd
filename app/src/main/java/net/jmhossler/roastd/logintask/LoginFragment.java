@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import net.jmhossler.roastd.R;
+import net.jmhossler.roastd.util.ActivityUtils;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
 
@@ -86,5 +87,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
   @Override
   public void finish() {
     getActivity().finish();
+  }
+
+  @Override
+  public boolean needToLogin() {
+    return ActivityUtils.needToLogin(getContext());
   }
 }

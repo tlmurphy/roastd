@@ -13,6 +13,7 @@ public interface LoginContract {
     void startGoogleSignin();
     void finish();
     void setResult(int resultCode);
+    boolean needToLogin();
   }
 
   interface Presenter extends BasePresenter {
