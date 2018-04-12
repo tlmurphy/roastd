@@ -39,7 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
     Uri photoURI = account.getPhotoUrl();
     String photoURL;
     if (photoURI == null) {
-      photoURL = "https://image.flaticon.com/icons/svg/747/747376.svg";
+      // TODO: Find a default photo in case no photo is available. definitely coffee related
+      photoURL = "";
     } else {
       photoURL = photoURI.toString();
     }
