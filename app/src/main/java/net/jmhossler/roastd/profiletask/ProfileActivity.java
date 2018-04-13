@@ -1,5 +1,6 @@
-package net.jmhossler.roastd;
+package net.jmhossler.roastd.profiletask;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,9 +8,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.bumptech.glide.Glide;
+
+import net.jmhossler.roastd.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -24,12 +28,29 @@ public class ProfileActivity extends AppCompatActivity {
     TextView username = findViewById(R.id.username);
     TextView email = findViewById(R.id.email);
     ImageView profilePic = findViewById(R.id.profilePic);
-    Log.d("GOOGLE","Display Name is: " + User.getUsername(this));
-    Glide.with(this).load(User.getPhotoUrl(this))
+    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getBaseContext());
+
+    if (account == null) {
+      finish();
+    }
+
+    String name = account.getDisplayName();
+    String mEmail = account.getEmail();
+    Uri photoURI = account.getPhotoUrl();
+    String photoURL;
+    if (photoURI == null) {
+      // TODO: Find a default photo in case no photo is available. definitely coffee related
+      photoURL = "";
+    } else {
+      photoURL = photoURI.toString();
+    }
+
+    Log.d("GOOGLE","Display Name is: " + name);
+    Glide.with(this).load(photoURL)
       .thumbnail(0.5f)
       .into(profilePic);
-    username.setText(User.getUsername(this));
-    email.setText(User.getEmail(this));
+    username.setText(name);
+    email.setText(mEmail);
 
     // Create sign in Client
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
