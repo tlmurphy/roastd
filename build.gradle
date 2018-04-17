@@ -5,9 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.1.1'
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -19,9 +21,21 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://jitpack.io' }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task setupSecrets() {
+  def secrets = new File("$projectDir/app/src/main/res/values/secrets.xml")
+  if (!secrets.exists()) {
+    secrets.text = """<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="google_maps_api_key">AIzaSyArOmfooo0BBaRfo0_Zbarfoo-f00BArb0</string>
+</resources>"""
+  }
 }

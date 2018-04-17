@@ -48,8 +48,8 @@
     android:id="@+id/applyButton"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="@string/applyManager"
-    android:layout_marginBottom="10dp"/>
+    android:layout_marginBottom="10dp"
+    android:text="@string/apply_manager" />
   <Button
     android:id="@+id/logout"
     android:layout_width="fill_parent"

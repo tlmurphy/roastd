@@ -1,7 +1,8 @@
 release/
 
 # Keep this out of the repo!
-keystore.properties 
+keystore.properties
+secrets.xml
 
 # Built application files
 /*/build/

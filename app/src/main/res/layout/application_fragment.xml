@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+      android:id="@+id/shopName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/shop_name"
+      android:singleLine="true"
+      android:maxLength="40"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp" />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.santalu.maskedittext.MaskEditText
+      android:id="@+id/shopNum"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/shop_num"
+      android:layout_marginBottom="10dp"
+      android:inputType="phone"
+      app:met_mask="###-###-####" />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
+      android:id="@+id/places_autocomplete"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/shop_addr"
+      android:layout_marginBottom="10dp"
+      app:pacv_googleMapsApiKey="@string/google_maps_api_key"/>
+
+  </android.support.design.widget.TextInputLayout>
+
+  <Button
+    android:id="@+id/applicationSubmit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/submit" />
+</LinearLayout>

@@ -1,5 +1,6 @@
 package net.jmhossler.roastd.profiletask;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.bumptech.glide.Glide;
-
 import net.jmhossler.roastd.R;
+import net.jmhossler.roastd.applicationtask.ApplicationActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -65,6 +66,8 @@ public class ProfileActivity extends AppCompatActivity {
         setResult(RESULT_OK);
         finish();
       }));
-    // TODO: Implement apply manager activity
+
+    Button apply = findViewById(R.id.applyButton);
+    apply.setOnClickListener(v -> startActivity(new Intent(this, ApplicationActivity.class)));
   }
 }
