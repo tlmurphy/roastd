@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "304921934819",
+    "firebase_url": "https://api-5185491180440524132-587717.firebaseio.com",
+    "project_id": "api-5185491180440524132-587717",
+    "storage_bucket": "api-5185491180440524132-587717.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304921934819:android:1fca3dbb5d91d236",
+        "android_client_info": {
+          "package_name": "net.jmhossler.roastd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304921934819-pdpphe0v1eujhprjpqpev126imph5r1m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.jmhossler.roastd",
+            "certificate_hash": "ca128afbfb4c3ba7f4234878de0d5370600c3414"
+          }
+        },
+        {
+          "client_id": "304921934819-1cbr209kauaf96sscdkujb3j0smtfcqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.jmhossler.roastd",
+            "certificate_hash": "c2829db133ef58800633dc569ab5be95bf93e556"
+          }
+        },
+        {
+          "client_id": "304921934819-2h63b1hekj4ggbsalk4g3nqj2q18ce3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.jmhossler.roastd",
+            "certificate_hash": "5e37e15aacbf4e52f5a2500982c2a2e683375bd6"
+          }
+        },
+        {
+          "client_id": "304921934819-m9kb40j53g1b243b13k8gc955vm4ifee.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "304921934819-grep2cold69kk9crus6r8f3c64p3sah2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "304921934819-ihg9pra2pi5q9p0fvvemnna99bofnu8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.jmhossler.roastd",
+            "certificate_hash": "31bcde3855c11ac6c294944848902c1679269195"
+          }
+        },
+        {
+          "client_id": "304921934819-idvvimn3s04e36b5plvfc9t16q4u6hgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.jmhossler.roastd",
+            "certificate_hash": "b0002fc26c829abb57ca9c88e50d8ad9248ffb18"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXXOVTBGob6TTULBpNFTzpMnrSSlo5LwM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304921934819-m9kb40j53g1b243b13k8gc955vm4ifee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

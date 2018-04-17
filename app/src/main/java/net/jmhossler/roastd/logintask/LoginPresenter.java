@@ -7,7 +7,14 @@ import android.util.Log;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -16,12 +23,16 @@ public class LoginPresenter implements LoginContract.Presenter {
   private static final String TAG = "LoginActivity";
   private static final int RC_SIGN_IN = 9001;
 
+  private FirebaseAuth mAuth;
+
   @NonNull
   private final LoginContract.View mLoginView;
 
-  public LoginPresenter(@NonNull LoginContract.View loginView) {
+  public LoginPresenter(@NonNull LoginContract.View loginView, @NonNull FirebaseAuth firebaseAuth) {
     mLoginView = loginView;
     mLoginView.setPresenter(this);
+
+    mAuth = firebaseAuth;
   }
 
   @Override
@@ -48,7 +59,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
   public void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
     try {
-      completedTask.getResult(ApiException.class);
+      GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+      firebaseAuthWithGoogle(account);
       mLoginView.setResult(RESULT_OK);
       mLoginView.finish();
     } catch (ApiException e) {
@@ -58,4 +70,17 @@ public class LoginPresenter implements LoginContract.Presenter {
       mLoginView.startGoogleSignin();
     }
   }
+
+  private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+    AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+    mAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+      if(task.isSuccessful()) {
+        Log.d(TAG, "signInWithCredential:success");
+      } else {
+        Log.w(TAG, "signInWithCredential:failure", task.getException());
+      }
+    });
+  }
+
 }

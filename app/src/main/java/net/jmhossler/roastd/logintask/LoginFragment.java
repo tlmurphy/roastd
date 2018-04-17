@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.util.ActivityUtils;
 
@@ -43,6 +44,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     // Configure sign-in to request the user's ID, email address, and basic
     // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+      .requestIdToken(getString(R.string.default_web_client_id))
       .requestEmail()
       .build();
 

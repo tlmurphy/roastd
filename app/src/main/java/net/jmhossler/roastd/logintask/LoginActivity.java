@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.util.ActivityUtils;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Activity to handle Google login.
@@ -25,7 +26,8 @@ public class LoginActivity extends AppCompatActivity {
       ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
         loginFragment, R.id.loginFrame);
     }
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    mLoginPresenter = new LoginPresenter(loginFragment);
+    mLoginPresenter = new LoginPresenter(loginFragment, firebaseAuth);
   }
 }
