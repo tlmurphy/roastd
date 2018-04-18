@@ -1,62 +1,61 @@
 package net.jmhossler.roastd.data;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.common.base.Objects;
+import java.util.Date;
 
-// TODO: This file was made irrelevant for what we've done so far. I'm leaving it here as an example
-// of how the structure of these data classes will look.
-
-@Entity(tableName = "users")
-public final class User {
-
-  @PrimaryKey
-  @NonNull
-  @ColumnInfo(name = "email")
-  private final String mEmail;
+// Description: Data object for a user. Contains unique user id, email, name, photoURL,
+//    shopIds, isAdmin, createdOn, and favoriteUuids
+public class User {
 
   @NonNull
-  @ColumnInfo(name = "name")
-  private final String mName;
+  public String uuid;
+
+  @NonNull
+  public String email;
+
+  @NonNull
+  public String name;
 
   @Nullable
-  @ColumnInfo(name = "photoURL")
-  private final String mPhotoURL;
+  public String photoURL;
 
-  public User(@NonNull String email, @NonNull String name, @Nullable String photoURL) {
-    mEmail = email;
-    mName = name;
-    mPhotoURL = photoURL;
-  }
+  // This is the list of shop ids that the user managers. Could it make sense
+  //    to just have this as the distinguishing factor between managers and regular users?
+  //    If it is this way, we keep the user in the same place, just add shopIds to their
+  //    shopIds list in the database and bam, their a manager.
+  @NonNull
+  public String[] shopIds;
+
+  // ?? I thought maybe if we remove the manager class, we could remove the admin
+  //    class as well. idk, let me know what you guys think
+  @NonNull
+  public boolean isAdmin;
 
   @NonNull
-  public String getEmail() { return mEmail; }
+  public Date createdOn;
 
+  // I am completely happy with renaming this. These uuids are the uuids of the SearchableItems that
+  //    the user has favorited. This way, we have access to that information.
   @NonNull
-  public String getName() { return mName; }
+  public String[] favoriteUuids;
 
-  @Nullable
-  public String getPhotoURL() { return mPhotoURL; }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    User user = (User) o;
-    return Objects.equal(mEmail, user.getEmail());
+  public User() {
+    // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hashCode(mEmail, mName, mPhotoURL);
-  }
-
-  @Override
-  public String toString() {
-    return "User with email " + mEmail;
+  public User(@NonNull String uuid, @NonNull String email,
+              @NonNull String name, @Nullable String photoURL,
+              @NonNull String[] shopIds, @NonNull boolean isAdmin,
+              @NonNull Date createdOn, @NonNull String[] favoriteUuids) {
+    this.uuid = uuid;
+    this.email = email;
+    this.name = name;
+    this.photoURL = photoURL;
+    this.isAdmin = isAdmin;
+    this.shopIds = shopIds;
+    this.createdOn = createdOn;
+    this.favoriteUuids = favoriteUuids;
   }
 }
