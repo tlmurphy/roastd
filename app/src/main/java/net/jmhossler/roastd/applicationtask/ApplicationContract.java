@@ -2,7 +2,7 @@ package net.jmhossler.roastd.applicationtask;
 
 import net.jmhossler.roastd.BasePresenter;
 import net.jmhossler.roastd.BaseView;
-import net.jmhossler.roastd.data.ShopApplicationInfo;
+import net.jmhossler.roastd.data.shopApplicationInfo.ShopApplicationInfo;
 
 public interface ApplicationContract {
   interface View extends BaseView<Presenter> {

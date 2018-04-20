@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.logintask.LoginActivity;
 import net.jmhossler.roastd.profiletask.ProfileActivity;
@@ -66,10 +64,10 @@ public class MainFragment extends Fragment implements MainContract.View {
                            Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.main_fragment, container, false);
 
-    mSearchButton = (Button) root.findViewById(R.id.start_search_activity_button);
+    mSearchButton = root.findViewById(R.id.start_search_activity_button);
     mSearchButton.setOnClickListener(v -> startActivity(new Intent(getContext(), SearchActivity.class)));
 
-    mProfileButton = (Button) root.findViewById(R.id.start_profile_activity_button);
+    mProfileButton = root.findViewById(R.id.start_profile_activity_button);
     mProfileButton.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), ProfileActivity.class), RC_SIGN_OUT));
 
     return root;

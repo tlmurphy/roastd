@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.santalu.maskedittext.MaskEditText;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 import net.jmhossler.roastd.R;
-import net.jmhossler.roastd.data.ShopApplicationInfo;
+import net.jmhossler.roastd.data.shopApplicationInfo.ShopApplicationInfo;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,7 +28,7 @@ public class ApplicationFragment extends Fragment implements ApplicationContract
 
   private String shopName;
   private String shopNum;
-  private String shopAddress;;
+  private String shopAddress;
 
   private ApplicationContract.Presenter presenter;
 

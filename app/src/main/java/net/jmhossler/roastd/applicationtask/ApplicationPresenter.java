@@ -3,7 +3,7 @@ package net.jmhossler.roastd.applicationtask;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import net.jmhossler.roastd.data.ShopApplicationInfo;
+import net.jmhossler.roastd.data.shopApplicationInfo.ShopApplicationInfo;
 
 public class ApplicationPresenter implements ApplicationContract.Presenter{
 
@@ -26,7 +26,7 @@ public class ApplicationPresenter implements ApplicationContract.Presenter{
   }
 
   public boolean goodInput() {
-    return !(TextUtils.isEmpty(shopInfo.shopName) || TextUtils.isEmpty(shopInfo.shopNum) || TextUtils.isEmpty(shopInfo.shopAddress));
+    return !(TextUtils.isEmpty(shopInfo.getShopName()) || TextUtils.isEmpty(shopInfo.getShopNum()) || TextUtils.isEmpty(shopInfo.getShopAddress()));
   }
 
   public void postApplication() {

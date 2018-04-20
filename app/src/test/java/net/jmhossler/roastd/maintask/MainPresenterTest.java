@@ -23,7 +23,6 @@ import org.mockito.MockitoAnnotations;
 
 import static android.app.Activity.RESULT_OK;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for the implementation of {@link TasksPresenter}

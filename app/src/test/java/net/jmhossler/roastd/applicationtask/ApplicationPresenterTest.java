@@ -2,7 +2,7 @@ package net.jmhossler.roastd.applicationtask;
 
 import android.text.TextUtils;
 
-import net.jmhossler.roastd.data.ShopApplicationInfo;
+import net.jmhossler.roastd.data.shopApplicationInfo.ShopApplicationInfo;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +14,6 @@ import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({TextUtils.class})

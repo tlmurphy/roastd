@@ -2,7 +2,6 @@ package net.jmhossler.roastd.maintask;
 
 import android.support.annotation.NonNull;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class MainPresenter implements MainContract.Presenter {
