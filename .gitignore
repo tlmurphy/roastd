@@ -3,6 +3,9 @@ release/
 # Keep this out of the repo!
 keystore.properties
 secrets.xml
+Gemfile
+Gemfile.lock
+_site/
 
 # Built application files
 /*/build/
