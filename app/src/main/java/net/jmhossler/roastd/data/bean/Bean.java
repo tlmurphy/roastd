@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 // Description: Data object to encapsulate Beans. Adds roastType and origin.
-public class Bean extends SearchableItem implements Serializable{
+public class Bean extends SearchableItem implements Serializable {
 
   @NonNull
   private String roastType;

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import net.jmhossler.roastd.R;
+import net.jmhossler.roastd.favoritestask.FavoritesActivity;
 import net.jmhossler.roastd.logintask.LoginActivity;
 import net.jmhossler.roastd.profiletask.ProfileActivity;
 import net.jmhossler.roastd.searchtask.SearchActivity;
@@ -27,6 +28,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   private Button mSearchButton;
   private Button mProfileButton;
+  private Button mFavoritesButton;
 
   private MainContract.Presenter mPresenter;
 
@@ -69,6 +71,9 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     mProfileButton = root.findViewById(R.id.start_profile_activity_button);
     mProfileButton.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), ProfileActivity.class), RC_SIGN_OUT));
+
+    mFavoritesButton = root.findViewById(R.id.start_favorites_activity_button);
+    mFavoritesButton.setOnClickListener(v -> startActivity(new Intent(getContext(), FavoritesActivity.class)));
 
     return root;
   }

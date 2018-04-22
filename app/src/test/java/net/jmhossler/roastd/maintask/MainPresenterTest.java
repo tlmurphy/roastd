@@ -25,7 +25,7 @@ import static android.app.Activity.RESULT_OK;
 import static org.mockito.Mockito.verify;
 
 /**
- * Unit tests for the implementation of {@link TasksPresenter}
+ * Unit tests for the implementation of {@link MainPresenter}
  */
 public class MainPresenterTest {
 
