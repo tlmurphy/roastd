@@ -6,10 +6,9 @@
   android:gravity="center"
   tools:context=".searchtask.SearchActivity">
 
-  <TextView
+  <FrameLayout
+    android:id="@+id/searchFrame"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:text="Search Activity goes here"/>
+    android:layout_height="match_parent"></FrameLayout>
 
 </LinearLayout>
