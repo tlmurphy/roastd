@@ -99,7 +99,7 @@ header ul li:first-child a, header ul li a:hover {
 
 .intro {
   padding: 70px 0 90px 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .intro h3 {
@@ -230,7 +230,7 @@ header {
 .team-row .team-card {
   width: calc(100% - 30px);
   background: #fff;
-  min-height: 400px;
+  min-height: 640px;
   float: left;
   padding: 30px;
   margin: 0 15px;
