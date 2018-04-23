@@ -1,20 +1,21 @@
-package net.jmhossler.roastd.listfragment;
+package net.jmhossler.roastd.viewtask;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import net.jmhossler.roastd.data.dummy.DummyContent;
 import net.jmhossler.roastd.R;
-import net.jmhossler.roastd.data.searchableItem.SearchableItem;
+
 
 public class SearchableItemListFragment extends Fragment implements SearchableItemListContract.View {
 
@@ -25,16 +26,15 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View v = inflater.inflate(R.layout.fragment_list, container, false);
+    View v = inflater.inflate(R.layout.item_list, container, false);
 
-    mListRecyclerView = v.findViewById(R.id.list_recycler_view);
+    mListRecyclerView = v.findViewById(R.id.item_list);
 
     // The RecyclerView does very little. The LayoutManager is the one who positions items
     // on the screen and defines how scrolling works.
     mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mSearchableItemAdapter = new SearchableItemAdapter(mPresenter);
     mListRecyclerView.setAdapter(mSearchableItemAdapter);
-
     return v;
   }
 
@@ -58,18 +58,24 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   class SearchableItemHolder extends RecyclerView.ViewHolder implements
     SearchableItemListContract.SearchableListItemView {
 
-    TextView mLabelTextView;
-    ImageView mIconImageView;
+    final ImageView mIconImageView;
+    final TextView mContentView;
 
     public SearchableItemHolder(LayoutInflater inflater, ViewGroup parent) {
-      super(inflater.inflate(R.layout.list_item, parent, false));
-      mLabelTextView = itemView.findViewById(R.id.list_item_label);
+      super(inflater.inflate(R.layout.item_list_content, parent, false));
       mIconImageView = itemView.findViewById(R.id.list_item_icon);
+      mContentView = itemView.findViewById(R.id.content);
+
     }
 
     @Override
-    public void setLabel(String label) {
-      mLabelTextView.setText(label);
+    public void setContent(String content) {
+      mContentView.setText(content);
+    }
+
+    @Override
+    public void setTag(Object tag) {
+      super.itemView.setTag(tag);
     }
 
     @Override
@@ -85,6 +91,16 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   private class SearchableItemAdapter extends RecyclerView.Adapter<SearchableItemHolder> {
 
     private SearchableItemListContract.Presenter mPresenter;
+    private final View.OnClickListener mOnClickListener = view -> {
+      DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+
+      Context context = view.getContext();
+      Intent intent = new Intent(context, SearchableItemActivity.class);
+      intent.putExtra(SearchableItemFragment.ARG_ITEM_ID, item.id);
+
+      context.startActivity(intent);
+    };
+
 
     public SearchableItemAdapter(SearchableItemListContract.Presenter presenter) {
       mPresenter = presenter;
@@ -100,6 +116,7 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     @Override
     public void onBindViewHolder(@NonNull SearchableItemHolder holder, int position) {
       mPresenter.bindViewAtPosition(position, holder);
+      holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override

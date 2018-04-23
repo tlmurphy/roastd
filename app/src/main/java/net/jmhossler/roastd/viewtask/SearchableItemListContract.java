@@ -1,4 +1,4 @@
-package net.jmhossler.roastd.listfragment;
+package net.jmhossler.roastd.viewtask;
 
 import net.jmhossler.roastd.BasePresenter;
 import net.jmhossler.roastd.BaseView;
@@ -15,7 +15,8 @@ public interface SearchableItemListContract {
   }
 
   interface SearchableListItemView {
-    void setLabel(String label);
+    void setContent(String content);
     void setIcon(byte [] icon);
+    void setTag(Object tag);
   }
 }
