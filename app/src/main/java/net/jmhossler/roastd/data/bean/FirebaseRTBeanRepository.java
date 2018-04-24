@@ -6,10 +6,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
+import java.util.ArrayList;
+import java.util.List;
 import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
-
-import java.util.Map;
 
 public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implements BeanDataSource {
 
@@ -46,7 +45,9 @@ public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implement
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onBeansLoaded((Map<String, Bean>) dataSnapshot.getValue());
+          List<Bean> beans = new ArrayList<>();
+          dataSnapshot.getChildren().forEach(b -> beans.add(b.getValue(Bean.class)));
+          callback.onBeansLoaded(beans);
         }
 
         @Override
@@ -58,6 +59,6 @@ public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implement
 
   @Override
   public void saveBean(Bean bean) {
-   mDatabase.child("beans").child(bean.getUuid().toString()).setValue(bean);
+   mDatabase.child("beans").child(bean.getUuid()).setValue(bean);
   }
 }

@@ -6,10 +6,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
-import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.Map;
+import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
 
 public class FirebaseRTDrinkRepository extends FirebaseRTBaseRepository implements DrinkDataSource {
 
@@ -46,7 +46,9 @@ public class FirebaseRTDrinkRepository extends FirebaseRTBaseRepository implemen
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onDrinksLoaded((Map<String, Drink>) dataSnapshot.getValue());
+          List<Drink> drinks = new ArrayList<>();
+          dataSnapshot.getChildren().forEach(d -> drinks.add(d.getValue(Drink.class)));
+          callback.onDrinksLoaded(drinks);
         }
 
         @Override

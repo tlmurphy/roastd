@@ -59,7 +59,7 @@ public class Shop extends SearchableItem {
     this.googleMapsUrl = googleMapsUrl;
   }
 
-  public void setItemUUIDs(@NonNull Map itemUUIDs) {
+  public void setItemUUIDs(@NonNull Map<String, Boolean> itemUUIDs) {
     this.itemUUIDs = itemUUIDs;
   }
 

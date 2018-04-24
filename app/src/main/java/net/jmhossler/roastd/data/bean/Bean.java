@@ -16,6 +16,11 @@ public class Bean extends SearchableItem {
   private String origin;
 
   @NonNull
+  public String getShopUUID() {
+    return shopUUID;
+  }
+
+  @NonNull
   private String shopUUID;
 
   public Bean() {

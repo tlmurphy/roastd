@@ -1,6 +1,5 @@
 package net.jmhossler.roastd.viewtask;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import net.jmhossler.roastd.data.dummy.DummyContent;
-import net.jmhossler.roastd.R;
 
+import net.jmhossler.roastd.R;
+import net.jmhossler.roastd.beantask.BeanActivity;
+import net.jmhossler.roastd.drinktask.DrinkActivity;
+import net.jmhossler.roastd.shoptask.ShopActivity;
 
 public class SearchableItemListFragment extends Fragment implements SearchableItemListContract.View {
 
@@ -54,18 +55,36 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     mSearchableItemAdapter.notifyDataSetChanged();
   }
 
+  @Override
+  public void navigateToBean(String beanId) {
+    startActivity(new Intent(getContext(), BeanActivity.class));
+  }
+
+  @Override
+  public void navigateToDrink(String drinkId) {
+    startActivity(new Intent(getContext(), DrinkActivity.class));
+  }
+
+  @Override
+  public void navigateToShop(String shopId) {
+    startActivity(new Intent(getContext(), ShopActivity.class));
+  }
+
   /// Holds the View of each item in the RecyclerView
   class SearchableItemHolder extends RecyclerView.ViewHolder implements
-    SearchableItemListContract.SearchableListItemView {
+    SearchableItemListContract.SearchableListItemView, View.OnClickListener{
 
     final ImageView mIconImageView;
     final TextView mContentView;
+    final SearchableItemListContract.Presenter mPresenter;
 
-    public SearchableItemHolder(LayoutInflater inflater, ViewGroup parent) {
+    public SearchableItemHolder(LayoutInflater inflater, ViewGroup parent,
+                                SearchableItemListContract.Presenter presenter) {
       super(inflater.inflate(R.layout.item_list_content, parent, false));
       mIconImageView = itemView.findViewById(R.id.list_item_icon);
       mContentView = itemView.findViewById(R.id.content);
-
+      mPresenter = presenter;
+      itemView.setOnClickListener(this);
     }
 
     @Override
@@ -74,13 +93,13 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     }
 
     @Override
-    public void setTag(Object tag) {
-      super.itemView.setTag(tag);
+    public void setIcon(byte[] icon) {
+      // we can deal with this later
     }
 
     @Override
-    public void setIcon(byte[] icon) {
-      // we can deal with this later
+    public void onClick(View v) {
+      mPresenter.onListItemClicked(getAdapterPosition());
     }
   }
 
@@ -91,16 +110,6 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   private class SearchableItemAdapter extends RecyclerView.Adapter<SearchableItemHolder> {
 
     private SearchableItemListContract.Presenter mPresenter;
-    private final View.OnClickListener mOnClickListener = view -> {
-      DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-
-      Context context = view.getContext();
-      Intent intent = new Intent(context, SearchableItemActivity.class);
-      intent.putExtra(SearchableItemFragment.ARG_ITEM_ID, item.id);
-
-      context.startActivity(intent);
-    };
-
 
     public SearchableItemAdapter(SearchableItemListContract.Presenter presenter) {
       mPresenter = presenter;
@@ -110,13 +119,12 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     @Override
     public SearchableItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inf = LayoutInflater.from(getActivity());
-        return new SearchableItemHolder(inf, parent);
+        return new SearchableItemHolder(inf, parent, mPresenter);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchableItemHolder holder, int position) {
       mPresenter.bindViewAtPosition(position, holder);
-      holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override

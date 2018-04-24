@@ -95,7 +95,7 @@ public class User {
     return favoriteUUIDs;
   }
 
-  public void setFavoriteUUIDs(@NonNull Map favoriteUUIDs) {
+  public void setFavoriteUUIDs(@NonNull Map<String, Boolean> favoriteUUIDs) {
     this.favoriteUUIDs = favoriteUUIDs;
   }
 

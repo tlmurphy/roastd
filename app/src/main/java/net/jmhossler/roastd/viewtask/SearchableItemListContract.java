@@ -7,9 +7,13 @@ public interface SearchableItemListContract {
 
   interface View extends BaseView<Presenter> {
     void notifyDataSetChanged();
+    void navigateToBean(String beanId);
+    void navigateToDrink(String drinkId);
+    void navigateToShop(String shopId);
   }
 
   interface Presenter extends BasePresenter {
+    void onListItemClicked(int position);
     void bindViewAtPosition(int position, SearchableListItemView view);
     int itemCount();
   }
@@ -17,6 +21,5 @@ public interface SearchableItemListContract {
   interface SearchableListItemView {
     void setContent(String content);
     void setIcon(byte [] icon);
-    void setTag(Object tag);
   }
 }

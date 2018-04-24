@@ -6,9 +6,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
-
-import java.util.Map;
 
 public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implements ShopDataSource {
 
@@ -45,7 +45,9 @@ public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implement
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onShopsLoaded((Map<String, Shop>) dataSnapshot.getValue());
+          List<Shop> shops = new ArrayList<>();
+          dataSnapshot.getChildren().forEach(s -> shops.add(s.getValue(Shop.class)));
+          callback.onShopsLoaded(shops);
         }
 
         @Override
@@ -57,14 +59,11 @@ public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implement
 
   @Override
   public void saveShop(Shop shop) {
-    mDatabase.child("shops").child(shop.getUuid()).setValue(shop, new DatabaseReference.CompletionListener() {
-      @Override
-      public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-        if (databaseError != null) {
+    mDatabase.child("shops").child(shop.getUuid()).setValue(shop, (databaseError, databaseReference) -> {
+      if (databaseError != null) {
 
-        } else {
+      } else {
 
-        }
       }
     });
   }

@@ -1,14 +1,13 @@
 package net.jmhossler.roastd.data.shop;
 
+import java.util.List;
 import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
-
-import java.util.Map;
 
 public interface ShopDataSource extends BaseDataSource {
 
   interface LoadShopsCallback {
 
-    void onShopsLoaded(Map<String, Shop> shops);
+    void onShopsLoaded(List<Shop> shops);
 
     void onDataNotAvailable();
   }

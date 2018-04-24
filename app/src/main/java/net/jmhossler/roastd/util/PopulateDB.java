@@ -10,10 +10,7 @@ import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
 import net.jmhossler.roastd.data.shop.Shop;
 import net.jmhossler.roastd.data.shop.ShopDataSource;
 
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.UUID;
 
 public class PopulateDB {
 

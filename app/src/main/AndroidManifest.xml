@@ -31,11 +31,9 @@
       android:resource="@array/preloaded_fonts" />
 
     <activity android:name=".applicationtask.ApplicationActivity" />
-    <activity
-      android:name=".viewtask.SearchableItemActivity"
-      android:label="@string/title_item_detail"
-      android:theme="@style/AppTheme.NoActionBar">
-    </activity>
+    <activity android:name=".beantask.BeanActivity" />
+    <activity android:name=".drinktask.DrinkActivity" />
+    <activity android:name=".shoptask.ShopActivity"></activity>
   </application>
 
 </manifest>
