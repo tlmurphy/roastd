@@ -5,30 +5,28 @@ import android.support.annotation.Nullable;
 
 import net.jmhossler.roastd.data.searchableItem.SearchableItem;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.UUID;
-
 // Description: Data object to encapsulate drink. Adds type (brew type), price, and image
-public class Drink extends SearchableItem implements Serializable {
+public class Drink extends SearchableItem {
   @Nullable
   private String type;
 
   @Nullable
-  private BigDecimal price;
+  private Double price;
+
+  @NonNull
+  private String shopUUID;
 
   public Drink() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Drink(@NonNull UUID uuid, @NonNull String name,
+  public Drink(@NonNull String uuid, @NonNull String name,
                @Nullable String description, @Nullable byte[] image,
-               @NonNull ArrayList<String> reviewIds,
-               @Nullable String type, @Nullable BigDecimal price) {
-    super(uuid, name, description, image, reviewIds);
+               @Nullable String type, @Nullable Double price, @NonNull String shopUUID) {
+    super(uuid, name, description, image);
     this.setType(type);
     this.setPrice(price);
+    this.setShopUUID(shopUUID);
   }
 
   @Nullable
@@ -41,11 +39,15 @@ public class Drink extends SearchableItem implements Serializable {
   }
 
   @Nullable
-  public BigDecimal getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(@Nullable BigDecimal price) {
+  public void setPrice(@Nullable Double price) {
     this.price = price;
+  }
+
+  public void setShopUUID(@NonNull String shopUUID) {
+    this.shopUUID = shopUUID;
   }
 }

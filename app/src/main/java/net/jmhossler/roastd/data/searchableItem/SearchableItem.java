@@ -3,14 +3,13 @@ package net.jmhossler.roastd.data.searchableItem;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 // Description: Superclass for Bean/Shop/Drink to demonstrate their relationships.
 public abstract class SearchableItem {
   @NonNull
-  private UUID uuid;
+  private String uuid;
 
   @NonNull
   private String name;
@@ -22,28 +21,27 @@ public abstract class SearchableItem {
   private byte[] image;
 
   @NonNull
-  private ArrayList<String> reviewIds;
+  private Map<String, Boolean> reviewIds;
 
   public SearchableItem() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public SearchableItem(@NonNull UUID uuid, @NonNull String name,
-                        @Nullable String description, @Nullable byte[] image,
-                        @NonNull ArrayList<String> reviewIds) {
+  public SearchableItem(@NonNull String uuid, @NonNull String name,
+                        @Nullable String description, @Nullable byte[] image) {
     this.setUuid(uuid);
     this.setName(name);
     this.setDescription(description);
     this.setImage(image);
-    this.setReviewIds(reviewIds);
+    this.reviewIds = new HashMap<>();
   }
 
   @NonNull
-  public UUID getUuid() {
+  public String getUuid() {
     return uuid;
   }
 
-  public void setUuid(@NonNull UUID uuid) {
+  public void setUuid(@NonNull String uuid) {
     this.uuid = uuid;
   }
 
@@ -75,11 +73,19 @@ public abstract class SearchableItem {
   }
 
   @NonNull
-  public List<String> getReviewIds() {
+  public Map getReviewIds() {
     return reviewIds;
   }
 
-  public void setReviewIds(@NonNull ArrayList<String> reviewIds) {
+  public void setReviewIds(@NonNull Map reviewIds) {
     this.reviewIds = reviewIds;
+  }
+
+  public void addReviewId(@NonNull String review) {
+    this.reviewIds.put(review, true);
+  }
+
+  public void removeReviewId(@NonNull String review) {
+    this.reviewIds.remove(review);
   }
 }

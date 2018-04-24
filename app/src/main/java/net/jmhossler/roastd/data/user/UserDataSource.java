@@ -1,6 +1,5 @@
 package net.jmhossler.roastd.data.user;
 
-import java.util.List;
 
 public interface UserDataSource {
 

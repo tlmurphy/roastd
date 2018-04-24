@@ -1,7 +1,5 @@
 package net.jmhossler.roastd.data.user;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -10,7 +8,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseRTUserRepository implements UserDataSource {
 
-  private static final String TAG = "FirebaseRTUserRepository";
   private static FirebaseRTUserRepository sInstance = null;
   private static DatabaseReference mDatabase;
 

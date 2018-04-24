@@ -1,7 +1,6 @@
 package net.jmhossler.roastd.data.review;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 public interface ReviewDataSource {
 
@@ -14,12 +13,12 @@ public interface ReviewDataSource {
 
   interface LoadReviewsCallback {
 
-    void onReviewsLoaded(List<Review> reviews);
+    void onReviewsLoaded(Map<String, Review> reviews);
 
     void onDataNotAvailable();
   }
 
-  void getReview(UUID reviewId, GetReviewCallback callback);
+  void getReview(String reviewId, GetReviewCallback callback);
 
   void getReviews(LoadReviewsCallback callback);
 

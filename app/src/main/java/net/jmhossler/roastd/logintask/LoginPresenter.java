@@ -2,6 +2,7 @@ package net.jmhossler.roastd.logintask;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -13,8 +14,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
 import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -105,8 +112,7 @@ public class LoginPresenter implements LoginContract.Presenter {
   private void addUserToDatabase() {
     FirebaseUser firebaseUser = mAuth.getCurrentUser();
     User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(),
-      firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());
-
+    firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());
     dataSource.saveUser(user);
   }
 

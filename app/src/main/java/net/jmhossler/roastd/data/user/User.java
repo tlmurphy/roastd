@@ -3,14 +3,13 @@ package net.jmhossler.roastd.data.user;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+
 
 // Description: Data object for a user. Contains unique user id, email, name, photoURL,
 //   and favoriteUuids
-public class User implements Serializable{
+public class User {
 
   @NonNull
   private String uuid;
@@ -25,7 +24,7 @@ public class User implements Serializable{
   private String photoURL;
 
   @NonNull
-  private Map<UUID, Boolean> favoriteUUIDs;
+  private Map<String, Boolean> favoriteUUIDs;
 
   public User() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -100,11 +99,11 @@ public class User implements Serializable{
     this.favoriteUUIDs = favoriteUUIDs;
   }
 
-  public void addFavoriteUUID(@NonNull UUID favorite) {
+  public void addFavoriteUUID(@NonNull String favorite) {
     this.favoriteUUIDs.put(favorite, true);
   }
 
-  public void removeFavoriteUUID(@NonNull UUID favorite) {
+  public void removeFavoriteUUID(@NonNull String favorite) {
     this.favoriteUUIDs.remove(favorite);
   }
 }

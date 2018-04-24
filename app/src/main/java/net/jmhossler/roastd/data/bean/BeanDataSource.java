@@ -1,7 +1,6 @@
 package net.jmhossler.roastd.data.bean;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 public interface BeanDataSource {
 
@@ -14,12 +13,12 @@ public interface BeanDataSource {
 
   interface LoadBeansCallback {
 
-    void onBeansLoaded(List<Bean> beans);
+    void onBeansLoaded(Map<String, Bean> beans);
 
     void onDataNotAvailable();
   }
 
-  void getBean(UUID beanId, GetBeanCallback callback);
+  void getBean(String beanId, GetBeanCallback callback);
 
   void getBeans(LoadBeansCallback callback);
 

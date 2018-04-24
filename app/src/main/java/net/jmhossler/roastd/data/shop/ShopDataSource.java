@@ -1,7 +1,6 @@
 package net.jmhossler.roastd.data.shop;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 public interface ShopDataSource {
 
@@ -14,16 +13,16 @@ public interface ShopDataSource {
 
   interface LoadShopsCallback {
 
-    void onShopsLoaded(List<Shop> shops);
+    void onShopsLoaded(Map<String, Shop> shops);
 
     void onDataNotAvailable();
   }
 
-  void getShop(UUID shopId, GetShopCallback callback);
+  void getShop(String shopId, GetShopCallback callback);
 
   void getShops(LoadShopsCallback callback);
 
   void saveShop(Shop shop);
 
-  void deleteShop(UUID shopId);
+  void deleteShop(String shopId);
 }

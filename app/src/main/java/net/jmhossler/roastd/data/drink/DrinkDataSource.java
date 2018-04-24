@@ -1,7 +1,6 @@
 package net.jmhossler.roastd.data.drink;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 public interface DrinkDataSource {
 
@@ -14,12 +13,12 @@ public interface DrinkDataSource {
 
   interface LoadDrinksCallback {
 
-    void onDrinksLoaded(List<Drink> beans);
+    void onDrinksLoaded(Map<String, Drink> beans);
 
     void onDataNotAvailable();
   }
 
-  void getDrink(UUID drinkId, GetDrinkCallback callback);
+  void getDrink(String drinkId, GetDrinkCallback callback);
 
   void getDrinks(LoadDrinksCallback callback);
 

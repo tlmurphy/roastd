@@ -2,15 +2,12 @@ package net.jmhossler.roastd.data.review;
 
 import android.support.annotation.NonNull;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 // Description: Object to contain an individual review by a user for a SearchableItem. This
 //    connects the rating, the user, and the SearchableItem. Each SearchableItem has a reference
 //    to the reviews id
-public class Review implements Serializable {
+public class Review {
   @NonNull
-  private UUID uuid;
+  private String uuid;
 
   @NonNull
   private String userUuid;
@@ -24,7 +21,7 @@ public class Review implements Serializable {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Review(@NonNull UUID uuid, @NonNull String userUuid,
+  public Review(@NonNull String uuid, @NonNull String userUuid,
                 @NonNull int score) {
     this.setUuid(uuid);
     this.setUserUuid(userUuid);
@@ -32,11 +29,11 @@ public class Review implements Serializable {
   }
 
   @NonNull
-  public UUID getUuid() {
+  public String getUuid() {
     return uuid;
   }
 
-  public void setUuid(@NonNull UUID uuid) {
+  public void setUuid(@NonNull String uuid) {
     this.uuid = uuid;
   }
 
