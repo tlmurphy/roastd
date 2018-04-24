@@ -7,6 +7,9 @@ Gemfile
 Gemfile.lock
 _site/
 
+# Cloud functions
+cloud/functions/node_modules/
+
 # Built application files
 /*/build/
 build/
