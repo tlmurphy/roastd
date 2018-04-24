@@ -6,13 +6,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
+
 import java.util.Map;
 
-public class FirebaseRTShopRepository implements ShopDataSource {
+public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implements ShopDataSource {
 
   private static FirebaseRTShopRepository sInstance = null;
   private static DatabaseReference mDatabase;
-
 
   public static FirebaseRTShopRepository getInstance() {
     if (sInstance == null) {
@@ -23,12 +24,12 @@ public class FirebaseRTShopRepository implements ShopDataSource {
   }
 
   @Override
-  public void getShop(String shopId, GetShopCallback callback) {
+  public void get(String shopId, GetCallback callback) {
     mDatabase.child("shops/" + shopId).addListenerForSingleValueEvent(
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onShopLoaded(dataSnapshot.getValue(Shop.class));
+          callback.onLoaded(dataSnapshot.getValue(Shop.class));
         }
 
         @Override

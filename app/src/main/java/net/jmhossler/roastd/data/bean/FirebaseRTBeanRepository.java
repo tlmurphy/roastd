@@ -6,9 +6,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
+import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
+
 import java.util.Map;
 
-public class FirebaseRTBeanRepository implements BeanDataSource {
+public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implements BeanDataSource {
 
   private static FirebaseRTBeanRepository sInstance = null;
   private static DatabaseReference mDatabase;
@@ -22,12 +25,12 @@ public class FirebaseRTBeanRepository implements BeanDataSource {
   }
 
   @Override
-  public void getBean(String beanId, GetBeanCallback callback) {
+  public void get(String beanId, GetCallback callback) {
     mDatabase.child("beans/" + beanId).addListenerForSingleValueEvent(
       new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
-        callback.onBeanLoaded(dataSnapshot.getValue(Bean.class));
+        callback.onLoaded(dataSnapshot.getValue(Bean.class));
       }
 
       @Override

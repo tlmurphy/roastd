@@ -1,24 +1,17 @@
 package net.jmhossler.roastd.data.drink;
 
+import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
+
 import java.util.Map;
 
-public interface DrinkDataSource {
-
-  interface GetDrinkCallback {
-
-    void onDrinkLoaded(Drink bean);
-
-    void onDataNotAvailable();
-  }
+public interface DrinkDataSource extends BaseDataSource {
 
   interface LoadDrinksCallback {
 
-    void onDrinksLoaded(Map<String, Drink> beans);
+    void onDrinksLoaded(Map<String, Drink> drinks);
 
     void onDataNotAvailable();
   }
-
-  void getDrink(String drinkId, GetDrinkCallback callback);
 
   void getDrinks(LoadDrinksCallback callback);
 

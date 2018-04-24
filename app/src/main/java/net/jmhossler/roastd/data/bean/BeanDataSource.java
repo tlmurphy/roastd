@@ -1,15 +1,10 @@
 package net.jmhossler.roastd.data.bean;
 
+import net.jmhossler.roastd.data.searchableItem.BaseDataSource;
+
 import java.util.Map;
 
-public interface BeanDataSource {
-
-  interface GetBeanCallback {
-
-    void onBeanLoaded(Bean bean);
-
-    void onDataNotAvailable();
-  }
+public interface BeanDataSource extends BaseDataSource {
 
   interface LoadBeansCallback {
 
@@ -17,8 +12,6 @@ public interface BeanDataSource {
 
     void onDataNotAvailable();
   }
-
-  void getBean(String beanId, GetBeanCallback callback);
 
   void getBeans(LoadBeansCallback callback);
 
