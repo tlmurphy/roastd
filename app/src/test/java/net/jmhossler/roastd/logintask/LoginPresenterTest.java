@@ -23,6 +23,8 @@ import org.mockito.MockitoAnnotations;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import net.jmhossler.roastd.data.user.UserDataSource;
+
 import static org.mockito.Mockito.verify;
 
 /**
@@ -38,6 +40,9 @@ public class LoginPresenterTest {
   @Mock
   private FirebaseAuth mAuth;
 
+  @Mock
+  private UserDataSource dataSource;
+
   @Before
   public void setupTasksPresenter() {
     // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
@@ -45,13 +50,13 @@ public class LoginPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     // Get a reference to the class under test
-    mLoginPresenter = new LoginPresenter(mLoginView, mAuth);
+    mLoginPresenter = new LoginPresenter(mLoginView, mAuth, dataSource);
   }
 
   @Test
   public void createPresenter_setsThePresenterToView() {
     // Get a reference to the class under test
-    mLoginPresenter = new LoginPresenter(mLoginView, mAuth);
+    mLoginPresenter = new LoginPresenter(mLoginView, mAuth, dataSource);
 
     // Then the presenter is set to the view
     verify(mLoginView).setPresenter(mLoginPresenter);

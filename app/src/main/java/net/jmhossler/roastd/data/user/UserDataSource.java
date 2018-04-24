@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.data.user;
 
+import java.util.List;
+
 public interface UserDataSource {
 
   interface GetUserCallback {
@@ -12,4 +14,5 @@ public interface UserDataSource {
   void getUser(String userId, GetUserCallback callback);
 
   void saveUser(User user);
+
 }

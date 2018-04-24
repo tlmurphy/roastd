@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import net.jmhossler.roastd.R;
+import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
+import net.jmhossler.roastd.data.user.UserDataSource;
 import net.jmhossler.roastd.util.ActivityUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         loginFragment, R.id.loginFrame);
     }
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    UserDataSource dataSource = FirebaseRTUserRepository.getsInstance();
 
-    mLoginPresenter = new LoginPresenter(loginFragment, firebaseAuth);
+    mLoginPresenter = new LoginPresenter(loginFragment, firebaseAuth, dataSource);
   }
 }

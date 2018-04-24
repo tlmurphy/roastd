@@ -4,12 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 // Description: Data object for a user. Contains unique user id, email, name, photoURL,
-//    shopIds, isAdmin, createdOn, and favoriteUuids
+//   and favoriteUuids
 public class User implements Serializable{
 
   @NonNull
@@ -24,42 +24,21 @@ public class User implements Serializable{
   @Nullable
   private String photoURL;
 
-  // This is the list of shop ids that the user managers. Could it make sense
-  //    to just have this as the distinguishing factor between managers and regular users?
-  //    If it is this way, we keep the user in the same place, just add shopIds to their
-  //    shopIds list in the database and bam, their a manager.
   @NonNull
-  private List<UUID> shopIds;
-
-  // ?? I thought maybe if we remove the manager class, we could remove the admin
-  //    class as well. idk, let me know what you guys think
-  @NonNull
-  private boolean isAdmin;
-
-  @NonNull
-  private Date createdOn;
-
-  // I am completely happy with renaming this. These uuids are the uuids of the SearchableItems that
-  //    the user has favorited. This way, we have access to that information.
-  @NonNull
-  private List<UUID> favoriteUuids;
+  private Map<UUID, Boolean> favoriteUUIDs;
 
   public User() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
   public User(@NonNull String uuid, @NonNull String email,
-              @NonNull String name, @Nullable String photoURL,
-              @NonNull List<UUID> shopIds, @NonNull boolean isAdmin,
-              @NonNull Date createdOn, @NonNull List<UUID> favoriteUuids) {
+              @NonNull String name, @Nullable String photoURL) {
     this.setUuid(uuid);
     this.setEmail(email);
     this.setName(name);
     this.setPhotoURL(photoURL);
-    this.setAdmin(isAdmin);
-    this.setShopIds(shopIds);
-    this.setCreatedOn(createdOn);
-    this.setFavoriteUuids(favoriteUuids);
+    this.favoriteUUIDs = new HashMap<>();
+
   }
 
   @Override
@@ -113,38 +92,19 @@ public class User implements Serializable{
   }
 
   @NonNull
-  public List<UUID> getShopIds() {
-    return shopIds;
+  public Map getFavoriteUUIDs() {
+    return favoriteUUIDs;
   }
 
-  public void setShopIds(@NonNull List<UUID> shopIds) {
-    this.shopIds = shopIds;
+  public void setFavoriteUUIDs(@NonNull Map favoriteUUIDs) {
+    this.favoriteUUIDs = favoriteUUIDs;
   }
 
-  @NonNull
-  public boolean isAdmin() {
-    return isAdmin;
+  public void addFavoriteUUID(@NonNull UUID favorite) {
+    this.favoriteUUIDs.put(favorite, true);
   }
 
-  public void setAdmin(@NonNull boolean admin) {
-    isAdmin = admin;
-  }
-
-  @NonNull
-  public Date getCreatedOn() {
-    return createdOn;
-  }
-
-  public void setCreatedOn(@NonNull Date createdOn) {
-    this.createdOn = createdOn;
-  }
-
-  @NonNull
-  public List<UUID> getFavoriteUuids() {
-    return favoriteUuids;
-  }
-
-  public void setFavoriteUuids(@NonNull List<UUID> favoriteUuids) {
-    this.favoriteUuids = favoriteUuids;
+  public void removeFavoriteUUID(@NonNull UUID favorite) {
+    this.favoriteUUIDs.remove(favorite);
   }
 }

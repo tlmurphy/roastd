@@ -1,6 +1,5 @@
 package net.jmhossler.roastd.data.review;
 
-import net.jmhossler.roastd.data.user.MockUserRepository;
 import net.jmhossler.roastd.data.user.User;
 
 import java.util.ArrayList;
@@ -23,15 +22,7 @@ public class MockReviewRepository implements ReviewDataSource {
   public static MockReviewRepository getInstance() {
     if (sInstance == null) {
       sInstance = new MockReviewRepository();
-
-      User u = new User("4-4-4-4-4", "mock@mock.com", "Isaac Brock",
-        "https://consequenceofsound.files.wordpress.com/2015/04/modest-mouse.jpg?quality=80",
-        new ArrayList<>(), false, new Date(), new ArrayList<>());
-
-      MockUserRepository.getInstance().saveUser(u);
-
       sReviews = new ArrayList<>();
-      sReviews.add(new Review(UUID.fromString("5-5-5-5-5"), u.getUuid(), 3));
     }
     return sInstance;
   }
