@@ -13,9 +13,9 @@ public class Drink extends SearchableItem {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Drink(String uuid,  String name, String description,  byte[] image, String type,
+  public Drink(String uuid,  String name, String description,  String imageUrl, String type,
                Double price,  String shopUUID, Map<String, Boolean> reviewIds) {
-    super(uuid, name, description, image, reviewIds, shopUUID);
+    super(uuid, name, description, imageUrl, reviewIds, shopUUID);
     setType(type);
     setPrice(price);
   }

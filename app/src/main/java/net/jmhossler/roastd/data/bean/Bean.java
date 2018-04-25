@@ -13,9 +13,9 @@ public class Bean extends SearchableItem {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Bean(String uuid, String name, String description,  byte[] image, String roastType,
+  public Bean(String uuid, String name, String description,  String imageUrl, String roastType,
               String origin,  String shopUUID, Map<String, Boolean> reviewIds) {
-    super(uuid, name, description, image, reviewIds, shopUUID);
+    super(uuid, name, description, imageUrl, reviewIds, shopUUID);
     setRoastType(roastType);
     setOrigin(origin);
   }

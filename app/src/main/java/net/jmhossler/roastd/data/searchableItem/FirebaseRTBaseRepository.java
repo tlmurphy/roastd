@@ -19,7 +19,7 @@ public abstract class FirebaseRTBaseRepository implements BaseDataSource {
       si.setDescription("");
     }
     if (si.getImage() == null) {
-      si.setImage(new byte[0]);
+      si.setImage("");
     }
     if (si.getReviewIds() == null) {
       si.setReviewIds(new HashMap<>());

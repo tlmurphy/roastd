@@ -17,9 +17,9 @@ public class Shop extends SearchableItem {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Shop(String uuid, String name, String description, byte[] image, String address,
+  public Shop(String uuid, String name, String description, String imageUrl, String address,
               String googleMapsUrl, Map<String, Boolean> itemUUIDs, Map<String, Boolean> reviewIds) {
-    super(uuid, name, description, image, reviewIds, "");
+    super(uuid, name, description, imageUrl, reviewIds, "");
     setAddress(address);
     setGoogleMapsUrl(googleMapsUrl);
     setItemUUIDs(itemUUIDs);

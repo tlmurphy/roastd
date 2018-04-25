@@ -72,7 +72,9 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
 
   @Override
   public void navigateToShop(String shopId) {
-    startActivity(new Intent(getContext(), ShopActivity.class));
+    Intent intent = new Intent(getContext(), ShopActivity.class);
+    intent.putExtra("SHOP_ID", shopId);
+    startActivity(intent);
   }
 
   @Override

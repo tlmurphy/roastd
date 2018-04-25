@@ -11,83 +11,75 @@ public abstract class SearchableItem {
   private String uuid;
   private String name;
   private String description;
-  private byte[] image;
-
-  @NonNull
+  private String imageUrl;
   private Map<String, Boolean> reviewIds;
-
   private String shopUUID;
 
   public SearchableItem() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public SearchableItem(String uuid, String name, String description, byte[] image,
+  public SearchableItem(String uuid, String name, String description, String imageUrl,
                         Map<String, Boolean> reviewIds, String shopUuid) {
     setUuid(uuid);
     setName(name);
     setDescription(description);
-    setImage(image);
+    setImage(imageUrl);
     setReviewIds(reviewIds);
     setShopUUID(shopUuid);
   }
 
-  @NonNull
   public String getUuid() {
     return uuid;
   }
 
-  public void setUuid(@NonNull String uuid) {
+  public void setUuid(String uuid) {
     this.uuid = uuid;
   }
 
-  @NonNull
   public String getName() {
     return name;
   }
 
-  public void setName(@NonNull String name) {
+  public void setName(String name) {
     this.name = name;
   }
 
-  @Nullable
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(@Nullable String description) {
+  public void setDescription(String description) {
     this.description = description;
   }
 
-  @Nullable
-  public byte[] getImage() {
-    return image;
+  public String getImage() {
+    return imageUrl;
   }
 
-  public void setImage(@Nullable byte[] image) {
-    this.image = image;
+  public void setImage(String image) {
+    this.imageUrl = image;
   }
 
-  @NonNull
   public Map<String, Boolean> getReviewIds() {
     return reviewIds;
   }
 
-  public void setReviewIds(@NonNull Map<String, Boolean> reviewIds) {
+  public void setReviewIds(Map<String, Boolean> reviewIds) {
     this.reviewIds = reviewIds;
   }
 
-  public void addReviewId(@NonNull String review) {
+  public void addReviewId(String review) {
     reviewIds.put(review, true);
   }
 
-  public void removeReviewId(@NonNull String review) {
+  public void removeReviewId(String review) {
     reviewIds.remove(review);
   }
 
   public String getShopUUID() {return shopUUID;}
 
-  public void setShopUUID(@NonNull String shopUUID) {
+  public void setShopUUID(String shopUUID) {
     this.shopUUID = shopUUID;
   }
 }
