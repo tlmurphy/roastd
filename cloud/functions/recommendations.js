@@ -8,25 +8,23 @@ const recommendations = {};
  * Creates a comparison table data structure to use in creating recommendations
  * @param {Array(users, drinks)} data user and drink data retreived from realtime database
  */
-recommendations.buildComparisonTable = (data) => {
+recommendations.buildComparisonTable = (data, userId) => {
   const table = [];
+  const users = [];
   const drinks = Object.keys(data.drinks);
-  const users = Object.keys(data.users).map(key => {
-    return Object.assign({}, data.users[key], { id: key });
+
+  Object.keys(data.users).forEach(key => {
+    if (key === userId) return;
+    users.push(Object.assign({}, data.users[key], { id: key }));
   });
 
   users.forEach(user => {
-    const favoritesMap = {};
-    const favoriteDrinks = user.favoriteDrinks || [];
+    const favoritesMap = user.favoriteUUIDs || {};
     table.push([]);
-
-    user.favoriteDrinks.map(drinkId => {
-      favoritesMap[drinkId] = 1;
-    });
 
     drinks.forEach(drinkId => {
       table[table.length - 1].push(
-        favoritesMap[drinkId] || 0
+        favoritesMap[drinkId] || false
       );
     });
   });
@@ -51,53 +49,54 @@ recommendations.getData = () => {
   return fetchData
     .then((data) => {
       return {
-        shops: data[0].val(),
+        users: data[0].val(),
         drinks: data[1].val()
       };
     });
 };
 
-recommendations.computeRecommendations = (tableData) => {
+recommendations.computeRecommendations = (tableData, user) => {
   const { table, users, drinks } = tableData;
-  const updates = {};
+  const favoriteUUIDs = user.favoriteUUIDs || {};
 
   // get the count of favorites that are the same
-  const countSame = (userOneFavs, userTwoFavs) => {
+  const countSame = (row) => {
     let value = 0;
-    userOneFavs.forEach((v, i) => {
-      if (userTwoFavs[i] === v) value += 1;
+    row.forEach((v, i) => {
+      if (favoriteUUIDs[drinks[i]]) value += 1;
     });
 
     return value;
   };
 
-  // TODO - eventually modify this to build for one user, not all
-  users.forEach((user, i) => {
-    const counts = [];
-    const recommendationIds = [];
-    const userRow = table[i];
+  const counts = [];
+  const recommendationUUIDS = {};
 
-    // find users with the most similar favorites list
-    table.forEach((row, j) => {
-      if (j === i) return;
-      counts.push({ index: j, value: countSame(userRow, row)});
+  // find users with the most similar favorites list
+  table.forEach((row, j) => {
+    counts.push({ index: j, value: countSame(row)});
+  });
+  counts.sort((a, b) => b.value - a.value);
+
+  // add drinks from similar users that are not already favorited
+  counts.forEach((count) => {
+    if (Object.keys(recommendationUUIDS).length > 5) return false;
+    if (count.value === 0) return false;
+
+    const currentRow = table[count.index];
+
+    currentRow.forEach((val, i) => {
+      if (Object.keys(recommendationUUIDS).length > 5) return false;
+      if (!favoriteUUIDs[drinks[i]]) recommendationUUIDS[drinks[i]] = true;
     });
-    counts.sort((a, b) => b.value - a.value);
-
-    // add drinks from similar users that are not already favorited
-    counts.forEach((count) => {
-      if (recommendationIds.length > 9) return false;
-      const currentRow = table[count.index];
-
-      currentRow.forEach((val, i) => {
-        if (val && userRow[i] !== val) recommendationIds.push(drinks[i]);
-      });
-    });
-
-    updates[user.id] = { recommendations: recommendationIds };
   });
 
-  return updates;
+  return recommendationUUIDS;
+};
+
+recommendations.saveRecommendations = (recommendationUUIDS, userId) => {
+  const ref = admin.database().ref('/users/' + userId);
+  return ref.update({ recommendationUUIDS });
 };
 
 /**
@@ -105,11 +104,26 @@ recommendations.computeRecommendations = (tableData) => {
  * @param {Object} snapshot the updated object
  * @param {Object} context
  */
-recommendations.generateRecommendations = (req, res) => {
-  recommendations.getData()
-    .then(recommendations.buildComparisonTable)
-    .then(recommendations.computeRecommendations)
-    .catch(console.log);
+recommendations.generateRecommendations = (changes, context) => {
+  const before = changes.before.val();
+  const user = changes.after.val();
+  const userId = context.params.userId;
+
+  const countBefore = Object.keys(before.favoriteUUIDs || {}).length;
+  const countAfter = Object.keys(user.favoriteUUIDs || {}).length;
+
+  if (countBefore === countAfter) return Promise.resolve();
+
+  return recommendations.getData()
+    .then((data) => {
+      return recommendations.buildComparisonTable(data, userId);
+    })
+    .then((tableData) => {
+      return recommendations.computeRecommendations(tableData, user);
+    })
+    .then((recommendationUUIDS) => {
+      return recommendations.saveRecommendations(recommendationUUIDS, userId);
+    });
 };
 
 module.exports = recommendations;

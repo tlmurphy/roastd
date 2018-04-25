@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const recommendations = require('./recommendations');
 const search = require('./search');
 
-exports.generateRecommendations = functions.https.onRequest(
+exports.generateRecommendations = functions.database.ref('/users/{userId}/').onUpdate(
   recommendations.generateRecommendations
 );
 
@@ -17,4 +17,3 @@ exports.onDrinkCreated = functions.database.ref('/drinks/{drinkId}/').onCreate(
 exports.onBeanCreated = functions.database.ref('/beans/{beanId}/').onCreate(
   search.onBeanCreate
 );
-
