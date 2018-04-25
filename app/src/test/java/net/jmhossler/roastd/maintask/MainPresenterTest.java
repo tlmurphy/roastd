@@ -16,6 +16,8 @@
 
 package net.jmhossler.roastd.maintask;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -31,6 +33,7 @@ public class MainPresenterTest {
 
   @Mock
   private MainContract.View mMainView;
+  private FirebaseAuth mAuth;
 
   private MainPresenter mMainPresenter;
 
@@ -41,13 +44,13 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     // Get a reference to the class under test
-    mMainPresenter = new MainPresenter(mMainView);
+    mMainPresenter = new MainPresenter(mMainView, mAuth);
   }
 
   @Test
   public void createPresenter_setsThePresenterToView() {
     // Get a reference to the class under test
-    mMainPresenter = new MainPresenter(mMainView);
+    mMainPresenter = new MainPresenter(mMainView, mAuth);
 
     // Then the presenter is set to the view
     verify(mMainView).setPresenter(mMainPresenter);

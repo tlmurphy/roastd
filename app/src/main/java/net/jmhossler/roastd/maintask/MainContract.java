@@ -13,5 +13,8 @@ public interface MainContract {
 
   interface Presenter extends BasePresenter {
     void result(int requestCode, int resultCode);
+    String getDisplayName();
+    String getFirstName();
+    String getCurrentPhotoURL();
   }
 }

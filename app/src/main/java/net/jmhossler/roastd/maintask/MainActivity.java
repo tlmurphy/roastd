@@ -2,6 +2,9 @@ package net.jmhossler.roastd.maintask;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.util.ActivityUtils;
 
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         mainFragment, R.id.mainFrame);
     }
 
-    mMainPresenter = new MainPresenter(mainFragment);
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    mMainPresenter = new MainPresenter(mainFragment, firebaseAuth);
   }
 }

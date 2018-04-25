@@ -11,7 +11,7 @@ const search = {};
 search.onShopCreate = (snapshot, context) => {
   const shop = snapshot.val();
 
-  shop.objectId = context.params.shopId;
+  shop.objectID = context.params.shopId;
 
   const index = client.initIndex('shops');
   return index.saveObject(shop);
@@ -20,7 +20,7 @@ search.onShopCreate = (snapshot, context) => {
 search.onDrinkCreate = (snapshot, context) => {
   const drink = snapshot.val();
 
-  shop.objectId = context.params.drinkId;
+  drink.objectID = context.params.drinkId;
 
   const index = client.initIndex('drinks');
   return index.saveObject(drink);
@@ -29,7 +29,7 @@ search.onDrinkCreate = (snapshot, context) => {
 search.onBeanCreate = (snapshot, context) => {
   const bean = snapshot.val();
 
-  shop.objectId = context.params.beanId;
+  bean.objectID = context.params.beanId;
 
   const index = client.initIndex('beans');
   return index.saveObject(bean);

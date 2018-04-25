@@ -1,6 +1,7 @@
 package net.jmhossler.roastd.maintask;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.data.searchableItem.FirebaseRTSearchableItemRepository;
@@ -21,6 +26,9 @@ import net.jmhossler.roastd.profiletask.ProfileActivity;
 import net.jmhossler.roastd.searchtask.SearchActivity;
 import net.jmhossler.roastd.util.ActivityUtils;
 
+import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;
 
 
@@ -33,8 +41,12 @@ public class MainFragment extends Fragment implements MainContract.View {
   private static final int RC_SIGN_IN = 9001;
 
   private Button mSearchButton;
-  private Button mProfileButton;
-  private Button mFavoritesButton;
+  private RelativeLayout mFavoritesButton;
+  private RelativeLayout mProfile;
+  private TextView mGreetingLabel;
+  private TextView mNameLabel;
+  private TextView mProfileLabel;
+  private CircleImageView mProfilePhoto;
 
   private MainContract.Presenter mPresenter;
 
@@ -75,11 +87,32 @@ public class MainFragment extends Fragment implements MainContract.View {
     mSearchButton = root.findViewById(R.id.start_search_activity_button);
     mSearchButton.setOnClickListener(v -> startActivity(new Intent(getContext(), SearchActivity.class)));
 
-    mProfileButton = root.findViewById(R.id.start_profile_activity_button);
-    mProfileButton.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), ProfileActivity.class), RC_SIGN_OUT));
+    mProfile = root.findViewById(R.id.profile);
+    mProfile.setOnClickListener(v -> startActivityForResult(new Intent(getContext(), ProfileActivity.class), RC_SIGN_OUT));
 
-    mFavoritesButton = root.findViewById(R.id.start_favorites_activity_button);
+    mFavoritesButton = root.findViewById(R.id.favorites_button);
     mFavoritesButton.setOnClickListener(v -> startActivity(new Intent(getContext(), FavoritesActivity.class)));
+
+    mGreetingLabel = root.findViewById(R.id.greeting_label);
+    int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);;
+    String greeting = getString(R.string.greeting_morning);
+
+    if (hour > 17) {
+      greeting = getString(R.string.greeting_evening);
+    } else if (hour > 11) {
+      greeting = getString(R.string.greeting_afternoon);
+    }
+
+    mGreetingLabel.setText(greeting);
+
+    mNameLabel = root.findViewById(R.id.name_label);
+    mNameLabel.setText(mPresenter.getFirstName() + "!");
+
+    mProfilePhoto = root.findViewById(R.id.profile_image);
+    Glide.with(getContext()).load(mPresenter.getCurrentPhotoURL()).thumbnail(0.5f).into(mProfilePhoto);
+
+    mProfileLabel = root.findViewById(R.id.profile_label);
+    mProfileLabel.setText(mPresenter.getDisplayName());
 
     return root;
   }

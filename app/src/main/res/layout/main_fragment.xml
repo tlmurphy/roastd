@@ -1,31 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
-  android:gravity="center"
+
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:scaleType="centerCrop"
+    android:src="@drawable/main_background"/>
+
+  <RelativeLayout
+    android:id="@+id/profile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/profile_image"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_alignParentStart="true"
+      android:layout_marginTop="15dp"
+      android:layout_marginLeft="15dp"
+      android:src="@drawable/main_background"
+      app:civ_border_width="3dp"
+      app:civ_border_color="@color/colorPrimary"
+      />
+
+    <TextView
+      android:id="@+id/profile_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/lato"
+      android:textColor="@color/white"
+      android:layout_toEndOf="@id/profile_image"
+      android:textSize="20sp"
+      android:layout_marginTop="28dp"
+      android:layout_marginLeft="10dp" />
+  </RelativeLayout>
+
+
   <Button
     android:id="@+id/start_search_activity_button"
-    android:layout_width="match_parent"
+    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:drawableEnd="@drawable/arrow_right"
-    android:padding="24dp"
-    android:text="@string/start_search_activity_button" />
+    android:layout_below="@id/center_anchor"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:background="#ffffff"
+    android:fontFamily="@font/lato"
+    android:padding="22dp"
+    android:text="@string/start_search_activity_button"
+    android:textAlignment="center"
+    android:textAllCaps="false"
+    android:textColor="@color/lightGrey"
+    android:textIsSelectable="false"
+    android:drawableLeft="@drawable/ic_search"
+    android:textSize="18sp" />
 
-  <Button
-    android:id="@+id/start_profile_activity_button"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:drawableEnd="@drawable/arrow_right"
-    android:padding="24dp"
-    android:text="@string/start_search_profile_button" />
+  <View
+    android:id="@+id/center_anchor"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_centerInParent="true" />
 
-  <Button
-    android:id="@+id/start_favorites_activity_button"
-    android:layout_width="match_parent"
+  <TextView
+    android:id="@+id/greeting_label"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawableEnd="@drawable/arrow_right"
-    android:padding="24dp"
-    android:text="Favorites" />
-</LinearLayout>
+    android:layout_above="@+id/name_label"
+    android:layout_centerHorizontal="true"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/white"
+    android:layout_marginBottom="4dp"
+    android:textSize="42sp"
+    android:textStyle="bold" />
+
+  <TextView
+    android:id="@+id/name_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/ready_label"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/white"
+    android:textSize="42sp"
+    android:textStyle="bold" />
+
+  <TextView
+    android:id="@+id/ready_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/start_search_activity_button"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="25dp"
+    android:fontFamily="@font/lato"
+    android:text="@string/main_ready_desc"
+    android:textColor="@color/white"
+    android:textSize="24sp" />
+
+  <RelativeLayout
+    android:id="@+id/favorites_button"
+    android:layout_width="match_parent"
+    android:layout_height="93dp"
+    android:layout_below="@id/start_search_activity_button"
+    android:layout_marginTop="53dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@color/white">
+
+    <ImageView
+      android:id="@+id/heart_icon"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_centerVertical="true"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="20dp"
+      android:src="@drawable/ic_heart_icon"/>
+
+    <View
+      android:id="@+id/favorites_center_anchor"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_centerInParent="true" />
+
+    <TextView
+      android:id="@+id/favorites_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/favorites_center_anchor"
+      android:layout_marginLeft="20dp"
+      android:layout_toEndOf="@id/heart_icon"
+      android:fontFamily="@font/lato"
+      android:layout_marginBottom="3dp"
+      android:text="@string/favorites_title"
+      android:textColor="@color/colorPrimary"
+      android:textSize="20sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/favorites_center_anchor"
+      android:layout_toEndOf="@id/heart_icon"
+      android:layout_marginTop="2dp"
+      android:fontFamily="@font/lato"
+      android:layout_marginLeft="20dp"
+      android:textSize="18sp"
+      android:text="@string/favorites_desc"/>
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/recommendations_button"
+    android:layout_width="match_parent"
+    android:layout_height="93dp"
+    android:layout_below="@id/favorites_button"
+    android:layout_marginTop="18dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@color/white">
+
+    <ImageView
+      android:id="@+id/bolt_icon"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_centerVertical="true"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="20dp"
+      android:src="@drawable/ic_bolt_icon"/>
+
+    <View
+      android:id="@+id/recommendations_center_anchor"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_centerInParent="true" />
+
+    <TextView
+      android:id="@+id/recommendations_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/recommendations_center_anchor"
+      android:layout_marginLeft="20dp"
+      android:layout_toEndOf="@id/bolt_icon"
+      android:fontFamily="@font/lato"
+      android:layout_marginBottom="3dp"
+      android:text="@string/recommendations_title"
+      android:textColor="@color/colorPrimary"
+      android:textSize="20sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/recommendations_center_anchor"
+      android:layout_toEndOf="@id/bolt_icon"
+      android:layout_marginTop="3dp"
+      android:fontFamily="@font/lato"
+      android:layout_marginLeft="20dp"
+      android:textSize="18sp"
+      android:text="@string/recommendations_desc"/>
+  </RelativeLayout>
+</RelativeLayout>
