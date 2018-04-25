@@ -12,6 +12,7 @@ public interface SearchableItemListContract {
     void navigateToShop(String shopId);
     void showProgressBarHideList();
     void hideProgressBarShowList();
+    void finish();
   }
 
   interface Presenter extends BasePresenter {

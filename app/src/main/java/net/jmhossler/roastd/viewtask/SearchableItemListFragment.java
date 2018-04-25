@@ -86,6 +86,11 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     mListRecyclerView.setVisibility(View.VISIBLE);
   }
 
+  @Override
+  public void finish() {
+    getActivity().finish();
+  }
+
   /// Holds the View of each item in the RecyclerView
   static class SearchableItemHolder extends RecyclerView.ViewHolder implements
     SearchableItemListContract.SearchableListItemView, View.OnClickListener{
