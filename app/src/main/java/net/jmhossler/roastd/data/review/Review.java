@@ -6,26 +6,21 @@ import android.support.annotation.NonNull;
 //    connects the rating, the user, and the SearchableItem. Each SearchableItem has a reference
 //    to the reviews id
 public class Review {
-  @NonNull
   private String uuid;
-
-  @NonNull
   private String userUuid;
 
   // It could be useful to shift this to an enum, but I'm not sure how we would do that in
   //    the database as well, so I am putting it as an integer.
-  @NonNull
   private int score;
 
   public Review() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public Review(@NonNull String uuid, @NonNull String userUuid,
-                @NonNull int score) {
-    this.setUuid(uuid);
-    this.setUserUuid(userUuid);
-    this.setScore(score);
+  public Review(String uuid, String userUuid, int score) {
+    setUuid(uuid);
+    setUserUuid(userUuid);
+    setScore(score);
   }
 
   @NonNull

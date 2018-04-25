@@ -6,19 +6,13 @@ import android.support.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-
 // Description: Data object for a user. Contains unique user id, email, name, photoURL,
 //   and favoriteUuids
 public class User {
-
   private String uuid;
-
   private String email;
-
   private String name;
-
   private String photoURL;
-
   private Map<String, Boolean> favoriteUUIDs;
 
   public User() {
@@ -26,12 +20,11 @@ public class User {
   }
 
   public User(String uuid, String email, String name, String photoURL) {
-    this.setUuid(uuid);
-    this.setEmail(email);
-    this.setName(name);
-    this.setPhotoURL(photoURL);
-    this.favoriteUUIDs = new HashMap<>();
-
+    setUuid(uuid);
+    setEmail(email);
+    setName(name);
+    setPhotoURL(photoURL);
+    setFavoriteUUIDs(new HashMap<>());
   }
 
   @Override
@@ -87,10 +80,10 @@ public class User {
   }
 
   public void addFavoriteUUID(@NonNull String favorite) {
-    this.favoriteUUIDs.put(favorite, true);
+    favoriteUUIDs.put(favorite, true);
   }
 
   public void removeFavoriteUUID(@NonNull String favorite) {
-    this.favoriteUUIDs.remove(favorite);
+    favoriteUUIDs.remove(favorite);
   }
 }

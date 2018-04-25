@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.data.shop;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -7,11 +9,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
 
 public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implements ShopDataSource {
 
+  private static final String TAG = "FirebaseRTShopRepository";
   private static FirebaseRTShopRepository sInstance = null;
   private static DatabaseReference mDatabase;
 
@@ -23,13 +27,28 @@ public class FirebaseRTShopRepository extends FirebaseRTBaseRepository implement
     return sInstance;
   }
 
+  private Shop populateNullFields(Shop s) {
+    super.populateNullFields(s);
+    if (s.getAddress() == null) {
+      s.setAddress("");
+    }
+    if (s.getGoogleMapsUrl() == null) {
+      s.setGoogleMapsUrl("");
+    }
+    if (s.getItemUUIDs() == null) {
+      s.setItemUUIDs(new HashMap<>());
+    }
+    return s;
+  }
+
   @Override
   public void get(String shopId, GetCallback callback) {
     mDatabase.child("shops/" + shopId).addListenerForSingleValueEvent(
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onLoaded(dataSnapshot.getValue(Shop.class));
+          Shop s = dataSnapshot.getValue(Shop.class);
+          callback.onLoaded(s != null ? populateNullFields(s) : s);
         }
 
         @Override

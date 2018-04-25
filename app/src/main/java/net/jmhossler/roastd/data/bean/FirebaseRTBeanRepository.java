@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.data.bean;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,6 +14,7 @@ import net.jmhossler.roastd.data.searchableItem.FirebaseRTBaseRepository;
 
 public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implements BeanDataSource {
 
+  private static final String TAG = "FirebaseRTBeanRepository";
   private static FirebaseRTBeanRepository sInstance = null;
   private static DatabaseReference mDatabase;
 
@@ -23,13 +26,25 @@ public class FirebaseRTBeanRepository extends FirebaseRTBaseRepository implement
     return sInstance;
   }
 
+  private Bean populateNullFields(Bean b) {
+    super.populateNullFields(b);
+    if (b.getRoastType() == null) {
+      b.setRoastType("");
+    }
+    if (b.getOrigin() == null) {
+      b.setOrigin("");
+    }
+    return b;
+  }
+
   @Override
   public void get(String beanId, GetCallback callback) {
     mDatabase.child("beans/" + beanId).addListenerForSingleValueEvent(
       new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
-        callback.onLoaded(dataSnapshot.getValue(Bean.class));
+        Bean b = dataSnapshot.getValue(Bean.class);
+        callback.onLoaded(b != null ? populateNullFields(b) : b);
       }
 
       @Override

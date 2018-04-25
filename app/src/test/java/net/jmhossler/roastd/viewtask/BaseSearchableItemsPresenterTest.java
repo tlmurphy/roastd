@@ -34,8 +34,8 @@ public class BaseSearchableItemsPresenterTest {
     MockitoAnnotations.initMocks(this);
     presenter = new FavoritesPresenter(view, firebaseAuth, searchableItemDataSource, userDataSource);
     presenter.mItems = new ArrayList<SearchableItem>();
-    presenter.mItems.add(new Bean("123", "whoa", "epic bean", null, "what is this", "yo mamma", "11111"));
-    presenter.mItems.add(new Drink("321", "nice", "epic drink", null, "a nice drink type", 12345.11, "11111"));
+    presenter.mItems.add(new Bean("123", "whoa", "epic bean", null, "what is this", "yo mamma", "11111", null));
+    presenter.mItems.add(new Drink("321", "nice", "epic drink", null, "a nice drink type", 12345.11, "11111", null));
     presenter.mUser = new User("uuid", "email@yomamma.com", "Ree", "nope");
   }
 

@@ -6,9 +6,9 @@ public class ShopApplicationInfo {
   private String shopAddress;
 
   public ShopApplicationInfo(String shopName, String shopNum, String shopAddress) {
-    this.setShopName(shopName);
-    this.setShopNum(shopNum);
-    this.setShopAddress(shopAddress);
+   setShopName(shopName);
+   setShopNum(shopNum);
+   setShopAddress(shopAddress);
   }
 
   public String getShopName() {

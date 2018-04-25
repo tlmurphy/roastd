@@ -39,98 +39,98 @@ public class PopulateDB {
       "Tuscaloosa, AL 35406",
       "https://www.google.com/maps/dir/''/heritage+coffee+house/@33.2329292,-" +
         "87.6068603,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x8888a85edac31a9f:0x646cf2ec30506713!2m2!1d-87." +
-        "5368202!2d33.2329488", null);
+        "5368202!2d33.2329488", null, null);
 
     Shop s2 = new Shop(String.valueOf(id++), "Monarch Espresso Bar", "tuscaloosa's craft coffee shop",
       null, "714 22nd Avenue, Tuscaloosa, AL 35401", "https://www.google.com/maps/dir/''" +
       "/tuscaloosa+coffee+shops/@33.2082483,-87.6347167,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x888602e95d" +
-      "c6c1e1:0x9c1dea0ab307b013!2m2!1d-87.5646766!2d33.2082679", null);
+      "c6c1e1:0x9c1dea0ab307b013!2m2!1d-87.5646766!2d33.2082679", null, null);
 
     Shop s3 = new Shop(String.valueOf(id++), "Edelweiss", "Since 2007 Ester Scheeff, a native " +
       "German from Stuttgart, has been serving traditional German cakes, pastries, " +
       "and lunch specials with love to all of Tuscaloosa.", null, "2324 4th St. Tuscaloosa, AL 35401",
       "https://www.google.com/maps/dir/''/tuscaloosa+coffee+shops" +
         "/data=!4m5!4m4!1m0!1m2!1m1!1s0x888602e86b74ab49:0xd3d2ceb9509da51f?sa=" +
-        "X&ved=2ahUKEwjY2oro19HaAhVHrFMKHfOgC9AQ9RcwAHoECAAQCQ", null);
+        "X&ved=2ahUKEwjY2oro19HaAhVHrFMKHfOgC9AQ9RcwAHoECAAQCQ", null, null);
 
     Shop s4 = new Shop(String.valueOf(id++), "OHenry's Coffees", "More Than Just Coffee... " +
       "A Community Gathering Place Since 1993", null, "2531 University Blvd #100, Tuscaloosa, AL 35401",
       "https://www.google.com/maps/dir/''/tuscaloosa+coffee+shops/@33.2088626,-87.6407768,12z/" +
-        "data=!4m8!4m7!1m0!1m5!1m1!1s0x888602e645ea0777:0x1f9ea6b947ea5ae!2m2!1d-87.5707367!2d33.2088822", null);
+        "data=!4m8!4m7!1m0!1m5!1m1!1s0x888602e645ea0777:0x1f9ea6b947ea5ae!2m2!1d-87.5707367!2d33.2088822", null, null);
 
     Drink d1 = new Drink(String.valueOf(id++), "Bama Blitz", "caramel sauce, vanilla, " +
       "caramel, roast of the day, steamed milk, topped with whip cream and caramel",
-      null, null, null, s1.getUuid());
+      null, null, null, s1.getUuid(), null);
 
     Drink d2 = new Drink(String.valueOf(id++), "Sugar Daddy", "vanilla, caramel sauce," +
       " creamy espresso, steamed milk, topped with whip cream and caramel", null,
-      "espresso", null, s1.getUuid());
+      "espresso", null, s1.getUuid(), null);
 
     Drink d3 = new Drink(String.valueOf(id++), "Cafe Caramel", "caramel sauce, " +
       "roast of the day, toppped with whip cream and caramel", null, "cappucino",
-      null, s1.getUuid());
+      null, s1.getUuid(), null);
 
     Drink d4 = new Drink(String.valueOf(id++), "Classic Mocha", "chocolate, creamy espresso, " +
-      "steamed milk, whip cream", null, "mocha", null, s1.getUuid());
+      "steamed milk, whip cream", null, "mocha", null, s1.getUuid(), null);
 
     Drink d5 = new Drink(String.valueOf(id++), "HH Special", "created by prior employees " +
       "buzzy and jennifer--chocolate, caramel, white chocolate, roast of the day, steamed milk" +
-      "topped with whip cream and caramel", null, "espresso", null, s1.getUuid());
+      "topped with whip cream and caramel", null, "espresso", null, s1.getUuid(), null);
 
     Drink d6 = new Drink(String.valueOf(id++), "Snowflake Royale", "white chocolate, butter pecan" +
-      "creamy espresso, steamed milk, topped with whip cream", null, "espresso", null, s1.getUuid());
+      "creamy espresso, steamed milk, topped with whip cream", null, "espresso", null, s1.getUuid(), null);
 
     Drink d7 = new Drink(String.valueOf(id++), "Espresso", "", null,
-      "espresso", 2.75, s2.getUuid());
+      "espresso", 2.75, s2.getUuid(), null);
 
     Drink d8 = new Drink(String.valueOf(id++), "The Elizabeth Decaf", "",
-      null, "filtered coffee", 2.50, s2.getUuid());
+      null, "filtered coffee", 2.50, s2.getUuid(), null);
 
     Drink d9 = new Drink(String.valueOf(id++), "Mocha Latte", "", null,
-      "Latte", 3.65, s3.getUuid());
+      "Latte", 3.65, s3.getUuid(), null);
 
     Drink d10 = new Drink(String.valueOf(id++), "Nutella Latte", "", null,
-      "Latte", 4.95, s3.getUuid());
+      "Latte", 4.95, s3.getUuid(), null);
 
     Drink d11 = new Drink(String.valueOf(id++), "Brewed Coffee", "", null,
-      null, 2.40, s4.getUuid());
+      null, 2.40, s4.getUuid(), null);
 
     Drink d12 = new Drink(String.valueOf(id++), "Cool Carmello",
       "Creamy Ghirardelli Caramel and Espresso", null, "Frappachino",
-      5.10, s4.getUuid());
+      5.10, s4.getUuid(), null);
 
     Drink d13 = new Drink(String.valueOf(id++), "Frosted Turtle",
       "Creamy Ghirardelli Chocolate, Caramel, Hazelnut and Espresso", null,
-      "Frappachino", 5.10, s4.getUuid());
+      "Frappachino", 5.10, s4.getUuid(), null);
 
     Drink d14 = new Drink(String.valueOf(id++), "Snickerdoodle Mocha",
       "Ghirardelli Chocolate, Cinnamon, and Hazelnut", null,
-      "Espresso", 4.95, s4.getUuid());
+      "Espresso", 4.95, s4.getUuid(), null);
 
     Drink d15 = new Drink(String.valueOf(id++), "Turtle Deluxe",
       "Ghirardelli Chocolate, Caramel, and Hazelnut", null,
-      "Espresso", 4.95, s4.getUuid());
+      "Espresso", 4.95, s4.getUuid(), null);
 
     Bean b1 = new Bean(String.valueOf(id++), "OHenry's Blend", "Our #1 Coffee Blend. We roast it" +
       " to be perfectly balanced for an “any time of day” coffee. (1 lbs bag)", null, "light",
-      null, s4.getUuid());
+      null, s4.getUuid(), null);
 
     Bean b2 = new Bean(String.valueOf(id++), "Costa Rican Dark", "Deep, " +
       "engaging flavors with a trace of smoky chocolate in the finish.", null, "dark",
-      null, s4.getUuid());
+      null, s4.getUuid(), null);
 
     Bean b3 = new Bean(String.valueOf(id++), "African Classic", "A dark roast " +
       "blend of four of the finest origin beans grown on the African continent.  " +
       "The result is a rich, slightly smoky aroma, winey acidity and unique, complex flavors. " +
       "(Sold in 1 lbs bags)", null, "dark",
-      null, s4.getUuid());
+      null, s4.getUuid(), null);
 
     Bean b4 = new Bean(String.valueOf(id++), "Celebes Kalossi Coffee", "Celebes " +
       "Kalossi Coffee is a world class coffee. " +
       "It is an exotic, rich and unusual coffee with a hint of nutty earthiness. " +
       "It’s so good even your heart rate monitor will smile. (Sold in 1 lbs bags)",
       null, "exotic",
-      null, s4.getUuid());
+      null, s4.getUuid(), null);
 
     drinkDataSource.saveDrink(d1);
     drinkDataSource.saveDrink(d2);
@@ -175,7 +175,6 @@ public class PopulateDB {
     s4.addItemUUID(b2.getUuid());
     s4.addItemUUID(b3.getUuid());
     s4.addItemUUID(b4.getUuid());
-
 
     shopDataSource.saveShop(s1);
     shopDataSource.saveShop(s2);

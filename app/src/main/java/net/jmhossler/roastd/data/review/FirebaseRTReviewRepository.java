@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.data.review;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -10,6 +12,7 @@ import java.util.Map;
 
 public class FirebaseRTReviewRepository implements ReviewDataSource {
 
+  private static final String TAG = "FirebaseRTReviewRepository";
   private static FirebaseRTReviewRepository sInstance = null;
   private static DatabaseReference mDatabase;
 
@@ -21,13 +24,24 @@ public class FirebaseRTReviewRepository implements ReviewDataSource {
     return sInstance;
   }
 
+  private Review populateNullFields(Review r) {
+    if (r.getUuid() == null) {
+      Log.e(TAG, "Error: Review UUID is null!");
+    }
+    if (r.getUserUuid() == null) {
+      r.setUserUuid("");
+    }
+    return r;
+  }
+
   @Override
   public void getReview(String reviewId, GetReviewCallback callback) {
     mDatabase.child("reviews/" + reviewId).addListenerForSingleValueEvent(
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onReviewLoaded(dataSnapshot.getValue(Review.class));
+          Review r = dataSnapshot.getValue(Review.class);
+          callback.onReviewLoaded(r != null ? populateNullFields(r) : r);
         }
 
         @Override

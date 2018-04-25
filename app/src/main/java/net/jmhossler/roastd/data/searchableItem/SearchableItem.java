@@ -8,32 +8,28 @@ import java.util.Map;
 
 // Description: Superclass for Bean/Shop/Drink to demonstrate their relationships.
 public abstract class SearchableItem {
-  @NonNull
   private String uuid;
-
-  @NonNull
   private String name;
-
-  @Nullable
   private String description;
-
-  @Nullable
   private byte[] image;
 
   @NonNull
   private Map<String, Boolean> reviewIds;
 
+  private String shopUUID;
+
   public SearchableItem() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
-  public SearchableItem(@NonNull String uuid, @NonNull String name,
-                        @Nullable String description, @Nullable byte[] image) {
-    this.setUuid(uuid);
-    this.setName(name);
-    this.setDescription(description);
-    this.setImage(image);
-    this.reviewIds = new HashMap<>();
+  public SearchableItem(String uuid, String name, String description, byte[] image,
+                        Map<String, Boolean> reviewIds, String shopUuid) {
+    setUuid(uuid);
+    setName(name);
+    setDescription(description);
+    setImage(image);
+    setReviewIds(reviewIds);
+    setShopUUID(shopUuid);
   }
 
   @NonNull
@@ -73,19 +69,25 @@ public abstract class SearchableItem {
   }
 
   @NonNull
-  public Map getReviewIds() {
+  public Map<String, Boolean> getReviewIds() {
     return reviewIds;
   }
 
-  public void setReviewIds(@NonNull Map reviewIds) {
+  public void setReviewIds(@NonNull Map<String, Boolean> reviewIds) {
     this.reviewIds = reviewIds;
   }
 
   public void addReviewId(@NonNull String review) {
-    this.reviewIds.put(review, true);
+    reviewIds.put(review, true);
   }
 
   public void removeReviewId(@NonNull String review) {
-    this.reviewIds.remove(review);
+    reviewIds.remove(review);
+  }
+
+  public String getShopUUID() {return shopUUID;}
+
+  public void setShopUUID(@NonNull String shopUUID) {
+    this.shopUUID = shopUUID;
   }
 }
