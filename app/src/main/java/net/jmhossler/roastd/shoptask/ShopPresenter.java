@@ -27,16 +27,12 @@ public class ShopPresenter implements ShopContract.Presenter {
     mView = view;
     mShopDataSource = shopDataSource;
     mSearchableItemDataSource = searchableItemDataSource;
+
+    mView.setPresenter(this);
   }
 
   @Override
   public void start() {
-    mView.setPresenter(this);
-    setName();
-    setAddress();
-    setDescription();
-    setMapsUrl();
-    setConsumeables();
   }
 
   @Override

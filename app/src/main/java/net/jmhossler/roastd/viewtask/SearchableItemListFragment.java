@@ -62,19 +62,17 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
 
   @Override
   public void navigateToBean(String beanId) {
-    startActivity(new Intent(getContext(), BeanActivity.class));
+    startActivity(BeanActivity.createIntent(beanId, getContext()));
   }
 
   @Override
   public void navigateToDrink(String drinkId) {
-    startActivity(new Intent(getContext(), DrinkActivity.class));
+    startActivity(DrinkActivity.createIntent(drinkId, getContext()));
   }
 
   @Override
   public void navigateToShop(String shopId) {
-    Intent intent = new Intent(getContext(), ShopActivity.class);
-    intent.putExtra("SHOP_ID", shopId);
-    startActivity(intent);
+    startActivity(ShopActivity.createIntent(shopId, getContext()));
   }
 
   @Override

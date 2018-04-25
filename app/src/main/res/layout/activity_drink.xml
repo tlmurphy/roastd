@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -8,14 +8,56 @@
   tools:context=".drinktask.DrinkActivity">
 
   <TextView
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="I am drink"/>
+    android:layout_centerHorizontal="true"
+    android:layout_above="@+id/description"
+    android:layout_marginBottom="20dp"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/text_color_dark"
+    android:textSize="34sp"
+    android:textStyle="bold"
+    android:id="@+id/name"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_above="@+id/type"
+    android:layout_marginBottom="20dp"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/text_color_dark"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:id="@+id/description"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_above="@+id/price"
+    android:layout_marginBottom="20dp"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/text_color_dark"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:id="@+id/type"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
+    android:fontFamily="@font/lato"
+    android:textColor="@color/text_color_dark"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:id="@+id/price"/>
 
   <FrameLayout
-    android:id="@+id/drink_fragment_container"
+    android:id="@+id/shop_fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
   </FrameLayout>
-</LinearLayout>
+</RelativeLayout>
