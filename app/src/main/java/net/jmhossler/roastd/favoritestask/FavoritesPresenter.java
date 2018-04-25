@@ -1,12 +1,12 @@
 package net.jmhossler.roastd.favoritestask;
 
-import net.jmhossler.roastd.data.drink.Drink;
-import net.jmhossler.roastd.data.drink.DrinkDataSource.LoadDrinksCallback;
-import net.jmhossler.roastd.data.drink.DrinkDataSource;
-import net.jmhossler.roastd.data.drink.FirebaseRTDrinkRepository;
+import net.jmhossler.roastd.data.searchableItem.FirebaseRTSearchableItemRepository;
+import net.jmhossler.roastd.data.searchableItem.SearchableItem;
+import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.viewtask.BaseSearchableItemPresenter;
 import net.jmhossler.roastd.viewtask.SearchableItemListContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritesPresenter extends BaseSearchableItemPresenter {
@@ -16,12 +16,16 @@ public class FavoritesPresenter extends BaseSearchableItemPresenter {
     mListView.setPresenter(this);
 
     // example change this to favorites using john's wrapper
-    DrinkDataSource ds = FirebaseRTDrinkRepository.getInstance();
+    SearchableItemDataSource ds = FirebaseRTSearchableItemRepository.getInstance();
 
-    ds.getDrinks(new LoadDrinksCallback() {
+    ArrayList <String> list = new ArrayList<>();
+    list.add("12346844634987");
+    list.add("12346844634972");
+
+    ds.getSearchableItems(list, new SearchableItemDataSource.LoadSearchableItemsCallback() {
       @Override
-      public void onDrinksLoaded(List<Drink> drinks) {
-        mItems.addAll(drinks);
+      public void onSearchableItemsLoaded(List<SearchableItem> items) {
+        mItems = items;
         mListView.notifyDataSetChanged();
       }
 

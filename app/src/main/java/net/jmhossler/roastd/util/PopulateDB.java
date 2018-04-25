@@ -23,16 +23,12 @@ public class PopulateDB {
     drinkDataSource = FirebaseRTDrinkRepository.getInstance();
     shopDataSource = FirebaseRTShopRepository.getInstance();
 
-    try {
-      this.addItems();
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
+    this.addItems();
   }
 
-  public void addItems() throws MalformedURLException {
+  public void addItems() {
 
-     long id = 12346844634968L;
+    long id = 12346844634968L;
 
     Shop s1 = new Shop(String.valueOf(id++), "Heritage House Coffee", "Heritage House originated " +
       "in Tuscaloosa, Alabama, in June 1994, as the first coffee house our town ever knew. " +

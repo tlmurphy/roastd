@@ -47,9 +47,7 @@ public class User {
     } else if (obj == null) {
       return false;
     } else if (obj instanceof User) {
-      if (getUuid().equals(((User) obj).getUuid())) {
-        return true;
-      }
+      return getUuid().equals(((User) obj).getUuid());
     }
     return false;
   }
