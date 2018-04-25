@@ -1,16 +1,13 @@
 package net.jmhossler.roastd.favoritestask;
 
 import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
-
 import net.jmhossler.roastd.data.searchableItem.SearchableItem;
 import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
 import net.jmhossler.roastd.viewtask.BaseSearchableItemPresenter;
 import net.jmhossler.roastd.viewtask.SearchableItemListContract;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,19 +16,11 @@ import java.util.Map;
 import static android.support.constraint.Constraints.TAG;
 
 public class FavoritesPresenter extends BaseSearchableItemPresenter {
-  private User mUser;
-  private UserDataSource mUserDataStore;
-  private SearchableItemDataSource mSearchableItemDataStore;
-  private FirebaseAuth mAuth;
 
   public FavoritesPresenter(SearchableItemListContract.View v, FirebaseAuth firebaseAuth,
                             SearchableItemDataSource searchableItemRepository,
                             UserDataSource userRepository) {
-    super(v);
-    mAuth = firebaseAuth;
-
-    mSearchableItemDataStore = searchableItemRepository;
-    mUserDataStore = userRepository;
+    super(v, firebaseAuth, searchableItemRepository, userRepository);
   }
 
   @Override

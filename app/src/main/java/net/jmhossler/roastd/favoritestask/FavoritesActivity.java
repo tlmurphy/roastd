@@ -3,9 +3,7 @@ package net.jmhossler.roastd.favoritestask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
-
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.data.searchableItem.FirebaseRTSearchableItemRepository;
 import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
@@ -34,6 +32,7 @@ public class FavoritesActivity extends AppCompatActivity {
       ActivityUtils.addFragmentToActivity(fm, silf, R.id.favorites_list_fragment_container);
     }
 
-    mFavoritesPresenter = new FavoritesPresenter(silf, FirebaseAuth.getInstance(), FirebaseRTSearchableItemRepository.getInstance(), FirebaseRTUserRepository.getsInstance());
+    mFavoritesPresenter = new FavoritesPresenter(silf, FirebaseAuth.getInstance(),
+      FirebaseRTSearchableItemRepository.getInstance(), FirebaseRTUserRepository.getsInstance());
   }
 }
