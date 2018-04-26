@@ -19,12 +19,12 @@ public interface ShopContract {
   }
 
   interface Presenter extends BasePresenter {
-    void setConsumeables();
-    void setName(SearchableItem item);
-    void setImage(SearchableItem item);
-    void setDescription(SearchableItem item);
-    void setAddress(SearchableItem item);
-    void setMapsUrl(SearchableItem item);
+    void setConsumables(List<String> ids);
+    void setName(String name);
+    void setImage(String imageUrl);
+    void setDescription(String description);
+    void setAddress(String address);
+    void setMapsUrl(String address);
     void setCurrentRating(SearchableItem item);
     void setNewRating(float rating);
   }

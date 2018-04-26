@@ -11,91 +11,74 @@ import net.jmhossler.roastd.data.shop.Shop;
 import net.jmhossler.roastd.data.shop.ShopDataSource;
 import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
+import net.jmhossler.roastd.viewtask.BaseSearchableItemPresenter;
+import net.jmhossler.roastd.viewtask.SearchableItemListContract;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class ShopPresenter implements ShopContract.Presenter {
-  private final String mShopId;
-  private final UserDataSource mUserDataSource;
-  private final ShopContract.View mView;
-  private final ShopDataSource mShopDataSource;
-  private final SearchableItemDataSource mSearchableItemDataSource;
-  private final ReviewDataSource mReviewDataSource;
-  private User mUser;
-  private FirebaseAuth mAuth;
+public class ShopPresenter extends BaseSearchableItemPresenter implements ShopContract.Presenter {
+  protected String mShopId;
+  protected ShopContract.View mView;
+  protected ShopDataSource mShopDataSource;
+  protected ReviewDataSource mReviewDataSource;
+  protected Shop mShop;
 
 
-  public ShopPresenter(ShopContract.View view, String shopId, UserDataSource userDataSource, ShopDataSource shopDataSource,
+  public ShopPresenter(ShopContract.View view, SearchableItemListContract.View silf, String shopId, UserDataSource userDataSource, ShopDataSource shopDataSource,
                        SearchableItemDataSource searchableItemDataSource, ReviewDataSource reviewDataSource,
                        FirebaseAuth firebaseAuth) {
+    super(silf, firebaseAuth, searchableItemDataSource, userDataSource);
     mShopId = shopId;
-    mUserDataSource = userDataSource;
     mView = view;
     mShopDataSource = shopDataSource;
-    mSearchableItemDataSource = searchableItemDataSource;
     mReviewDataSource = reviewDataSource;
-    mAuth = firebaseAuth;
     mView.setPresenter(this);
+  }
+
+  public void userLoaded() {
+    if (mUser == null) {
+      Log.d(TAG, "User " + mAuth.getUid() + " does not exist! This is bad!");
+      mView.finish();
+    }
+
+    mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
+      @Override
+      public void onLoaded(SearchableItem item) {
+        mShop = (Shop) item;
+        shopLoaded();
+      }
+      @Override
+      public void onDataNotAvailable() { }
+    });
+  }
+
+  public void shopLoaded() {
+    setAddress(mShop.getAddress());
+    setName(mShop.getName());
+    setDescription(mShop.getDescription());
+    setMapsUrl(mShop.getAddress());
+    setCurrentRating(mShop);
+    setImage(mShop.getImage());
+    setConsumables(new ArrayList<String>(mShop.getItemUUIDs().keySet()));
   }
 
   @Override
   public void start() {
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
-      @Override
-      public void onUserLoaded(User user) {
-        if (user == null) {
-          Log.d(TAG, "User " + mAuth.getUid() + " does not exist! This is bad!");
-          mView.finish();
-        }
-
-        mUser = user;
-
-        mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
-          @Override
-          public void onLoaded(SearchableItem item) {
-            setAddress(item);
-            setName(item);
-            setDescription(item);
-            setMapsUrl(item);
-            setCurrentRating(item);
-            setImage(item);
-          }
-          @Override
-          public void onDataNotAvailable() { }
-        });
-      }
-
-      @Override
-      public void onDataNotAvailable() { Log.d(TAG, "Error with Firebase Instance"); }
-    });
+    super.start();
   }
 
   @Override
-  public void setConsumeables() {
-    mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
+  public void setConsumables(List<String> ids) {
+    mSearchableItemDataStore.getSearchableItems(ids, new SearchableItemDataSource.LoadSearchableItemsCallback() {
       @Override
-      public void onLoaded(SearchableItem item) {
-        Shop shop = (Shop) item;
-        Map<String, Boolean> consumeables = shop.getItemUUIDs();
-        if (consumeables == null) {
-          consumeables = new HashMap<>();
-        }
-        mSearchableItemDataSource.getSearchableItems(new ArrayList<>(consumeables.keySet()), new SearchableItemDataSource.LoadSearchableItemsCallback() {
-          @Override
-          public void onSearchableItemsLoaded(List<SearchableItem> items) {
-            mView.displayConsumeables(items);
-          }
-
-          @Override
-          public void onDataNotAvailable() {
-
-          }
-        });
+      public void onSearchableItemsLoaded(List<SearchableItem> items) {
+        mItems = items;
+        mListView.notifyDataSetChanged();
+        mListView.hideProgressBarShowList();
       }
 
       @Override
@@ -106,46 +89,27 @@ public class ShopPresenter implements ShopContract.Presenter {
   }
 
   @Override
-  public void setName(SearchableItem item) {
-    String name = item.getName();
-    if(name == null) {
-      name = "Uh Oh";
-    }
+  public void setName(String name) {
     mView.displayName(name);
   }
 
   @Override
-  public void setImage(SearchableItem item) {
-    String imageUrl = item.getImage();
-    if (imageUrl != null) {
-      mView.displayImage(imageUrl);
-    }
+  public void setImage(String imageUrl) {
+    mView.displayImage(imageUrl);
   }
 
   @Override
-  public void setDescription(SearchableItem item) {
-    String description = item.getDescription();
-    if(description == null) {
-      description = "Uh Oh";
-    }
+  public void setDescription(String description) {
     mView.displayDescription(description);
   }
 
   @Override
-  public void setAddress(SearchableItem item) {
-    Shop shop = (Shop) item;
-    String address = shop.getAddress();
-    if(address == null) {
-      address = "Uh Oh";
-    }
+  public void setAddress(String address) {
     mView.displayAddress(address);
   }
 
   @Override
-  public void setMapsUrl(SearchableItem item) {
-    Shop shop = (Shop) item;
-    String address = shop.getAddress();
-
+  public void setMapsUrl(String address) {
     mView.createMapsLink(address);
   }
 
@@ -174,7 +138,7 @@ public class ShopPresenter implements ShopContract.Presenter {
 
   @Override
   public void setNewRating(float rating) {
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+    mUserDataStore.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
       @Override
       public void onUserLoaded(User user) {
         if (user == null) {
