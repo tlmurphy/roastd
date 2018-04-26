@@ -144,7 +144,7 @@ public class ShopPresenter implements ShopContract.Presenter {
       public void onReviewsLoaded(List<Review> reviews) {
         Boolean reviewFound = false;
         for (Review r : reviews) {
-          if (item.getReviewIds().get(r.getUuid()) && r.getUserUuid().equals(mUser.getUuid())) {
+          if (item.getReviewIds().get(r.getUuid()) != null && r.getUserUuid().equals(mUser.getUuid())) {
             reviewFound = true;
             mView.displayRating(r.getScore());
           }
@@ -181,7 +181,7 @@ public class ShopPresenter implements ShopContract.Presenter {
               public void onReviewsLoaded(List<Review> reviews) {
                 Boolean reviewFound = false;
                 for (Review r : reviews) {
-                  if (item.getReviewIds().get(r.getUuid()) && r.getUserUuid().equals(mUser.getUuid())) {
+                  if (item.getReviewIds().get(r.getUuid()) != null && r.getUserUuid().equals(mUser.getUuid())) {
                     reviewFound = true;
                     r.setScore((int) rating);
                     mReviewDataSource.saveReview(r);

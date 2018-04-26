@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
+import com.google.firebase.auth.FirebaseAuth;
 import net.jmhossler.roastd.R;
-import net.jmhossler.roastd.beantask.BeanActivity;
 import net.jmhossler.roastd.data.drink.FirebaseRTDrinkRepository;
 import net.jmhossler.roastd.data.review.FirebaseRTReviewRepository;
 import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
+import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
   private TextView mDescription;
   private TextView mType;
   private TextView mPrice;
+  private RatingBar mRatingBar;
 
   private static final String itemKey = "DRINK_ID";
 
@@ -41,13 +43,24 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
     mDescription = (TextView) findViewById(R.id.description);
     mType = (TextView) findViewById(R.id.type);
     mPrice = (TextView) findViewById(R.id.price);
+    mRatingBar = findViewById(R.id.rating_bar);
 
-    DrinkPresenter presenter = new DrinkPresenter(this, drinkId, FirebaseRTDrinkRepository.getInstance(),
-      FirebaseRTShopRepository.getInstance(), FirebaseRTReviewRepository.getInstance());
-    presenter.setName();
-    presenter.setDescription();
-    presenter.setType();
-    presenter.setPrice();
+    DrinkPresenter presenter = new DrinkPresenter(this, drinkId, FirebaseRTUserRepository.getsInstance(),
+      FirebaseRTDrinkRepository.getInstance(), FirebaseRTShopRepository.getInstance(),
+      FirebaseRTReviewRepository.getInstance(), FirebaseAuth.getInstance());
+
+    presenter.start();
+
+    mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+      @Override
+      public void onRatingChanged(RatingBar ratingBar, float rating,
+                                  boolean fromUser) {
+        if (fromUser) {
+          presenter.setNewRating(rating);
+        }
+      }
+    });
+
   }
 
   @Override
@@ -88,5 +101,10 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
   @Override
   public void setPresenter(DrinkContract.Presenter presenter) {
     mDrinkPresenter = presenter;
+  }
+
+  @Override
+  public void displayRating(int score) {
+    mRatingBar.setRating(score);
   }
 }
