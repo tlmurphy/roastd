@@ -1,12 +1,10 @@
 package net.jmhossler.roastd.maintask;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import net.jmhossler.roastd.R;
-import net.jmhossler.roastd.data.searchableItem.FirebaseRTSearchableItemRepository;
-import net.jmhossler.roastd.data.searchableItem.SearchableItem;
-import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.favoritestask.FavoritesActivity;
 import net.jmhossler.roastd.logintask.LoginActivity;
 import net.jmhossler.roastd.profiletask.ProfileActivity;
@@ -27,10 +22,7 @@ import net.jmhossler.roastd.recommendationstask.RecommendationsActivity;
 import net.jmhossler.roastd.searchtask.SearchActivity;
 import net.jmhossler.roastd.util.ActivityUtils;
 
-import java.util.Calendar;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import java.util.List;
 
 
 /**

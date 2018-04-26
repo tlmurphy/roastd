@@ -1,9 +1,5 @@
 package net.jmhossler.roastd.data.searchableItem;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.HashMap;
 import java.util.Map;
 
 // Description: Superclass for Bean/Shop/Drink to demonstrate their relationships.

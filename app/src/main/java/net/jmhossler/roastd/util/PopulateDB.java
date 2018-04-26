@@ -10,8 +10,6 @@ import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
 import net.jmhossler.roastd.data.shop.Shop;
 import net.jmhossler.roastd.data.shop.ShopDataSource;
 
-import java.net.MalformedURLException;
-
 public class PopulateDB {
 
   private static BeanDataSource beanDataSource;

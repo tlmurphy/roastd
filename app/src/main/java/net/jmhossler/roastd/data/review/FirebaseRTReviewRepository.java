@@ -8,11 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import net.jmhossler.roastd.data.bean.Bean;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FirebaseRTReviewRepository implements ReviewDataSource {
 

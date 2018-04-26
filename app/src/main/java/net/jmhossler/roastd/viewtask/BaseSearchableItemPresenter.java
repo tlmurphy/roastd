@@ -21,6 +21,7 @@ import java.util.List;
 
 public class BaseSearchableItemPresenter implements SearchableItemListContract.Presenter {
 
+  private static final String TAG = "BaseSearchableItemPresenter";
   protected SearchableItemListContract.View mListView;
   protected List<SearchableItem> mItems;
   protected UserDataSource mUserDataStore;
@@ -82,16 +83,23 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   @Override
     public void bindViewAtPosition(int position, SearchableItemListContract.SearchableListItemView view,
                                    List<Object> payloads) {
+    if (payloads != null && payloads.size() != 0) {
+      if (position >= mItems.size()) {
+        Log.w(TAG, "Downloader delivered image to nonexistent position!");
+        return;
+      }
+      Pair<Bitmap, String> p = (Pair<Bitmap, String>) payloads.get(0);
+      if (p.second == mItems.get(position).getUuid()) {
+        view.setIcon(p.first);
+      } else {
+        Log.w(TAG, "Downloader delivered image to existent position, but it has the wrong UUID!");
+        return;
+      }
+    }
+
     SearchableItem si = mItems.get(position);
     view.setContent(si.getName());
     view.setFavoriteState(mUser.getFavoriteUUIDs().containsKey(si.getUuid()));
-
-    if (payloads != null && payloads.size() != 0) {
-      Pair<Bitmap, String> p = (Pair<Bitmap, String>) payloads.get(0);
-      if (p.second == si.getUuid()) {
-        view.setIcon(p.first);
-      }
-    }
   }
 
   @Override

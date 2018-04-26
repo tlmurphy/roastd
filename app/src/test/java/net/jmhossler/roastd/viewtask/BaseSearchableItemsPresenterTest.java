@@ -9,11 +9,9 @@ import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
 import net.jmhossler.roastd.favoritestask.FavoritesPresenter;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class BaseSearchableItemsPresenterTest {
@@ -33,7 +31,7 @@ public class BaseSearchableItemsPresenterTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
     presenter = new FavoritesPresenter(view, firebaseAuth, searchableItemDataSource, userDataSource);
-    presenter.mItems = new ArrayList<SearchableItem>();
+    presenter.mItems = new ArrayList<>();
     presenter.mItems.add(new Bean("123", "whoa", "epic bean", null, "what is this", "yo mamma", "11111", null));
     presenter.mItems.add(new Drink("321", "nice", "epic drink", null, "a nice drink type", 12345.11, "11111", null));
     presenter.mUser = new User("uuid", "email@yomamma.com", "Ree", "nope");

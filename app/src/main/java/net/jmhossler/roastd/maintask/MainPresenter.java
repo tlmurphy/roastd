@@ -1,12 +1,7 @@
 package net.jmhossler.roastd.maintask;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 
-import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
 
 import java.util.Calendar;

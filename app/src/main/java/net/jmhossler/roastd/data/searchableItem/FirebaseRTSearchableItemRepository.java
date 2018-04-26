@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository implements SearchableItemDataSource {
@@ -104,15 +105,15 @@ public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository
 
     List <Task<SearchableItem>> tasks =
       queries.stream()
-        .map(tcs -> tcs.getTask())
+        .map(TaskCompletionSource::getTask)
         .collect(Collectors.toList());
 
     Task<Void> all = Tasks.whenAll(tasks);
     all.addOnSuccessListener(voidTask -> {
       List<SearchableItem> results =
         tasks.stream()
-          .map(task -> task.getResult())
-          .filter(item -> item != null)
+          .map(Task::getResult)
+          .filter(Objects::nonNull)
           .collect(Collectors.toList());
 
       if (results.size() == 0) {
@@ -152,15 +153,15 @@ public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository
 
     List <Task<SearchableItem>> tasks =
       queries.stream()
-        .map(tcs -> tcs.getTask())
+        .map(TaskCompletionSource::getTask)
         .collect(Collectors.toList());
 
     Task<Void> all = Tasks.whenAll(tasks);
     all.addOnSuccessListener(voidTask -> {
       List<SearchableItem> results =
         tasks.stream()
-          .map(task -> task.getResult())
-          .filter(item -> item != null)
+          .map(Task::getResult)
+          .filter(Objects::nonNull)
           .collect(Collectors.toList());
 
       if (results.size() == 0) {
@@ -175,7 +176,7 @@ public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository
       new Handler(Looper.getMainLooper()).post(() -> callback.onSearchableItemsLoaded(results));
     });
     all.addOnFailureListener(e -> {
-      new Handler(Looper.getMainLooper()).post(() -> callback.onDataNotAvailable());
+      new Handler(Looper.getMainLooper()).post(callback::onDataNotAvailable);
       Log.e(TAG, e.getMessage());
     });
   }
@@ -263,27 +264,25 @@ public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository
     final Client.MultipleQueriesStrategy strategy = Client.MultipleQueriesStrategy.NONE;
 
 
-    CompletionHandler completionHandler = new CompletionHandler() {
-      @Override
-      public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
-        if (e != null) {
-          Log.e(TAG, e.getMessage());
-          return;
-        }
+    CompletionHandler completionHandler = (jsonObject, e) -> {
+      if (e != null) {
+        Log.e(TAG, e.getMessage());
+        return;
+      }
 
-        try {
-          JSONArray results = jsonObject.getJSONArray("results");
-          for(int i = 0; i < results.length(); ++i) {
-            JSONArray hits = results.getJSONObject(i).getJSONArray("hits");
-            for(int j = 0; j < hits.length(); j++) {
-              ids.add(hits.getJSONObject(j).getString("objectID"));
-            }
+      try {
+        JSONArray results = jsonObject.getJSONArray("results");
+        for(int i = 0; i < results.length(); ++i) {
+          JSONArray hits = results.getJSONObject(i).getJSONArray("hits");
+          for(int j = 0; j < hits.length(); j++) {
+            ids.add(hits.getJSONObject(j).getString("objectID"));
           }
-        } catch (JSONException e1) {
-          e1.printStackTrace();
         }
-        getSearchableItems(ids, callback);
-      }};
+      } catch (JSONException e1) {
+        e1.printStackTrace();
+      }
+      getSearchableItems(ids, callback);
+    };
 
       algolia.multipleQueriesAsync(queries, strategy, completionHandler);
   }

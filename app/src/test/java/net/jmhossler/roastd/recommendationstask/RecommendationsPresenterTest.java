@@ -4,10 +4,7 @@ import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import net.jmhossler.roastd.applicationtask.ApplicationPresenter;
 import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
-import net.jmhossler.roastd.data.shopApplicationInfo.ShopApplicationInfo;
-import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
 import net.jmhossler.roastd.recommendationstask.RecommendationsPresenter;
 import net.jmhossler.roastd.viewtask.SearchableItemListContract;

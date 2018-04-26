@@ -16,7 +16,6 @@ import net.jmhossler.roastd.data.review.FirebaseRTReviewRepository;
 import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
 import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class DrinkActivity extends AppCompatActivity implements DrinkContract.View {
@@ -57,13 +56,9 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
 
     presenter.start();
 
-    mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-      @Override
-      public void onRatingChanged(RatingBar ratingBar, float rating,
-                                  boolean fromUser) {
-        if (fromUser) {
-          presenter.setNewRating(rating);
-        }
+    mRatingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+      if (fromUser) {
+        presenter.setNewRating(rating);
       }
     });
 

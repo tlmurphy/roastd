@@ -55,13 +55,9 @@ public class BeanActivity extends AppCompatActivity implements BeanContract.View
 
     presenter.start();
 
-    mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-      @Override
-      public void onRatingChanged(RatingBar ratingBar, float rating,
-                                  boolean fromUser) {
-        if (fromUser) {
-          presenter.setNewRating(rating);
-        }
+    mRatingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+      if (fromUser) {
+        presenter.setNewRating(rating);
       }
     });
   }
