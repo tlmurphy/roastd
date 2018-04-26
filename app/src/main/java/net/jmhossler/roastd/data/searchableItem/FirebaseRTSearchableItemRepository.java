@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.data.searchableItem;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.algolia.search.saas.AlgoliaException;
@@ -162,17 +164,17 @@ public class FirebaseRTSearchableItemRepository extends FirebaseRTBaseRepository
           .collect(Collectors.toList());
 
       if (results.size() == 0) {
-        callback.onSearchableItemsLoaded(null);
+        new Handler(Looper.getMainLooper()).post(() -> callback.onSearchableItemsLoaded(null));
       }
 
       if (results.size() != ids.size()) {
         Log.w(TAG, "We didn't get all we were looking for...");
       }
 
-      callback.onSearchableItemsLoaded(results);
+      new Handler(Looper.getMainLooper()).post(() -> callback.onSearchableItemsLoaded(results));
     });
     all.addOnFailureListener(e -> {
-      callback.onDataNotAvailable();
+      new Handler(Looper.getMainLooper()).post(() -> callback.onDataNotAvailable());
       Log.e(TAG, e.getMessage());
     });
   }
