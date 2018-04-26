@@ -53,11 +53,8 @@ public class ShopActivity extends AppCompatActivity implements ShopContract.View
     ShopContract.Presenter presenter = new ShopPresenter(this, shopId, FirebaseRTUserRepository.getsInstance(),
       FirebaseRTShopRepository.getInstance(), FirebaseRTSearchableItemRepository.getInstance(),
       FirebaseRTReviewRepository.getInstance(), FirebaseAuth.getInstance());
-    presenter.setAddress();
-    presenter.setName();
-    presenter.setDescription();
-    presenter.setMapsUrl();
-    presenter.setCurrentRating();
+
+    presenter.start();
 
     mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
       @Override

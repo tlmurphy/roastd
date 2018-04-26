@@ -19,11 +19,11 @@ public interface ShopContract {
 
   interface Presenter extends BasePresenter {
     void setConsumeables();
-    void setName();
-    void setDescription();
-    void setAddress();
-    void setMapsUrl();
-    void setCurrentRating();
+    void setName(SearchableItem item);
+    void setDescription(SearchableItem item);
+    void setAddress(SearchableItem item);
+    void setMapsUrl(SearchableItem item);
+    void setCurrentRating(SearchableItem item);
     void setNewRating(float rating);
   }
 }

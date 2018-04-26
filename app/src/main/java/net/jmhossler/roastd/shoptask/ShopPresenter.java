@@ -1,6 +1,5 @@
 package net.jmhossler.roastd.shoptask;
 
-import android.nfc.Tag;
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import net.jmhossler.roastd.data.review.Review;
@@ -46,6 +45,33 @@ public class ShopPresenter implements ShopContract.Presenter {
 
   @Override
   public void start() {
+    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+      @Override
+      public void onUserLoaded(User user) {
+        if (user == null) {
+          Log.d(TAG, "User " + mAuth.getUid() + " does not exist! This is bad!");
+          mView.finish();
+        }
+
+        mUser = user;
+
+        mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
+          @Override
+          public void onLoaded(SearchableItem item) {
+            setAddress(item);
+            setName(item);
+            setDescription(item);
+            setMapsUrl(item);
+            setCurrentRating(item);
+          }
+          @Override
+          public void onDataNotAvailable() { }
+        });
+      }
+
+      @Override
+      public void onDataNotAvailable() { Log.d(TAG, "Error with Firebase Instance"); }
+    });
   }
 
   @Override
@@ -79,111 +105,58 @@ public class ShopPresenter implements ShopContract.Presenter {
   }
 
   @Override
-  public void setName() {
-    mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
-      @Override
-      public void onLoaded(SearchableItem item) {
-        String name = item.getName();
-        if(name == null) {
-          name = "Uh Oh";
-        }
-        mView.displayName(name);
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+  public void setName(SearchableItem item) {
+    String name = item.getName();
+    if(name == null) {
+      name = "Uh Oh";
+    }
+    mView.displayName(name);
   }
 
   @Override
-  public void setDescription() {
-    mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
-      @Override
-      public void onLoaded(SearchableItem item) {
-        String description = item.getDescription();
-        if(description == null) {
-          description = "Uh Oh";
-        }
-        mView.displayDescription(description);
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+  public void setDescription(SearchableItem item) {
+    String description = item.getDescription();
+    if(description == null) {
+      description = "Uh Oh";
+    }
+    mView.displayDescription(description);
   }
 
   @Override
-  public void setAddress() {
-    mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
-      @Override
-      public void onLoaded(SearchableItem item) {
-        Shop shop = (Shop) item;
-        String address = shop.getAddress();
-        if(address == null) {
-          address = "Uh Oh";
-        }
-        mView.displayAddress(address);
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+  public void setAddress(SearchableItem item) {
+    Shop shop = (Shop) item;
+    String address = shop.getAddress();
+    if(address == null) {
+      address = "Uh Oh";
+    }
+    mView.displayAddress(address);
   }
 
   @Override
-  public void setMapsUrl() {
+  public void setMapsUrl(SearchableItem item) {
 
   }
 
   @Override
-  public void setCurrentRating() {
-    // First Retrieve the user
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+  public void setCurrentRating(SearchableItem item) {
+    mReviewDataSource.getReviews(new ReviewDataSource.LoadReviewsCallback() {
       @Override
-      public void onUserLoaded(User user) {
-        if (user == null) {
-          Log.d(TAG, "User " + mAuth.getUid() + " does not exist! This is bad!");
-          mView.finish();
-        }
-
-        mUser = user;
-
-        // Then retrieve the reviews on the current item
-        mShopDataSource.get(mShopId, new BaseDataSource.GetCallback() {
-          @Override
-          public void onLoaded(SearchableItem item) {
-            mReviewDataSource.getReviews(new ReviewDataSource.LoadReviewsCallback() {
-              @Override
-              public void onReviewsLoaded(List<Review> reviews) {
-                Boolean reviewFound = false;
-                for (Review r : reviews) {
-                  if (item.getReviewIds().get(r.getUuid()) && r.getUserUuid().equals(mUser.getUuid())) {
-                    reviewFound = true;
-                    mView.displayRating(r.getScore());
-                  }
-                }
-                // User hasn't reviewed this item yet
-                if (!reviewFound) {
-                  // Set the empty rating
-                  mView.displayRating(0);
-                }
-              }
-              @Override
-              public void onDataNotAvailable() { Log.d(TAG, "No reviews found!"); }
-            });
+      public void onReviewsLoaded(List<Review> reviews) {
+        Boolean reviewFound = false;
+        for (Review r : reviews) {
+          if (item.getReviewIds().get(r.getUuid()) && r.getUserUuid().equals(mUser.getUuid())) {
+            reviewFound = true;
+            mView.displayRating(r.getScore());
           }
-          @Override
-          public void onDataNotAvailable() { Log.d(TAG, "Could not find shop of UUID: " + mShopId); }
-        });
+        }
+        // User hasn't reviewed this item yet
+        if (!reviewFound) {
+          // Set the empty rating
+          mView.displayRating(0);
+        }
       }
       @Override
-      public void onDataNotAvailable() { Log.d(TAG, "Error with Firebase Instance"); }
+      public void onDataNotAvailable() { Log.d(TAG, "No reviews found!"); }
     });
   }
 
