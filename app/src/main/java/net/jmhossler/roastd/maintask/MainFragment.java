@@ -102,13 +102,10 @@ public class MainFragment extends Fragment implements MainContract.View {
     mPresenter.setGreetingLabel();
 
     mNameLabel = root.findViewById(R.id.name_label);
-    mPresenter.setFirstName();
 
     mProfilePhoto = root.findViewById(R.id.profile_image);
-    mPresenter.setCurrentPhotoURL();
 
     mProfileLabel = root.findViewById(R.id.profile_label);
-    mPresenter.setDisplayName();
 
     return root;
   }
@@ -162,5 +159,21 @@ public class MainFragment extends Fragment implements MainContract.View {
   @Override
   public String getAfternoonGreeting() {
     return getString(R.string.greeting_afternoon);
+  }
+
+  @Override
+  public void enableButtons() {
+    mRecommendationsButton.setEnabled(true);
+    mFavoritesButton.setEnabled(true);
+    mProfilePhoto.setEnabled(true);
+    mSearchButton.setEnabled(true);
+  }
+
+  @Override
+  public void disableButtons() {
+    mRecommendationsButton.setEnabled(false);
+    mFavoritesButton.setEnabled(false);
+    mProfilePhoto.setEnabled(false);
+    mSearchButton.setEnabled(false);
   }
 }

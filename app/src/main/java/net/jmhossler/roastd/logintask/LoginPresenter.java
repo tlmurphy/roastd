@@ -65,12 +65,13 @@ public class LoginPresenter implements LoginContract.Presenter {
       GoogleSignInAccount account = completedTask.getResult(ApiException.class);
       firebaseAuthWithGoogle(account);
       mLoginView.setResult(RESULT_OK);
+      mLoginView.finish();
     } catch (ApiException e) {
       // The ApiException status code indicates the detailed failure reason.
       // Please refer to the GoogleSignInStatusCodes class reference for more information.
       Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
     }
-    mLoginView.finish();
+
   }
 
   private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

@@ -30,13 +30,26 @@ public class MainPresenter implements MainContract.Presenter {
     mAuth = auth;
     mCalendar = calendar;
     mMainView.setPresenter(this);
+    mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+      @Override
+      public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        if(mAuth.getCurrentUser() != null) {
+          mainView.enableButtons();
+          setCurrentPhotoURL();
+          setDisplayName();
+          setFirstName();
+        }
+      }
+    });
   }
 
   @Override
   public void start() {
     if (mMainView.needToLogin()) {
+      mMainView.disableButtons();
       mMainView.startLogin();
     }
+    setGreetingLabel();
   }
 
   @Override
@@ -48,59 +61,17 @@ public class MainPresenter implements MainContract.Presenter {
 
   @Override
   public void setDisplayName() {
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
-      @Override
-      public void onUserLoaded(User user) {
-        if(user == null) {
-          mMainView.displayUserFullName("");
-        } else {
-          mMainView.displayUserFullName(user.getName());
-        }
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+  mMainView.displayUserFullName(mAuth.getCurrentUser().getDisplayName());
   }
 
   @Override
   public void setFirstName() {
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
-      @Override
-      public void onUserLoaded(User user) {
-        if(user == null) {
-          mMainView.displayUserFirstName("");
-        } else {
-          mMainView.displayUserFirstName(user.getName().split("\\s+")[0]);
-        }
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+   mMainView.displayUserFirstName(mAuth.getCurrentUser().getDisplayName().split("\\s+")[0]);
   }
 
   @Override
   public void setCurrentPhotoURL() {
-    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
-      @Override
-      public void onUserLoaded(User user) {
-        if(user == null) {
-          mMainView.displayUserImage("");
-        } else {
-          mMainView.displayUserImage(user.getPhotoURL());
-        }
-      }
-
-      @Override
-      public void onDataNotAvailable() {
-
-      }
-    });
+    mMainView.displayUserImage(mAuth.getCurrentUser().getPhotoUrl().toString());
   }
 
   @Override

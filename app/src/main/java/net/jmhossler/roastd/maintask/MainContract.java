@@ -16,6 +16,10 @@ public interface MainContract {
     String getMorningGreeting();
     String getEveningGreeting();
     String getAfternoonGreeting();
+
+    void enableButtons();
+
+    void disableButtons();
   }
 
   interface Presenter extends BasePresenter {
