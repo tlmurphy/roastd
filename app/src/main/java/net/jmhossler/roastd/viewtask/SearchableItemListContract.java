@@ -27,6 +27,6 @@ public interface SearchableItemListContract {
   interface SearchableListItemView {
     void setContent(String content);
     void setFavoriteState(Boolean state);
-    void setIcon(byte [] icon);
+    void setIcon(String imageUrl);
   }
 }

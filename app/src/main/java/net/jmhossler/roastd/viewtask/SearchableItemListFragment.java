@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import net.jmhossler.roastd.R;
@@ -133,8 +135,8 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     }
 
     @Override
-    public void setIcon(byte[] icon) {
-      // we can deal with this later
+    public void setIcon(String imageUrl) {
+
     }
 
     @Override
