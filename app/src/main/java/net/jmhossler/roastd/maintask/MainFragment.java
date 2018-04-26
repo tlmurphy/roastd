@@ -23,6 +23,7 @@ import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.favoritestask.FavoritesActivity;
 import net.jmhossler.roastd.logintask.LoginActivity;
 import net.jmhossler.roastd.profiletask.ProfileActivity;
+import net.jmhossler.roastd.recommendationstask.RecommendationsActivity;
 import net.jmhossler.roastd.searchtask.SearchActivity;
 import net.jmhossler.roastd.util.ActivityUtils;
 
@@ -41,6 +42,7 @@ public class MainFragment extends Fragment implements MainContract.View {
   private static final int RC_SIGN_IN = 9001;
 
   private Button mSearchButton;
+  private RelativeLayout mRecommendationsButton;
   private RelativeLayout mFavoritesButton;
   private RelativeLayout mProfile;
   private TextView mGreetingLabel;
@@ -92,6 +94,9 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     mFavoritesButton = root.findViewById(R.id.favorites_button);
     mFavoritesButton.setOnClickListener(v -> startActivity(new Intent(getContext(), FavoritesActivity.class)));
+
+    mRecommendationsButton = root.findViewById(R.id.recommendations_button);
+    mRecommendationsButton.setOnClickListener(v -> startActivity(new Intent(getContext(), RecommendationsActivity.class)));
 
     mGreetingLabel = root.findViewById(R.id.greeting_label);
     int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);;

@@ -20,7 +20,7 @@
   <string name="search_hint">Enter search terms</string>
   <string name="favorites_title">Favorites</string>
   <string name="favorites_desc">Your favorited items.</string>
-  <string name="recommendations_title">Recommendations.</string>
+  <string name="recommendations_title">Recommendations</string>
   <string name="recommendations_desc">Your custom "drinks" playlist.</string>
 
   <!-- TODO: Remove or change this placeholder text -->

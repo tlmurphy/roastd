@@ -40,6 +40,7 @@
     <activity android:name=".beantask.BeanActivity" />
     <activity android:name=".drinktask.DrinkActivity" />
     <activity android:name=".shoptask.ShopActivity"></activity>
+    <activity android:name=".recommendationstask.RecommendationsActivity"></activity>
   </application>
 
 </manifest>

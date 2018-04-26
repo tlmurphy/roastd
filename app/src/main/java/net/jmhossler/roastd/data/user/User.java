@@ -14,6 +14,7 @@ public class User {
   private String name;
   private String photoURL;
   private Map<String, Boolean> favoriteUUIDs;
+  private Map<String, Boolean> recommendationUUIDs;
 
   public User() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -25,6 +26,7 @@ public class User {
     setName(name);
     setPhotoURL(photoURL);
     setFavoriteUUIDs(new HashMap<>());
+    setRecommendationUUIDs(new HashMap<>());
   }
 
   @Override
@@ -77,6 +79,12 @@ public class User {
 
   public void setFavoriteUUIDs(@NonNull Map<String, Boolean> favoriteUUIDs) {
     this.favoriteUUIDs = favoriteUUIDs;
+  }
+
+  public Map getRecommendationUUIDs() { return recommendationUUIDs; }
+
+  public void setRecommendationUUIDs(Map<String, Boolean> recommendationUUIDs) {
+    this.recommendationUUIDs = recommendationUUIDs;
   }
 
   public void addFavoriteUUID(@NonNull String favorite) {

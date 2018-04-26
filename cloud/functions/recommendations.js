@@ -70,7 +70,7 @@ recommendations.computeRecommendations = (tableData, user) => {
   };
 
   const counts = [];
-  const recommendationUUIDS = {};
+  const recommendationUUIDs = {};
 
   // find users with the most similar favorites list
   table.forEach((row, j) => {
@@ -80,23 +80,23 @@ recommendations.computeRecommendations = (tableData, user) => {
 
   // add drinks from similar users that are not already favorited
   counts.forEach((count) => {
-    if (Object.keys(recommendationUUIDS).length > 5) return false;
+    if (Object.keys(recommendationUUIDs).length > 5) return false;
     if (count.value === 0) return false;
 
     const currentRow = table[count.index];
 
     currentRow.forEach((val, i) => {
-      if (Object.keys(recommendationUUIDS).length > 5) return false;
-      if (!favoriteUUIDs[drinks[i]]) recommendationUUIDS[drinks[i]] = true;
+      if (Object.keys(recommendationUUIDs).length > 5) return false;
+      if (!favoriteUUIDs[drinks[i]]) recommendationUUIDs[drinks[i]] = true;
     });
   });
 
-  return recommendationUUIDS;
+  return recommendationUUIDs;
 };
 
-recommendations.saveRecommendations = (recommendationUUIDS, userId) => {
+recommendations.saveRecommendations = (recommendationUUIDs, userId) => {
   const ref = admin.database().ref('/users/' + userId);
-  return ref.update({ recommendationUUIDS });
+  return ref.update({ recommendationUUIDs });
 };
 
 /**
@@ -121,8 +121,8 @@ recommendations.generateRecommendations = (changes, context) => {
     .then((tableData) => {
       return recommendations.computeRecommendations(tableData, user);
     })
-    .then((recommendationUUIDS) => {
-      return recommendations.saveRecommendations(recommendationUUIDS, userId);
+    .then((recommendationUUIDs) => {
+      return recommendations.saveRecommendations(recommendationUUIDs, userId);
     });
 };
 

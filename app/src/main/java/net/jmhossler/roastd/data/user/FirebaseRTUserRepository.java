@@ -41,6 +41,9 @@ public class FirebaseRTUserRepository implements UserDataSource {
     if (u.getFavoriteUUIDs() == null) {
       u.setFavoriteUUIDs(new HashMap<>());
     }
+    if (u.getRecommendationUUIDs() == null) {
+      u.setRecommendationUUIDs(new HashMap<>());
+    }
     return u;
   }
 
