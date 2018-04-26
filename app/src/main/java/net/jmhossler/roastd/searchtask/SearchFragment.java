@@ -1,15 +1,11 @@
 package net.jmhossler.roastd.searchtask;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,6 +38,8 @@ public class SearchFragment extends Fragment implements SearchContract.View {
                            Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.search_fragment, container, false);
     searchBar = root.findViewById(R.id.search_bar);
+    searchBar.setIconified(false);
+
     searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -63,4 +61,5 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     super.onResume();
     mPresenter.start();
   }
+
 }

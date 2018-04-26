@@ -2,6 +2,7 @@ package net.jmhossler.roastd.data.shop;
 
 import net.jmhossler.roastd.data.searchableItem.SearchableItem;
 
+import java.util.HashMap;
 import java.util.Map;
 
 // Description: Data object to encapsulate shop. Adds address and googleMapsUrl
@@ -48,6 +49,9 @@ public class Shop extends SearchableItem {
   public Map getItemUUIDs() { return itemUUIDs; }
 
   public void addItemUUID(String item) {
+    if(itemUUIDs == null) {
+      itemUUIDs = new HashMap<>();
+    }
     itemUUIDs.put(item, true);
   }
 

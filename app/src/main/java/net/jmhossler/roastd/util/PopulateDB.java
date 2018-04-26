@@ -35,26 +35,44 @@ public class PopulateDB {
       "Since then, we have continued growing as a locally owned small business. " +
       "The original owners opened the store with nothing more than a couple pumps of coffee " +
       "and a few pastries shipped to the store each week. As time went on and owners changed, " +
-      "the cafe continued to grow, offering gifts to their customers.", null, "700 Towncenter Blvd, " +
+      "the cafe continued to grow, offering gifts to their customers.", "https://www.google." +
+      "com/maps/uv?hl=en&pb=!1s0x8888a85edac31a9f:0x646cf2ec30506713!2m22!2m2!1i80!2i80!3m1!2i20!16m16!" +
+      "1b1!2m2!1m1!1e1!2m2!1m1!1e3!2m2!1m1!1e5!2m2!1m1!1e4!2m2!1m1!1e6!3m1!7e115!4shttps://lh5." +
+      "googleusercontent.com/p/AF1QipP46l3VY6TyaAHOHBvZCUs5UR0qyfQ4XX7uJIJy%3Dw260-h175-n-k-no!5stuscaloosa" +
+      "+coffee+shops+-+Google+Search&imagekey=!1e10!2sAF1QipP46l3VY6TyaAHOHBvZCUs5UR0qyfQ4XX7uJIJy",
+      "700 Towncenter Blvd, " +
       "Tuscaloosa, AL 35406",
       "https://www.google.com/maps/dir/''/heritage+coffee+house/@33.2329292,-" +
         "87.6068603,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x8888a85edac31a9f:0x646cf2ec30506713!2m2!1d-87." +
         "5368202!2d33.2329488", null, null);
 
     Shop s2 = new Shop(String.valueOf(id++), "Monarch Espresso Bar", "tuscaloosa's craft coffee shop",
-      null, "714 22nd Avenue, Tuscaloosa, AL 35401", "https://www.google.com/maps/dir/''" +
+      "https://www.google.com/maps/uv?hl=en&pb=!1s0x888602e95dc6c1e1:0x9c1dea0ab307b013!2m22!" +
+        "2m2!1i80!2i80!3m1!2i20!16m16!1b1!2m2!1m1!1e1!2m2!1m1!1e3!2m2!1m1!1e5!2m2!1m1!1e4!2m2!1m1!1e6!3m1!" +
+        "7e115!4shttps://lh5.googleusercontent.com/p/AF1QipOFR0SIEUx_4tU6cGzfNpsDP4W4gB4MSy5ZFLho%3Dw260-h175" +
+        "-n-k-no!5stuscaloosa+coffee+shops+-+Google+Search&imagekey=!1e10!2sAF1QipOFR0SIEUx_4tU6cGzfNpsDP4W4gB" +
+        "4MSy5ZFLho", "714 22nd Avenue, Tuscaloosa, AL 35401", "https://www.google.com/maps/dir/''" +
       "/tuscaloosa+coffee+shops/@33.2082483,-87.6347167,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x888602e95d" +
       "c6c1e1:0x9c1dea0ab307b013!2m2!1d-87.5646766!2d33.2082679", null, null);
 
     Shop s3 = new Shop(String.valueOf(id++), "Edelweiss", "Since 2007 Ester Scheeff, a native " +
       "German from Stuttgart, has been serving traditional German cakes, pastries, " +
-      "and lunch specials with love to all of Tuscaloosa.", null, "2324 4th St. Tuscaloosa, AL 35401",
+      "and lunch specials with love to all of Tuscaloosa.", "https://www.google.com/maps/uv?hl" +
+      "=en&pb=!1s0x888602e86b74ab49:0xd3d2ceb9509da51f!2m22!2m2!1i80!2i80!3m1!2i20!16m16!1b1!2m2!1m1!" +
+      "1e1!2m2!1m1!1e3!2m2!1m1!1e5!2m2!1m1!1e4!2m2!1m1!1e6!3m1!7e115!4shttps://lh5.googleusercontent." +
+      "com/p/AF1QipMeVZTisBk09uAMnARooZ6i4r2bQhhvYOreBf9l%3Dw260-h175-n-k-no!5stuscaloosa+coffee+shops+" +
+      "-+Google+Search&imagekey=!1e10!2sAF1QipMeVZTisBk09uAMnARooZ6i4r2bQhhvYOreBf9l",
+      "2324 4th St. Tuscaloosa, AL 35401",
       "https://www.google.com/maps/dir/''/tuscaloosa+coffee+shops" +
         "/data=!4m5!4m4!1m0!1m2!1m1!1s0x888602e86b74ab49:0xd3d2ceb9509da51f?sa=" +
         "X&ved=2ahUKEwjY2oro19HaAhVHrFMKHfOgC9AQ9RcwAHoECAAQCQ", null, null);
 
     Shop s4 = new Shop(String.valueOf(id++), "OHenry's Coffees", "More Than Just Coffee... " +
-      "A Community Gathering Place Since 1993", null, "2531 University Blvd #100, Tuscaloosa, AL 35401",
+      "A Community Gathering Place Since 1993", "https://www.google." +
+      "com/maps/uv?hl=en&pb=!1s0x888602e645ea0777:0x1f9ea6b947ea5ae!2m22!2m2!1i80!2i80!3m1!2i20!16m16!" +
+      "1b1!2m2!1m1!1e1!2m2!1m1!1e3!2m2!1m1!1e5!2m2!1m1!1e4!2m2!1m1!1e6!3m1!7e115!4shttps://lh5.googleusercontent." +
+      "com/p/AF1QipNtO-UC5DZ4k5Jgn4t1IxHMEfi_RcoGDrqVG7Wk%3Dw260-h175-n-k-no!5stuscaloosa+coffee+shops+-+Google+" +
+      "Search&imagekey=!1e10!2sAF1QipNtO-UC5DZ4k5Jgn4t1IxHMEfi_RcoGDrqVG7Wk", "2531 University Blvd #100, Tuscaloosa, AL 35401",
       "https://www.google.com/maps/dir/''/tuscaloosa+coffee+shops/@33.2088626,-87.6407768,12z/" +
         "data=!4m8!4m7!1m0!1m5!1m1!1s0x888602e645ea0777:0x1f9ea6b947ea5ae!2m2!1d-87.5707367!2d33.2088822", null, null);
 
@@ -112,24 +130,28 @@ public class PopulateDB {
       "Espresso", 4.95, s4.getUuid(), null);
 
     Bean b1 = new Bean(String.valueOf(id++), "OHenry's Blend", "Our #1 Coffee Blend. We roast it" +
-      " to be perfectly balanced for an “any time of day” coffee. (1 lbs bag)", null, "light",
+      " to be perfectly balanced for an “any time of day” coffee. (1 lbs bag)", "https://ohenryscoffees.com/" +
+      "product-category/coffee/light-mild-roast/#gallery-859", "light",
       null, s4.getUuid(), null);
 
     Bean b2 = new Bean(String.valueOf(id++), "Costa Rican Dark", "Deep, " +
-      "engaging flavors with a trace of smoky chocolate in the finish.", null, "dark",
+      "engaging flavors with a trace of smoky chocolate in the finish.", "https://" +
+      "ohenryscoffees.com/product-category/coffee/dark-roast/#gallery-688", "dark",
       null, s4.getUuid(), null);
 
     Bean b3 = new Bean(String.valueOf(id++), "African Classic", "A dark roast " +
       "blend of four of the finest origin beans grown on the African continent.  " +
       "The result is a rich, slightly smoky aroma, winey acidity and unique, complex flavors. " +
-      "(Sold in 1 lbs bags)", null, "dark",
+      "(Sold in 1 lbs bags)", "https://" +
+      "ohenryscoffees.com/wp-content/uploads/2016/07/OHenrys-African-Classic-Coffee.jpg", "dark",
       null, s4.getUuid(), null);
 
     Bean b4 = new Bean(String.valueOf(id++), "Celebes Kalossi Coffee", "Celebes " +
       "Kalossi Coffee is a world class coffee. " +
       "It is an exotic, rich and unusual coffee with a hint of nutty earthiness. " +
       "It’s so good even your heart rate monitor will smile. (Sold in 1 lbs bags)",
-      null, "exotic",
+      "https://ohenryscoffees.com/product-category/coffee/" +
+        "world-class-exotic/#gallery-628", "exotic",
       null, s4.getUuid(), null);
 
     drinkDataSource.saveDrink(d1);

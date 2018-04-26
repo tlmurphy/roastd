@@ -1,12 +1,9 @@
 package net.jmhossler.roastd.searchtask;
 
-
-
 import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import net.jmhossler.roastd.data.searchableItem.FirebaseRTSearchableItemRepository;
 import net.jmhossler.roastd.data.searchableItem.SearchableItem;
 import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.data.user.UserDataSource;

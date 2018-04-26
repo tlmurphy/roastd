@@ -1,11 +1,13 @@
 <android.support.v7.widget.SearchView
-android:id="@+id/search_bar"
-android:layout_width="match_parent"
-android:layout_height="?attr/actionBarSize"
-android:background="?attr/colorPrimary"
-android:elevation="4dp"
-android:title="@string/search_title"
-android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto" />
+  android:id="@+id/search_bar"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:elevation="4dp"
+  android:title="@string/search_title"
+  android:clickable="true"
+  android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+  app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  />

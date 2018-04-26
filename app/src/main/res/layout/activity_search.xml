@@ -12,9 +12,10 @@
 
   <FrameLayout
     android:id="@+id/searchFrame"
-    app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+    app:layout_constraintTop_toTopOf="@id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <include layout="@layout/search_fragment"/>
   </FrameLayout>
 
   <FrameLayout
