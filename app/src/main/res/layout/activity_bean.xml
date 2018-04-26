@@ -54,6 +54,15 @@ tools:context=".beantask.BeanActivity">
     android:textStyle="bold"
     android:id="@+id/origin"/>
 
+  <RatingBar
+    android:theme="@style/RatingBar"
+    android:stepSize="1"
+    android:numStars="5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/rating_bar"/>
+
   <FrameLayout
     android:id="@+id/shop_fragment_container"
     android:layout_width="match_parent"

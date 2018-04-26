@@ -4,16 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
+import com.google.firebase.auth.FirebaseAuth;
 import net.jmhossler.roastd.R;
-import net.jmhossler.roastd.data.bean.BeanDataSource;
 import net.jmhossler.roastd.data.bean.FirebaseRTBeanRepository;
 import net.jmhossler.roastd.data.review.FirebaseRTReviewRepository;
 import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
-import net.jmhossler.roastd.shoptask.ShopActivity;
-import net.jmhossler.roastd.shoptask.ShopContract;
-
+import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
 import java.util.List;
 
 public class BeanActivity extends AppCompatActivity implements BeanContract.View {
@@ -23,6 +21,7 @@ public class BeanActivity extends AppCompatActivity implements BeanContract.View
   private TextView mDescription;
   private TextView mRoast;
   private TextView mOrigin;
+  private RatingBar mRatingBar;
 
   private static final String itemKey = "BEAN_ID";
 
@@ -43,14 +42,23 @@ public class BeanActivity extends AppCompatActivity implements BeanContract.View
     mDescription = (TextView) findViewById(R.id.description);
     mRoast = (TextView) findViewById(R.id.roast);
     mOrigin = (TextView) findViewById(R.id.origin);
+    mRatingBar = findViewById(R.id.rating_bar);
 
-    BeanPresenter presenter = new BeanPresenter(this, beanId, FirebaseRTBeanRepository.getInstance(),
-      FirebaseRTShopRepository.getInstance(), FirebaseRTReviewRepository.getInstance());
+    BeanPresenter presenter = new BeanPresenter(this, beanId, FirebaseRTUserRepository.getsInstance(),
+      FirebaseRTBeanRepository.getInstance(), FirebaseRTShopRepository.getInstance(),
+      FirebaseRTReviewRepository.getInstance(), FirebaseAuth.getInstance());
 
-    presenter.setName();
-    presenter.setDescription();
-    presenter.setRoast();
-    presenter.setOrigin();
+    presenter.start();
+
+    mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+      @Override
+      public void onRatingChanged(RatingBar ratingBar, float rating,
+                                  boolean fromUser) {
+        if (fromUser) {
+          presenter.setNewRating(rating);
+        }
+      }
+    });
   }
 
   @Override
@@ -91,5 +99,10 @@ public class BeanActivity extends AppCompatActivity implements BeanContract.View
   @Override
   public void setPresenter(BeanContract.Presenter presenter) {
     mBeanPresenter = presenter;
+  }
+
+  @Override
+  public void displayRating(int score) {
+    mRatingBar.setRating(score);
   }
 }
