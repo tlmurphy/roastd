@@ -113,17 +113,24 @@ public class ShopActivity extends AppCompatActivity implements ShopContract.View
   }
 
   @Override
-  public void displayConsumeables(List<SearchableItem> items) {
-
-  }
-
-  @Override
   public void displayImage(String imageUrl) {
-    Glide.with(this).load(imageUrl).thumbnail(0.5f).into(mImageView);
+    if (imageUrl != null && !imageUrl.isEmpty()) {
+      Glide
+        .with(this)
+        .load(imageUrl)
+        .thumbnail(0.5f)
+        .into(mImageView);
+    } else {
+      Glide
+        .with(this)
+        .load(R.drawable.default_shop_background)
+        .thumbnail(0.5f)
+        .into(mImageView);
+    }
   }
 
   @Override
-  public void displayRating(int score) {
+  public void displayRating(float score) {
     mRatingBar.setRating(score);
   }
 }

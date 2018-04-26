@@ -43,10 +43,10 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
 
     String drinkId = getIntent().getStringExtra(itemKey);
 
-    mName = (TextView) findViewById(R.id.name);
-    mDescription = (TextView) findViewById(R.id.description);
-    mType = (TextView) findViewById(R.id.type);
-    mPrice = (TextView) findViewById(R.id.price);
+    mName = findViewById(R.id.name);
+    mDescription = findViewById(R.id.description);
+    mType = findViewById(R.id.type);
+    mPrice = findViewById(R.id.price);
     mRatingBar = findViewById(R.id.rating_bar);
     mImageView = findViewById(R.id.drink_background);
 
@@ -54,14 +54,17 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
       FirebaseRTDrinkRepository.getInstance(), FirebaseRTShopRepository.getInstance(),
       FirebaseRTReviewRepository.getInstance(), FirebaseAuth.getInstance());
 
-    presenter.start();
-
     mRatingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
       if (fromUser) {
         presenter.setNewRating(rating);
       }
     });
+  }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    mDrinkPresenter.start();
   }
 
   @Override
@@ -96,7 +99,19 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
 
   @Override
   public void displayImage(String imageUrl) {
-    Glide.with(this).load(imageUrl).thumbnail(0.5f).into(mImageView);
+    if (imageUrl != null && !imageUrl.isEmpty()) {
+      Glide
+        .with(this)
+        .load(imageUrl)
+        .thumbnail(0.5f)
+        .into(mImageView);
+    } else {
+      Glide
+        .with(this)
+        .load(R.drawable.default_shop_background)
+        .thumbnail(0.5f)
+        .into(mImageView);
+    }
   }
 
   @Override

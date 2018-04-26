@@ -66,11 +66,6 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   }
 
   @Override
-  public void notifyItemChanged(int position) {
-    mSearchableItemAdapter.notifyItemChanged(position);
-  }
-
-  @Override
   public void notifyItemChanged(int position, Object payload) {
     mSearchableItemAdapter.notifyItemChanged(position, payload);
   }
@@ -105,6 +100,12 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   @Override
   public void finish() {
     getActivity().finish();
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    mPresenter.cancelImageLoads();
   }
 
   @Override

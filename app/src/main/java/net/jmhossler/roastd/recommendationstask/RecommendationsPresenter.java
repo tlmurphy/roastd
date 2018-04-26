@@ -30,7 +30,7 @@ public class RecommendationsPresenter extends BaseSearchableItemPresenter {
     mSearchableItemDataStore.getSearchableItems(recommendationsList, new SearchableItemDataSource.LoadSearchableItemsCallback() {
       @Override
       public void onSearchableItemsLoaded(List<SearchableItem> items) {
-        mItems = items;
+        setItems(items);
         mListView.notifyDataSetChanged();
         mListView.hideProgressBarShowList();
       }

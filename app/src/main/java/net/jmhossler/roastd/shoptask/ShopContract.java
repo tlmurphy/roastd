@@ -13,8 +13,7 @@ public interface ShopContract {
     void displayAddress(String address);
     void displayImage(String imageUrl);
     void createMapsLink(String url);
-    void displayConsumeables(List<SearchableItem> items);
-    void displayRating(int score);
+    void displayRating(float score);
     void finish();
   }
 

@@ -11,7 +11,6 @@ public interface SearchableItemListContract {
 
   interface View extends BaseView<Presenter> {
     void notifyDataSetChanged();
-    void notifyItemChanged(int position);
     void notifyItemChanged(int position, Object payload);
     void navigateToBean(String beanId);
     void navigateToDrink(String drinkId);

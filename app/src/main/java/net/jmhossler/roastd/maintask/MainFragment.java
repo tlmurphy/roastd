@@ -61,6 +61,12 @@ public class MainFragment extends Fragment implements MainContract.View {
     mPresenter.start();
   }
 
+  @Override
+  public void onStop() {
+    super.onStop();
+    mPresenter.stop();
+  }
+
   @Nullable
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {

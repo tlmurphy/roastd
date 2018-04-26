@@ -107,11 +107,7 @@ public class BeanPresenter implements BeanContract.Presenter {
 
   @Override
   public void setImage(SearchableItem item) {
-    Bean bean = (Bean) item;
-    String imageUrl = item.getImage();
-    if (imageUrl != null && !imageUrl.equals("")) {
-      mView.displayImage(imageUrl);
-    }
+    mView.displayImage(item.getImage());
   }
 
   @Override

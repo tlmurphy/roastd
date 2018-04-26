@@ -15,6 +15,7 @@ import net.jmhossler.roastd.data.shop.Shop;
 import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
 
   private static final String TAG = "BaseSearchableItemPresenter";
   protected SearchableItemListContract.View mListView;
-  protected List<SearchableItem> mItems;
+  private List<SearchableItem> mItems;
   protected UserDataSource mUserDataStore;
   protected SearchableItemDataSource mSearchableItemDataStore;
   protected FirebaseAuth mAuth;
@@ -35,7 +36,7 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
                                      UserDataSource userRepository) {
     mListView = v;
     mListView.setPresenter(this);
-    mItems = new ArrayList<>();
+    setItems(new ArrayList<>());
     mAuth = firebaseAuth;
     mSearchableItemDataStore = searchableItemRepository;
     mUserDataStore = userRepository;
@@ -44,7 +45,7 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
 
   @Override
   public void onListItemClicked(int position) {
-    SearchableItem i = mItems.get(position);
+    SearchableItem i = getItems().get(position);
     if (i instanceof Drink) {
       mListView.navigateToDrink(i.getUuid());
     } else if (i instanceof Shop) {
@@ -57,9 +58,9 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   }
 
   public void loadAllImages() {
-    for (int i = 0; i < mItems.size(); ++i) {
-      mDownloaders.add(new DownloadImageTask(i, mItems.get(i).getUuid())
-      .execute(mItems.get(i).getImage()));
+    for (int i = 0; i < getItems().size(); ++i) {
+      mDownloaders.add(new DownloadImageTask(i, getItems().get(i).getUuid(), i)
+      .execute(getItems().get(i).getImage()));
     }
   }
 
@@ -73,9 +74,9 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   @Override
   public void toggleFavorite(int position, Boolean isFavoriting) {
     if (isFavoriting) {
-      mUser.addFavoriteUUID(mItems.get(position).getUuid());
+      mUser.addFavoriteUUID(getItems().get(position).getUuid());
     } else {
-      mUser.removeFavoriteUUID(mItems.get(position).getUuid());
+      mUser.removeFavoriteUUID(getItems().get(position).getUuid());
     }
     mUserDataStore.saveUser(mUser);
   }
@@ -84,12 +85,12 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
     public void bindViewAtPosition(int position, SearchableItemListContract.SearchableListItemView view,
                                    List<Object> payloads) {
     if (payloads != null && payloads.size() != 0) {
-      if (position >= mItems.size()) {
+      if (position >= getItems().size()) {
         Log.w(TAG, "Downloader delivered image to nonexistent position!");
         return;
       }
       Pair<Bitmap, String> p = (Pair<Bitmap, String>) payloads.get(0);
-      if (p.second == mItems.get(position).getUuid()) {
+      if (p.second.equals(getItems().get(position).getUuid())) {
         view.setIcon(p.first);
       } else {
         Log.w(TAG, "Downloader delivered image to existent position, but it has the wrong UUID!");
@@ -97,19 +98,31 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
       }
     }
 
-    SearchableItem si = mItems.get(position);
+    SearchableItem si = getItems().get(position);
     view.setContent(si.getName());
     view.setFavoriteState(mUser.getFavoriteUUIDs().containsKey(si.getUuid()));
   }
 
   @Override
   public int itemCount() {
-    return mItems.size();
+    return getItems().size();
   }
 
   @Override
   public void destroy() {
     cancelImageLoads();
+  }
+
+  protected void setItems(List<SearchableItem> items) {
+    if (items == null) {
+      mItems.clear();
+    } else {
+      mItems = items;
+    }
+  }
+
+  protected List<SearchableItem> getItems(){
+    return mItems;
   }
 
   public void userLoaded() {
@@ -133,25 +146,53 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   }
 
   private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    String uuid;
-    int position;
+    private static final String TAG = "DownloadImageTask";
+    private String uuid;
+    private int position;
+    private int downloaderNumber;
 
-    public DownloadImageTask(int position, String uuid) {
+    public DownloadImageTask(int position, String uuid, int downloaderNum) {
       this.position = position;
       this.uuid = uuid;
+      downloaderNumber = downloaderNum;
     }
 
     @Override
     protected Bitmap doInBackground(String... urls) {
-      String urldisplay = urls[0];
+      if (urls.length == 0) {
+        Log.e(TAG, "Did not receive any urls!");
+        return null;
+      }
+      if (urls.length != 1) {
+        Log.w(TAG, "Was only expecting one URL, but will continue processing just the first one");
+      }
+      String urlDisplay = urls[0];
       Bitmap mIcon11 = null;
+      InputStream in = null;
+
+      if (urlDisplay.isEmpty()) {
+        Log.i(TAG, "Item has no image URL, skipping...");
+        return null;
+      }
 
       try {
-        InputStream in = new java.net.URL(urldisplay).openStream();
+        // For optimization, stop now if this thread is already cancelled
+        if (isCancelled()) {
+          return null;
+        }
+        in = new java.net.URL(urlDisplay).openStream();
         mIcon11 = BitmapFactory.decodeStream(in);
       } catch (Exception e) {
-        Log.e("Error", e.getMessage());
+        Log.e(TAG, "Error attempting to download '" + urlDisplay + "': " + e.getMessage());
         e.printStackTrace();
+      } finally {
+        if (in != null) {
+          try {
+            in.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
       }
       return mIcon11;
     }
@@ -162,6 +203,11 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
         BaseSearchableItemPresenter.this.mListView.
           notifyItemChanged(position, new Pair<>(bitmap, uuid));
       }
+    }
+
+    @Override
+    protected void onCancelled() {
+      Log.i(TAG, "Thread " + downloaderNumber + ": cancelled!");
     }
   }
 }

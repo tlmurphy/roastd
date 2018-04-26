@@ -21,12 +21,11 @@ import java.util.UUID;
 import static android.support.constraint.Constraints.TAG;
 
 public class ShopPresenter extends BaseSearchableItemPresenter implements ShopContract.Presenter {
-  protected String mShopId;
-  protected ShopContract.View mView;
-  protected ShopDataSource mShopDataSource;
-  protected ReviewDataSource mReviewDataSource;
-  protected Shop mShop;
-
+  private String mShopId;
+  private ShopContract.View mView;
+  private ShopDataSource mShopDataSource;
+  private ReviewDataSource mReviewDataSource;
+  private Shop mShop;
 
   public ShopPresenter(ShopContract.View view, SearchableItemListContract.View silf, String shopId, UserDataSource userDataSource, ShopDataSource shopDataSource,
                        SearchableItemDataSource searchableItemDataSource, ReviewDataSource reviewDataSource,
@@ -67,16 +66,11 @@ public class ShopPresenter extends BaseSearchableItemPresenter implements ShopCo
   }
 
   @Override
-  public void start() {
-    super.start();
-  }
-
-  @Override
   public void setConsumables(List<String> ids) {
     mSearchableItemDataStore.getSearchableItems(ids, new SearchableItemDataSource.LoadSearchableItemsCallback() {
       @Override
       public void onSearchableItemsLoaded(List<SearchableItem> items) {
-        mItems = items;
+        setItems(items);
         mListView.notifyDataSetChanged();
         mListView.hideProgressBarShowList();
       }
@@ -120,22 +114,24 @@ public class ShopPresenter extends BaseSearchableItemPresenter implements ShopCo
     mReviewDataSource.getReviews(new ReviewDataSource.LoadReviewsCallback() {
       @Override
       public void onReviewsLoaded(List<Review> reviews) {
-        Boolean reviewFound = false;
-        for (Review r : reviews) {
-          if (item.getReviewIds().get(r.getUuid()) != null && r.getUserUuid().equals(mUser.getUuid())) {
-            reviewFound = true;
-            mView.displayRating(r.getScore());
-          }
-        }
-        // User hasn't reviewed this item yet
-        if (!reviewFound) {
-          // Set the empty rating
-          mView.displayRating(0);
-        }
+        mView.displayRating(getReview(reviews, item));
       }
       @Override
       public void onDataNotAvailable() { Log.d(TAG, "No reviews found!"); }
     });
+  }
+
+  private float getReview(List<Review> reviews, SearchableItem item) {
+    if (item.getReviewIds().isEmpty()) {
+      return 0;
+    }
+
+    for (Review r : reviews) {
+      if (item.getReviewIds().containsKey(r.getUuid()) && r.getUserUuid().equals(mUser.getUuid())) {
+        return r.getScore();
+      }
+    }
+    return 0;
   }
 
   @Override

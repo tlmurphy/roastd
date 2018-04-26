@@ -1,5 +1,7 @@
 package net.jmhossler.roastd.maintask;
 
+import android.support.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import net.jmhossler.roastd.data.user.UserDataSource;
@@ -17,6 +19,7 @@ public class MainPresenter implements MainContract.Presenter {
   private FirebaseAuth mAuth;
   private UserDataSource mUserDataSource;
   private Calendar mCalendar;
+  private FirebaseAuth.AuthStateListener mAuthStateListener;
 
   public MainPresenter(MainContract.View mainView, FirebaseAuth auth,
                        UserDataSource userDataSource, Calendar calendar) {
@@ -29,14 +32,16 @@ public class MainPresenter implements MainContract.Presenter {
 
   @Override
   public void start() {
-    mAuth.addAuthStateListener(firebaseAuth -> {
+    mAuthStateListener = firebaseAuth -> {
       if(mAuth.getCurrentUser() != null) {
         mMainView.enableButtons();
         setCurrentPhotoURL();
         setDisplayName();
         setFirstName();
       }
-    });
+    };
+
+    mAuth.addAuthStateListener(mAuthStateListener);
 
     if (mMainView.needToLogin()) {
       mMainView.disableButtons();
@@ -44,6 +49,10 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     setGreetingLabel();
+  }
+
+  public void stop() {
+    mAuth.removeAuthStateListener(mAuthStateListener);
   }
 
   @Override

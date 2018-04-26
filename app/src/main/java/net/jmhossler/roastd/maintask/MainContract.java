@@ -28,5 +28,6 @@ public interface MainContract {
     void setFirstName();
     void setCurrentPhotoURL();
     void setGreetingLabel();
+    void stop();
   }
 }
