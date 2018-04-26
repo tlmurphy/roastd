@@ -1,6 +1,11 @@
 package net.jmhossler.roastd.viewtask;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
+
 import com.google.firebase.auth.FirebaseAuth;
 import net.jmhossler.roastd.data.bean.Bean;
 import net.jmhossler.roastd.data.drink.Drink;
@@ -9,11 +14,10 @@ import net.jmhossler.roastd.data.searchableItem.SearchableItemDataSource;
 import net.jmhossler.roastd.data.shop.Shop;
 import net.jmhossler.roastd.data.user.User;
 import net.jmhossler.roastd.data.user.UserDataSource;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class BaseSearchableItemPresenter implements SearchableItemListContract.Presenter {
 
@@ -23,6 +27,7 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   protected SearchableItemDataSource mSearchableItemDataStore;
   protected FirebaseAuth mAuth;
   protected User mUser;
+  protected List<AsyncTask> mDownloaders;
 
   public BaseSearchableItemPresenter(SearchableItemListContract.View v, FirebaseAuth firebaseAuth,
                                      SearchableItemDataSource searchableItemRepository,
@@ -33,6 +38,7 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
     mAuth = firebaseAuth;
     mSearchableItemDataStore = searchableItemRepository;
     mUserDataStore = userRepository;
+    mDownloaders = new ArrayList<>();
   }
 
   @Override
@@ -49,6 +55,20 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
     }
   }
 
+  public void loadAllImages() {
+    for (int i = 0; i < mItems.size(); ++i) {
+      mDownloaders.add(new DownloadImageTask(i, mItems.get(i).getUuid())
+      .execute(mItems.get(i).getImage()));
+    }
+  }
+
+  public void cancelImageLoads() {
+    for (AsyncTask t : mDownloaders) {
+      t.cancel(true);
+    }
+    mDownloaders.clear();
+  }
+
   @Override
   public void toggleFavorite(int position, Boolean isFavoriting) {
     if (isFavoriting) {
@@ -60,15 +80,28 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
   }
 
   @Override
-    public void bindViewAtPosition(int position, SearchableItemListContract.SearchableListItemView view) {
+    public void bindViewAtPosition(int position, SearchableItemListContract.SearchableListItemView view,
+                                   List<Object> payloads) {
     SearchableItem si = mItems.get(position);
     view.setContent(si.getName());
     view.setFavoriteState(mUser.getFavoriteUUIDs().containsKey(si.getUuid()));
+
+    if (payloads != null && payloads.size() != 0) {
+      Pair<Bitmap, String> p = (Pair<Bitmap, String>) payloads.get(0);
+      if (p.second == si.getUuid()) {
+        view.setIcon(p.first);
+      }
+    }
   }
 
   @Override
   public int itemCount() {
     return mItems.size();
+  }
+
+  @Override
+  public void destroy() {
+    cancelImageLoads();
   }
 
   public void userLoaded() {
@@ -89,5 +122,38 @@ public class BaseSearchableItemPresenter implements SearchableItemListContract.P
 
       }
     });
+  }
+
+  private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    String uuid;
+    int position;
+
+    public DownloadImageTask(int position, String uuid) {
+      this.position = position;
+      this.uuid = uuid;
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... urls) {
+      String urldisplay = urls[0];
+      Bitmap mIcon11 = null;
+
+      try {
+        InputStream in = new java.net.URL(urldisplay).openStream();
+        mIcon11 = BitmapFactory.decodeStream(in);
+      } catch (Exception e) {
+        Log.e("Error", e.getMessage());
+        e.printStackTrace();
+      }
+      return mIcon11;
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+      if (bitmap != null) {
+        BaseSearchableItemPresenter.this.mListView.
+          notifyItemChanged(position, new Pair<>(bitmap, uuid));
+      }
+    }
   }
 }

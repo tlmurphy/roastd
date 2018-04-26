@@ -1,6 +1,6 @@
 package net.jmhossler.roastd.viewtask;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,13 +14,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import net.jmhossler.roastd.R;
 import net.jmhossler.roastd.beantask.BeanActivity;
 import net.jmhossler.roastd.drinktask.DrinkActivity;
 import net.jmhossler.roastd.shoptask.ShopActivity;
+
+import java.util.List;
 
 public class SearchableItemListFragment extends Fragment implements SearchableItemListContract.View {
 
@@ -59,7 +60,19 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
 
   @Override
   public void notifyDataSetChanged() {
+    mPresenter.cancelImageLoads();
+    mPresenter.loadAllImages();
     mSearchableItemAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void notifyItemChanged(int position) {
+    mSearchableItemAdapter.notifyItemChanged(position);
+  }
+
+  @Override
+  public void notifyItemChanged(int position, Object payload) {
+    mSearchableItemAdapter.notifyItemChanged(position, payload);
   }
 
   @Override
@@ -92,6 +105,12 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
   @Override
   public void finish() {
     getActivity().finish();
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    mPresenter.destroy();
   }
 
   /// Holds the View of each item in the RecyclerView
@@ -135,8 +154,8 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
     }
 
     @Override
-    public void setIcon(String imageUrl) {
-
+    public void setIcon(Bitmap image) {
+      mIconImageView.setImageBitmap(image);
     }
 
     @Override
@@ -166,7 +185,13 @@ public class SearchableItemListFragment extends Fragment implements SearchableIt
 
     @Override
     public void onBindViewHolder(@NonNull SearchableItemHolder holder, int position) {
-      mPresenter.bindViewAtPosition(position, holder);
+      mPresenter.bindViewAtPosition(position, holder, null);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull SearchableItemHolder holder, int position,
+                                 List<Object> payloads) {
+      mPresenter.bindViewAtPosition(position, holder, payloads);
     }
 
     @Override

@@ -33,6 +33,7 @@ public class SearchPresenter extends BaseSearchableItemPresenter implements Sear
   }
 
   public void search(String query) {
+    mListView.showProgressBarHideList();
     mSearchableItemDataStore.getSearchableItemsByText(query,
       new SearchableItemDataSource.LoadSearchableItemsCallback() {
       @Override
