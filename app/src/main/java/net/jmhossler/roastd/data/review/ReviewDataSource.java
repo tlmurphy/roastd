@@ -1,6 +1,6 @@
 package net.jmhossler.roastd.data.review;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ReviewDataSource {
 
@@ -13,7 +13,7 @@ public interface ReviewDataSource {
 
   interface LoadReviewsCallback {
 
-    void onReviewsLoaded(Map<String, Review> reviews);
+    void onReviewsLoaded(List<Review> reviews);
 
     void onDataNotAvailable();
   }
@@ -23,4 +23,6 @@ public interface ReviewDataSource {
   void getReviews(LoadReviewsCallback callback);
 
   void saveReview(Review review);
+
+  void deleteReview(String reviewId);
 }

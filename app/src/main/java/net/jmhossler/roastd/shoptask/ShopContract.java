@@ -13,6 +13,8 @@ public interface ShopContract {
     void displayAddress(String address);
     void displayMapsUrl(String url);
     void displayConsumeables(List<SearchableItem> items);
+    void displayRating(int score);
+    void finish();
   }
 
   interface Presenter extends BasePresenter {
@@ -21,5 +23,7 @@ public interface ShopContract {
     void setDescription();
     void setAddress();
     void setMapsUrl();
+    void setCurrentRating();
+    void setNewRating(float rating);
   }
 }

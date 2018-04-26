@@ -8,6 +8,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import net.jmhossler.roastd.data.bean.Bean;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class FirebaseRTReviewRepository implements ReviewDataSource {
@@ -57,7 +61,10 @@ public class FirebaseRTReviewRepository implements ReviewDataSource {
       new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          callback.onReviewsLoaded((Map<String, Review>) dataSnapshot.getValue());
+          List<Review> reviews = new ArrayList<>();
+          dataSnapshot.getChildren().forEach(r -> reviews.add(r.getValue(Review.class)));
+          callback.onReviewsLoaded(reviews);
+
         }
 
         @Override
@@ -70,5 +77,10 @@ public class FirebaseRTReviewRepository implements ReviewDataSource {
   @Override
   public void saveReview(Review review) {
     mDatabase.child("reviews").child(review.getUuid()).setValue(review);
+  }
+
+  @Override
+  public void deleteReview(String reviewId) {
+    mDatabase.child("reviews").child(reviewId).removeValue();
   }
 }
