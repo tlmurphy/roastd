@@ -63,6 +63,7 @@ public class ShopPresenter implements ShopContract.Presenter {
             setDescription(item);
             setMapsUrl(item);
             setCurrentRating(item);
+            setImage(item);
           }
           @Override
           public void onDataNotAvailable() { }
@@ -114,6 +115,14 @@ public class ShopPresenter implements ShopContract.Presenter {
   }
 
   @Override
+  public void setImage(SearchableItem item) {
+    String imageUrl = item.getImage();
+    if (imageUrl != null) {
+      mView.displayImage(imageUrl);
+    }
+  }
+
+  @Override
   public void setDescription(SearchableItem item) {
     String description = item.getDescription();
     if(description == null) {
@@ -134,7 +143,10 @@ public class ShopPresenter implements ShopContract.Presenter {
 
   @Override
   public void setMapsUrl(SearchableItem item) {
+    Shop shop = (Shop) item;
+    String address = shop.getAddress();
 
+    mView.createMapsLink(address);
   }
 
   @Override

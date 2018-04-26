@@ -11,7 +11,8 @@ public interface ShopContract {
     void displayName(String name);
     void displayDescription(String description);
     void displayAddress(String address);
-    void displayMapsUrl(String url);
+    void displayImage(String imageUrl);
+    void createMapsLink(String url);
     void displayConsumeables(List<SearchableItem> items);
     void displayRating(int score);
     void finish();
@@ -20,6 +21,7 @@ public interface ShopContract {
   interface Presenter extends BasePresenter {
     void setConsumeables();
     void setName(SearchableItem item);
+    void setImage(SearchableItem item);
     void setDescription(SearchableItem item);
     void setAddress(SearchableItem item);
     void setMapsUrl(SearchableItem item);

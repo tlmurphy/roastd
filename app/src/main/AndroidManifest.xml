@@ -21,7 +21,9 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".profiletask.ProfileActivity" />
+    <activity
+      android:name=".profiletask.ProfileActivity"
+      android:label="@string/profile_label" />
     <activity android:name=".searchtask.SearchActivity"
       android:theme="@style/Theme.AppCompat.Light.NoActionBar">
       <meta-data android:name="android.app.searchable"
@@ -39,12 +41,19 @@
       android:resource="@array/preloaded_fonts" />
 
     <activity android:name=".applicationtask.ApplicationActivity" />
-    <activity android:name=".beantask.BeanActivity" />
-    <activity android:name=".drinktask.DrinkActivity" />
-    <activity android:name=".shoptask.ShopActivity" />
+    <activity
+      android:name=".beantask.BeanActivity"
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".drinktask.DrinkActivity"
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:name=".shoptask.ShopActivity"
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:name=".recommendationstask.RecommendationsActivity"
       android:label="@string/recommendations_title" />
   </application>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 </manifest>

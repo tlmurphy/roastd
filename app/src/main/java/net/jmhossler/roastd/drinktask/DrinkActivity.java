@@ -13,6 +13,7 @@ import net.jmhossler.roastd.data.review.FirebaseRTReviewRepository;
 import net.jmhossler.roastd.data.shop.FirebaseRTShopRepository;
 import net.jmhossler.roastd.data.user.FirebaseRTUserRepository;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class DrinkActivity extends AppCompatActivity implements DrinkContract.View {
@@ -85,7 +86,7 @@ public class DrinkActivity extends AppCompatActivity implements DrinkContract.Vi
 
   @Override
   public void displayPrice(Double price) {
-    mPrice.setText("Price: $" + price.toString());
+    mPrice.setText("Price: $" + String.format("%.2f", price));
   }
 
   @Override

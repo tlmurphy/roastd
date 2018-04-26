@@ -23,4 +23,15 @@ public class ActivityUtils {
   public static boolean needToLogin(Context context) {
     return GoogleSignIn.getLastSignedInAccount(context) == null;
   }
+
+  public static String getMapsDirectionsUrl(String origin, String destination) {
+    // If we can get location services working, this will make it so that we can provide a direct
+    //    link to directions. The other function also works, though.
+    return "https://www.google.com/maps/dir/json?origin=" + origin
+      + "&destination=" + destination;
+  }
+
+  public static String getMapsLocationUrl(String location) {
+    return "https://www.google.com/maps/search/?api=1&query=" + location;
+  }
 }
