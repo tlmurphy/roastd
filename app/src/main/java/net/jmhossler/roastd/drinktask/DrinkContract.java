@@ -2,7 +2,6 @@ package net.jmhossler.roastd.drinktask;
 
 import net.jmhossler.roastd.BasePresenter;
 import net.jmhossler.roastd.BaseView;
-import net.jmhossler.roastd.shoptask.ShopContract;
 
 import java.util.List;
 

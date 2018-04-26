@@ -18,13 +18,19 @@ package net.jmhossler.roastd.maintask;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import net.jmhossler.roastd.data.user.UserDataSource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Calendar;
+
 import static android.app.Activity.RESULT_OK;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for the implementation of {@link MainPresenter}
@@ -33,7 +39,15 @@ public class MainPresenterTest {
 
   @Mock
   private MainContract.View mMainView;
+
+  @Mock
   private FirebaseAuth mAuth;
+
+  @Mock
+  private UserDataSource mUserDataSource;
+
+  @Mock
+  private Calendar mCalendar;
 
   private MainPresenter mMainPresenter;
 
@@ -44,13 +58,13 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     // Get a reference to the class under test
-    mMainPresenter = new MainPresenter(mMainView, mAuth);
+    mMainPresenter = new MainPresenter(mMainView, mAuth, mUserDataSource, mCalendar);
   }
 
   @Test
   public void createPresenter_setsThePresenterToView() {
     // Get a reference to the class under test
-    mMainPresenter = new MainPresenter(mMainView, mAuth);
+    mMainPresenter = new MainPresenter(mMainView, mAuth, mUserDataSource, mCalendar);
 
     // Then the presenter is set to the view
     verify(mMainView).setPresenter(mMainPresenter);
@@ -63,5 +77,29 @@ public class MainPresenterTest {
 
     // Then add task UI is shown
     verify(mMainView).startLogin();
+  }
+
+  @Test
+  public void setGreetingLabel_Evening() {
+    when(mCalendar.get(anyInt())).thenReturn(18);
+    mMainPresenter.setGreetingLabel();
+
+    verify(mMainView).displayGreetingLabel(mMainView.getEveningGreeting());
+  }
+
+  @Test
+  public void setGreetingLabel_Afternoon() {
+    when(mCalendar.get(anyInt())).thenReturn(15);
+    mMainPresenter.setGreetingLabel();
+
+    verify(mMainView).displayGreetingLabel(mMainView.getAfternoonGreeting());
+  }
+
+  @Test
+  public void setGreetingLabel_Morning() {
+    when(mCalendar.get(anyInt())).thenReturn(10);
+    mMainPresenter.setGreetingLabel();
+
+    verify(mMainView).displayGreetingLabel(mMainView.getMorningGreeting());
   }
 }

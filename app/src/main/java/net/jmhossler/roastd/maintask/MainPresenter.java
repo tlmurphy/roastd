@@ -6,6 +6,11 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import net.jmhossler.roastd.data.user.User;
+import net.jmhossler.roastd.data.user.UserDataSource;
+
+import java.util.Calendar;
+
 import static android.app.Activity.RESULT_OK;
 
 public class MainPresenter implements MainContract.Presenter {
@@ -13,13 +18,17 @@ public class MainPresenter implements MainContract.Presenter {
   private static final int RC_SIGN_OUT = 9002;
   private static final int LOGGED_OUT = RESULT_OK;
 
-  @NonNull
   private final MainContract.View mMainView;
   private FirebaseAuth mAuth;
+  private UserDataSource mUserDataSource;
+  private Calendar mCalendar;
 
-  public MainPresenter(@NonNull MainContract.View mainView, FirebaseAuth auth) {
+  public MainPresenter(MainContract.View mainView, FirebaseAuth auth,
+                       UserDataSource userDataSource, Calendar calendar) {
     mMainView = mainView;
+    mUserDataSource = userDataSource;
     mAuth = auth;
+    mCalendar = calendar;
     mMainView.setPresenter(this);
   }
 
@@ -38,37 +47,72 @@ public class MainPresenter implements MainContract.Presenter {
   }
 
   @Override
-  public String getDisplayName() {
-    if(mAuth.getCurrentUser() == null) {
-      return "";
-    }
-    else {
-      return mAuth.getCurrentUser().getDisplayName();
-    }
-  }
-
-  @Override
-  public String getFirstName() {
-    if(mAuth.getCurrentUser() == null) {
-      return "";
-    }
-    else {
-      return mAuth.getCurrentUser().getDisplayName().split("\\s+")[0];
-    }
-  }
-
-  @Override
-  public String getCurrentPhotoURL() {
-    if(mAuth.getCurrentUser() == null) {
-      return "";
-    }
-    else {
-      Uri photoURI = mAuth.getCurrentUser().getPhotoUrl();
-      if (photoURI == null) {
-        return "";
-      } else {
-        return photoURI.toString();
+  public void setDisplayName() {
+    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+      @Override
+      public void onUserLoaded(User user) {
+        if(user == null) {
+          mMainView.displayUserFullName("");
+        } else {
+          mMainView.displayUserFullName(user.getName());
+        }
       }
+
+      @Override
+      public void onDataNotAvailable() {
+
+      }
+    });
+  }
+
+  @Override
+  public void setFirstName() {
+    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+      @Override
+      public void onUserLoaded(User user) {
+        if(user == null) {
+          mMainView.displayUserFirstName("");
+        } else {
+          mMainView.displayUserFirstName(user.getName().split("\\s+")[0]);
+        }
+      }
+
+      @Override
+      public void onDataNotAvailable() {
+
+      }
+    });
+  }
+
+  @Override
+  public void setCurrentPhotoURL() {
+    mUserDataSource.getUser(mAuth.getUid(), new UserDataSource.GetUserCallback() {
+      @Override
+      public void onUserLoaded(User user) {
+        if(user == null) {
+          mMainView.displayUserImage("");
+        } else {
+          mMainView.displayUserImage(user.getPhotoURL());
+        }
+      }
+
+      @Override
+      public void onDataNotAvailable() {
+
+      }
+    });
+  }
+
+  @Override
+  public void setGreetingLabel() {
+    int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
+    String greeting = mMainView.getMorningGreeting();
+
+    if (hour > 17) {
+      greeting = mMainView.getEveningGreeting();
+    } else if (hour > 11) {
+      greeting = mMainView.getAfternoonGreeting();
     }
+    mMainView.displayGreetingLabel(greeting);
   }
 }

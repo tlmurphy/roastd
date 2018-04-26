@@ -9,12 +9,20 @@ public interface MainContract {
     void startLogin();
     boolean needToLogin();
     void finish();
+    void displayUserFirstName(String name);
+    void displayUserImage(String imageUrl);
+    void displayUserFullName(String name);
+    void displayGreetingLabel(String greeting);
+    String getMorningGreeting();
+    String getEveningGreeting();
+    String getAfternoonGreeting();
   }
 
   interface Presenter extends BasePresenter {
     void result(int requestCode, int resultCode);
-    String getDisplayName();
-    String getFirstName();
-    String getCurrentPhotoURL();
+    void setDisplayName();
+    void setFirstName();
+    void setCurrentPhotoURL();
+    void setGreetingLabel();
   }
 }

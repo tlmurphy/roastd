@@ -99,25 +99,16 @@ public class MainFragment extends Fragment implements MainContract.View {
     mRecommendationsButton.setOnClickListener(v -> startActivity(new Intent(getContext(), RecommendationsActivity.class)));
 
     mGreetingLabel = root.findViewById(R.id.greeting_label);
-    int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);;
-    String greeting = getString(R.string.greeting_morning);
-
-    if (hour > 17) {
-      greeting = getString(R.string.greeting_evening);
-    } else if (hour > 11) {
-      greeting = getString(R.string.greeting_afternoon);
-    }
-
-    mGreetingLabel.setText(greeting);
+    mPresenter.setGreetingLabel();
 
     mNameLabel = root.findViewById(R.id.name_label);
-    mNameLabel.setText(mPresenter.getFirstName() + "!");
+    mPresenter.setFirstName();
 
     mProfilePhoto = root.findViewById(R.id.profile_image);
-    Glide.with(getContext()).load(mPresenter.getCurrentPhotoURL()).thumbnail(0.5f).into(mProfilePhoto);
+    mPresenter.setCurrentPhotoURL();
 
     mProfileLabel = root.findViewById(R.id.profile_label);
-    mProfileLabel.setText(mPresenter.getDisplayName());
+    mPresenter.setDisplayName();
 
     return root;
   }
@@ -136,5 +127,40 @@ public class MainFragment extends Fragment implements MainContract.View {
   @Override
   public void finish() {
     getActivity().finish();
+  }
+
+  @Override
+  public void displayUserFirstName(String name) {
+    mNameLabel.setText(name + "!");
+  }
+
+  @Override
+  public void displayUserImage(String imageUrl) {
+    Glide.with(getContext()).load(imageUrl).thumbnail(0.5f).into(mProfilePhoto);
+  }
+
+  @Override
+  public void displayUserFullName(String name) {
+    mProfileLabel.setText(name);
+  }
+
+  @Override
+  public void displayGreetingLabel(String greeting) {
+    mGreetingLabel.setText(greeting);
+  }
+
+  @Override
+  public String getMorningGreeting() {
+    return getString(R.string.greeting_morning);
+  }
+
+  @Override
+  public String getEveningGreeting() {
+    return getString(R.string.greeting_evening);
+  }
+
+  @Override
+  public String getAfternoonGreeting() {
+    return getString(R.string.greeting_afternoon);
   }
 }
