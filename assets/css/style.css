@@ -119,16 +119,66 @@ header ul li:first-child a, header ul li a:hover {
 
 .quote {
   width: 100%;
-  height: 420px;
   background: url(/roastd/assets/img/quote-background.jpg) no-repeat center center fixed;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
   text-align: center;
-  flex-direction: column;
-  justify-content: center;
+  padding: 70px 0 90px 0;
+}
+
+.quote h2 {
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+.quote ul {
+  list-style: none;
+  margin: 0;
+  -webkit-padding-start: 0px;
+  -webkit-margin-before: 0px;
+}
+
+.list-box {
+  padding: 30px;
+  width: 98%;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border-bottom: 3px solid #EA5C41;
+}
+
+.video-wrapper {
+  clear: both;
+  max-width: 740px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.video {
+  clear: both;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+
+.video iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.features-block {
+  clear: both;
+  padding-top: 15px;
+}
+
+.quote ul li {
+  font-size: 16px;
+  padding: 9px 0;
 }
 
 .quote p {
